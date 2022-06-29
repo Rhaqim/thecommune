@@ -46,12 +46,14 @@ const NavBar = props => {
     return (
         <Box
             as='nav'
-            position='absolute'
+            position='fixed'
+            w={'100%'}
+            bg={bg}
+            style={{ backdropFilter: 'blur(2px)' }}
+            zIndex={1}
             top='0'
             left='0'
             right='0'
-            zIndex='100'
-            bg={bg}
             color={colorMode}
             borderBottomWidth='1px'
             borderBottomColor={borderColor}
@@ -62,10 +64,11 @@ const NavBar = props => {
             py={2}
             px={6}
             boxShadow='0px 2px 4px rgba(0, 0, 0, 0.1)'
+            {...props}
         >
             <Container maxW='1450px'
                 p={2}
-                // wrap="wrap"
+                wrap="wrap"
                 align="center"
                 justify="space-between">
                 <Flex align='center' justify='space-between'>
@@ -76,7 +79,7 @@ const NavBar = props => {
                             </Box>
                         </Heading>
                     </LinkItem>
-                    <Box display='inline-flex' alignItems='center'>
+                    <Box display='flex' alignItems='center'>
                         <Stack
                             direction={{ base: 'column', md: 'row' }}
                             display={{ base: 'none', md: 'flex' }}
@@ -89,6 +92,8 @@ const NavBar = props => {
                             <LinkItem href='/events' path={path}>Events</LinkItem>{' '}
                             <LinkItem href='/about' path={path}>About</LinkItem>{' '}
                             <LinkItem href='/contact' path={path}>Contact</LinkItem>{' '}
+                            <LinkItem href={'/login'}>Log in</LinkItem>
+                            <LinkItem href={'/signup'}>Sign up</LinkItem>
                         </Stack>
                         {'  '}
                         <ThemeToggleButton />

@@ -6,7 +6,7 @@ const styles = {
         body: {
             bg: mode('#f0e7db', '#202023')(props),
             color: mode('#202023', '#f0e7db')(props),
-            fontFamily: 'Menlo, monospace'
+            fontFamily: 'M PLUS Rounded 1c',
         }
     })
 }
@@ -43,6 +43,10 @@ const fonts = {
 const colors = {
     grassTeal: '#88ccca',
     brand: {
+        900: "#1a365d",
+        100: "#5e99cc"
+    },
+    text: {
         900: "#1a365d",
         100: "#5e99cc"
     }
