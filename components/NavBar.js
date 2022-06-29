@@ -37,7 +37,6 @@ const NavBar = props => {
     const [isOpen, setIsOpen] = React.useState(false)
     const colorMode = useColorModeValue('gray', 'grayDark')
     const bg = useColorModeValue('white', 'grayDark')
-    const color = useColorModeValue('gray.800', 'gray.800')
     const borderColor = useColorModeValue('gray.200', 'gray.200')
 
     const handleClick = () => setIsOpen(!isOpen)
@@ -47,13 +46,13 @@ const NavBar = props => {
     return (
         <Box
             as='nav'
-            position='fixed'
+            position='absolute'
             top='0'
             left='0'
             right='0'
             zIndex='100'
             bg={bg}
-            color={color}
+            color={colorMode}
             borderBottomWidth='1px'
             borderBottomColor={borderColor}
             display='flex'
@@ -71,7 +70,7 @@ const NavBar = props => {
                 justify="space-between">
                 <Flex align='center' justify='space-between'>
                     <LinkItem href='/'>
-                        <Heading as='h1' size='lg' fontWeight='normal'>
+                        <Heading as='h1' size='lg'>
                             <Box as='span' color='gray.500'>
                                 The Commune
                             </Box>
@@ -105,7 +104,7 @@ const NavBar = props => {
                                     // isOpen={isOpen}
                                     onClick={handleClick}
                                     bg={bg}
-                                    color={color}
+                                    color={colorMode}
                                     borderColor={borderColor}
                                 >
                                     <NextLink href={'/'} passHref>
