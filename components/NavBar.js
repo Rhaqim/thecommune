@@ -17,6 +17,8 @@ import {
 import ThemeToggleButton from './theme-toggle-button'
 import { HamburgerIcon } from '@chakra-ui/icons'
 
+import Logo from './logo'
+
 const LinkItem = ({ href, children, path }) => {
     const active = path === href
     const inActiveColor = useColorModeValue('grey.200', 'WhiteAlpha.900')
@@ -36,7 +38,7 @@ const LinkItem = ({ href, children, path }) => {
 const NavBar = props => {
     const [isOpen, setIsOpen] = React.useState(false)
     const colorMode = useColorModeValue('gray', 'grayDark')
-    const bg = useColorModeValue('white', 'grayDark')
+    const bg = useColorModeValue('WhiteAlpha.400', 'BlackAlpha.400')
     const borderColor = useColorModeValue('gray.200', 'gray.200')
 
     const handleClick = () => setIsOpen(!isOpen)
@@ -75,7 +77,7 @@ const NavBar = props => {
                     <LinkItem href='/'>
                         <Heading as='h1' size='lg'>
                             <Box as='span' color='gray.500'>
-                                The Commune
+                                <Logo />
                             </Box>
                         </Heading>
                     </LinkItem>
@@ -95,7 +97,6 @@ const NavBar = props => {
                             <LinkItem href={'/login'}>Log in</LinkItem>
                             <LinkItem href={'/signup'}>Sign up</LinkItem>
                         </Stack>
-                        {'  '}
                         <ThemeToggleButton />
                         <Box ml={2} display={{ base: 'inline-block', md: 'none' }}>
                             <Menu>
@@ -108,7 +109,7 @@ const NavBar = props => {
                                 <MenuList
                                     // isOpen={isOpen}
                                     onClick={handleClick}
-                                    bg={bg}
+                                    bg={useColorModeValue('whiteAlpha.900','blackAlpha.900')}
                                     color={colorMode}
                                     borderColor={borderColor}
                                 >
@@ -120,6 +121,12 @@ const NavBar = props => {
                                     </NextLink>
                                     <NextLink href={'/contact'} passHref>
                                         <MenuItem as={Link}>Contact</MenuItem>
+                                    </NextLink>
+                                    <NextLink href={'/login'} passHref>
+                                        <MenuItem as={Link}>Login</MenuItem>
+                                    </NextLink>
+                                    <NextLink href={'/signup'} passHref>
+                                        <MenuItem as={Link}>Sign up</MenuItem>
                                     </NextLink>
                                     <MenuItem as={Link} href={"https://github.com/rhaqim/"}>My Source</MenuItem>
                                 </MenuList>
