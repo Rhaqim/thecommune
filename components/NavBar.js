@@ -17,14 +17,23 @@ import {
 import ThemeToggleButton from './theme-toggle-button'
 import { HamburgerIcon } from '@chakra-ui/icons'
 
-const LinkItem = ({ href, children }) => (
-    <NextLink href={href} passHref>
-        <Link>{children}</Link>
-    </NextLink>
-)
+const LinkItem = ({ href, children, path }) => {
+    const active = path === href
+    const inActiveColor = useColorModeValue('grey.200', 'WhiteAlpha.900')
+    return (
+        <NextLink href={href} passHref>
+            <Link
+                p={2}
+                bg={active ? 'glassTeal' : undefined}
+                color={active ? '#202023' : inActiveColor} >
+                {children}
+            </Link>
+        </NextLink>
+    )
+}
 
 
-const NavBar = () => {
+const NavBar = props => {
     const [isOpen, setIsOpen] = React.useState(false)
     const colorMode = useColorModeValue('gray', 'grayDark')
     const bg = useColorModeValue('white', 'grayDark')
@@ -32,6 +41,8 @@ const NavBar = () => {
     const borderColor = useColorModeValue('gray.200', 'gray.200')
 
     const handleClick = () => setIsOpen(!isOpen)
+
+    const { path } = props
 
     return (
         <Box
@@ -53,51 +64,63 @@ const NavBar = () => {
             px={6}
             boxShadow='0px 2px 4px rgba(0, 0, 0, 0.1)'
         >
-            <Container maxW='1500px'>
+            <Container maxW='1450px'
+                p={2}
+                // wrap="wrap"
+                align="center"
+                justify="space-between">
                 <Flex align='center' justify='space-between'>
                     <LinkItem href='/'>
                         <Heading as='h1' size='lg' fontWeight='normal'>
                             <Box as='span' color='gray.500'>
-                                Home
+                                The Commune
                             </Box>
                         </Heading>
                     </LinkItem>
-                    <Box display='flex' alignItems='center'>
-                        <Menu>
-                            <MenuButton
-                                as={IconButton}
-                                icon={<HamburgerIcon />}
-                                variant="outline"
-                                aria-label="Options"
-                            />
-                            <MenuList
-                                // isOpen={isOpen}
-                                onClick={handleClick}
-                                bg={bg}
-                                color={color}
-                                borderColor={borderColor}
-                            >
-                                <MenuItem>
-                                    <LinkItem href='/'>Home</LinkItem>
-                                </MenuItem>
-                                <MenuItem>
-                                    <LinkItem href='/about'>About</LinkItem>
-                                </MenuItem>
-                                <MenuItem>
-                                    <LinkItem href='/contact'>Contact</LinkItem>
-                                </MenuItem>
-                            </MenuList>
-                        </Menu>
+                    <Box display='inline-flex' alignItems='center'>
+                        <Stack
+                            direction={{ base: 'column', md: 'row' }}
+                            display={{ base: 'none', md: 'flex' }}
+                            width={{ base: 'full', md: 'auto' }}
+                            alignItems="center"
+                            flexGrow={1}
+                            mt={{ base: 4, nmd: 0 }}
+                            mr={5}>
+                            <LinkItem href='/restaurants' path={path}>Restaurants</LinkItem>{' '}
+                            <LinkItem href='/events' path={path}>Events</LinkItem>{' '}
+                            <LinkItem href='/about' path={path}>About</LinkItem>{' '}
+                            <LinkItem href='/contact' path={path}>Contact</LinkItem>{' '}
+                        </Stack>
+                        {'  '}
                         <ThemeToggleButton />
-                        {/* <IconButton
-                            aria-label='Toggle dark mode'
-                            icon='moon'
-                            variant='ghost'
-                            onClick={() => {
-                                const newMode = colorMode === 'gray' ? 'grayDark' : 'gray'
-                                localStorage.setItem('theme', newMode)
-                            }}
-                        /> */}
+                        <Box ml={2} display={{ base: 'inline-block', md: 'none' }}>
+                            <Menu>
+                                <MenuButton
+                                    as={IconButton}
+                                    icon={<HamburgerIcon />}
+                                    variant="outline"
+                                    aria-label="Options"
+                                />
+                                <MenuList
+                                    // isOpen={isOpen}
+                                    onClick={handleClick}
+                                    bg={bg}
+                                    color={color}
+                                    borderColor={borderColor}
+                                >
+                                    <NextLink href={'/'} passHref>
+                                        <MenuItem as={Link}>Home</MenuItem>
+                                    </NextLink>
+                                    <NextLink href={'/about'} passHref>
+                                        <MenuItem as={Link}>About</MenuItem>
+                                    </NextLink>
+                                    <NextLink href={'/contact'} passHref>
+                                        <MenuItem as={Link}>Contact</MenuItem>
+                                    </NextLink>
+                                    <MenuItem as={Link} href={"https://github.com/rhaqim/"}>My Source</MenuItem>
+                                </MenuList>
+                            </Menu>
+                        </Box>
                     </Box>
                 </Flex>
             </Container>
