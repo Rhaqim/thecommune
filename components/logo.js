@@ -27,7 +27,7 @@ const Logo = () => {
 
   return (
     <Link href={'/'}>
-      <a>
+      <>
         <LogoBox>
           <Image
             src={footPrintImg}
@@ -36,7 +36,6 @@ const Logo = () => {
             height="20px"
           />
           <Text
-            as={'h1'}
             color={useColorModeValue('grey.800', 'WhiteAlpha.900')}
             fontFamily="bold"
             ml={2}
@@ -44,7 +43,7 @@ const Logo = () => {
             The Commune
           </Text>
         </LogoBox>
-      </a>
+      </>
     </Link>
   )
 }
