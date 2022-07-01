@@ -27,7 +27,7 @@ const Layout = ({ children, title }) => (
           </title>
         </Head>
       )}
-      <Image src="/header.jpg" alt="header" height={550} width={1500} />
+      <Image src="/restaurant.jpg" alt="header" height={550} width={1500} />
       {children}
       {/* <GridItemStyle /> */}
     </>
