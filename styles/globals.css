@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 html {
-  font-family: 'Inter', sans-serif;
+  font-family:'Roboto Mono', monospace, 'Inter', sans-serif;
   font-size: 16px;
   line-height: 1.5;
   color: #333;
