@@ -40,16 +40,16 @@ const Navbar = () => {
           </button>
         </Link>
         <ul style={{ color: `${textColor}` }} className="hidden sm:flex">
-          <li className="p-4 hover:text-blue-500">
+          <li className="p-4 text-bold text-2xl hover:text-gray-500 nav-transition">
             <Link href="/">Home</Link>
           </li>
-          <li className="p-4 hover:text-blue-500">
-            <Link href="/#restaurats">Restaurats</Link>
+          <li className="p-4 text-bold text-2xl hover:text-gray-500 nav-transition">
+            <Link href="/#restaurants">Restaurants</Link>
           </li>
-          <li className="p-4 hover:text-blue-500">
-            <Link href="/events">Events</Link>
+          <li className="p-4 text-bold text-2xl hover:text-gray-500 nav-transition">
+            <Link href="/#events">Events</Link>
           </li>
-          <li className="p-4 hover:text-blue-500">
+          <li className="p-4 text-bold text-2xl hover:text-gray-500 nav-transition">
             <Link href="/contact">Contact</Link>
           </li>
         </ul>

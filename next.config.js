@@ -2,6 +2,20 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  webpack: (config, options) => {
+    config.module.rules.push({
+      test: /\.(glb|gltf)$/,
+      use: {
+        loader: 'file-loader',
+      },
+    });
+    return config;
+  }
 }
 
-module.exports = nextConfig
+const withTM = require('next-transpile-modules')([
+  'three',
+  '@react-three/fiber',
+]);
+
+module.exports = withTM(nextConfig);
