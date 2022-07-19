@@ -27,3 +27,7 @@ html {
 .nav-transition {
   transition: all 0.3s ease-in-out;
 }
+
+.canvas {
+  background-color: #000;
+}
