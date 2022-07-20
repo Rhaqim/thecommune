@@ -16,13 +16,15 @@ export default function Home() {
       <RestaurantsHomeSection
         id={"restaurants"}
         title={"Restaurants"}
-        img={"restaurants-bg"}>
+        img={"restaurants-bg"}
+        fileID={'hamburger'}>
         Earn tokens everytime you visit a restaurant.
       </RestaurantsHomeSection>
       <RestaurantsHomeSection
         id={"events"}
         title={"Events"}
-        img={"events-bg"}>
+        img={"events-bg"}
+        fileID={'hamburger'}>
         Earn tokens everytime you attend an event.
       </RestaurantsHomeSection>
     </div>
