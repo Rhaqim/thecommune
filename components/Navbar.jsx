@@ -44,10 +44,10 @@ const Navbar = () => {
             <Link href="/">Home</Link>
           </li>
           <li className="p-4 text-bold text-2xl hover:text-gray-500 nav-transition">
-            <Link href="/#restaurants">Restaurants</Link>
+            <Link href="/restaurants">Restaurants</Link>
           </li>
           <li className="p-4 text-bold text-2xl hover:text-gray-500 nav-transition">
-            <Link href="/#events">Events</Link>
+            <Link href="/events">Events</Link>
           </li>
           <li className="p-4 text-bold text-2xl hover:text-gray-500 nav-transition">
             <Link href="/contact">Contact</Link>

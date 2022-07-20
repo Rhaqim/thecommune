@@ -1,8 +1,11 @@
 import React from 'react'
+import Hero from '../../components/Hero'
 
 const restaurants = () => {
   return (
-    <div>restaurants</div>
+    <div>
+      <Hero heading="Restaurants" message="Restaurants Page" />
+    </div>
   )
 }
 
