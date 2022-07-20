@@ -35,21 +35,21 @@ const Navbar = () => {
     >
       <div className="max-w-[1740px] m-auto flex justify-between items-center p-4 text-white">
         <Link href="/">
-          <button style={{ color: `${textColor}` }} className="font-bold text-5xl">
+          <button style={{ color: `${textColor}` }} className="font-bold text-3xl">
             The Commune
           </button>
         </Link>
         <ul style={{ color: `${textColor}` }} className="hidden sm:flex">
-          <li className="p-4 text-bold text-2xl hover:text-gray-500 nav-transition">
+          <li className="p-4 text-bold text-1xl hover:text-gray-500 nav-transition">
             <Link href="/">Home</Link>
           </li>
-          <li className="p-4 text-bold text-2xl hover:text-gray-500 nav-transition">
+          <li className="p-4 text-bold text-1xl hover:text-gray-500 nav-transition">
             <Link href="/restaurants">Restaurants</Link>
           </li>
-          <li className="p-4 text-bold text-2xl hover:text-gray-500 nav-transition">
+          <li className="p-4 text-bold text-1xl hover:text-gray-500 nav-transition">
             <Link href="/events">Events</Link>
           </li>
-          <li className="p-4 text-bold text-2xl hover:text-gray-500 nav-transition">
+          <li className="p-4 text-bold text-1xl hover:text-gray-500 nav-transition">
             <Link href="/contact">Contact</Link>
           </li>
         </ul>
