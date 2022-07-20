@@ -21,7 +21,7 @@ const Draggable = props => {
     controlsRef.current.addEventListener("hoveroff", () => {
       scene.orbitControls.enabled = true;
     });
-  }, [objects]);
+  }, [objects, scene]);
 
   return (
     <group ref={grouRef}>

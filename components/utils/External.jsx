@@ -16,7 +16,7 @@ const External = ({ file }) => {
     gltfLoader.load(path, gltf => {
       setModel(gltf.scene);
     });
-  }, []);
+  }, [path]);
 
   useEffect(() => {
     if (model) {
