@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { GLTFLoader } from "three/examples/jsm/loaders/gltfloader";
-import { DRACOLoader } from "three/examples/jsm/loaders/dracoloader";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import { useFrame } from "@react-three/fiber";
 
 const External = ({ file }) => {
