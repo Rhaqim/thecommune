@@ -1,7 +1,7 @@
 import React from "react";
 import BaseScene from "./models/BaseScene";
 
-const RestaurantsHomeSection = ({ children, title, img, id, fileID }) => {
+const HomeSection = ({ children, title, img, id, fileID }) => {
   return (
     <div id={id} className="max-w-[1240] mx-auto">
       <div className="flex py-10 justify-center items-center  bg-opacity-10 rounded-xl m-2">
@@ -19,4 +19,4 @@ const RestaurantsHomeSection = ({ children, title, img, id, fileID }) => {
   );
 };
 
-export default RestaurantsHomeSection;
+export default HomeSection;

@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Hero from '../components/Hero'
-import RestaurantsHomeSection from '../components/RestaurantsHomeSection'
+import HomeSection from '../components/HomeSection'
 
 export default function Home() {
   return (
@@ -13,20 +13,20 @@ export default function Home() {
         heading={'The Commune Review'}
         message={"We've made it easy for you to earn rewards by posting your reviews and thoughts on places you go to. A platform for people to share their experiences and earn rewards for doing so. Businesses also learn about your likes and dislikes and improve your overall experience"}
       />
-      <RestaurantsHomeSection
+      <HomeSection
         id={"restaurants"}
         title={"Restaurants"}
         img={"restaurants-bg"}
         fileID={'hamburger'}>
         Earn tokens everytime you visit a restaurant.
-      </RestaurantsHomeSection>
-      <RestaurantsHomeSection
+      </HomeSection>
+      <HomeSection
         id={"events"}
         title={"Events"}
         img={"events-bg"}
         fileID={'hamburger'}>
         Earn tokens everytime you attend an event.
-      </RestaurantsHomeSection>
+      </HomeSection>
     </div>
   )
 }
