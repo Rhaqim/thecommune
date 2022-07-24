@@ -6,7 +6,7 @@ html {
   font-family:'Roboto Mono', monospace, 'Inter', sans-serif;
   font-weight: bold;
   scroll-behavior: smooth;
-  background-color: #D9D9D9;
+  background-color: black;
   color: aliceblue;
   overflow: auto;
 }
@@ -25,7 +25,7 @@ html {
 }
 
 .nav-transition {
-  transition: all 0.5s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 .canvas {
@@ -36,4 +36,13 @@ html {
   .model {
     display: none;
   }
+}
+
+.grid-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 20px;
+  justify-items: center;
+  align-items: center;
+  margin-top: 20px;
 }

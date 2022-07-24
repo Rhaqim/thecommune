@@ -1,4 +1,5 @@
 import React from "react";
+import Grid from "../../components/Grid";
 import Hero from "../../components/Hero";
 
 export const getStaticPaths = async () => {
@@ -34,6 +35,7 @@ const RestaurantsPage = ({restaurant}) => {
   return (
     <div>
       <Hero heading="Restaurants" message="Slug Page" />
+      <Grid />
       <h1>{restaurant.name}</h1>
       <p>{restaurant.email}</p>
       <p>{restaurant.phone}</p>

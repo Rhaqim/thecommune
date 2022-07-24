@@ -2,6 +2,7 @@ import Head from 'next/head'
 import About from '../components/About'
 import Hero from '../components/Hero'
 import HomeSection from '../components/HomeSection'
+import Testimonials from '../components/Testimonials'
 
 export default function Home() {
   return (
@@ -30,6 +31,7 @@ export default function Home() {
         fileID={'hamburger'}>
         Earn tokens everytime you attend an event.
       </HomeSection>
+      <Testimonials />
     </div>
   )
 }
