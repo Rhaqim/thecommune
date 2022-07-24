@@ -8,8 +8,8 @@ const About = () => {
           <h1 className="text-black text-6xl">About</h1>
         </div>
         <div />
-        <div className="py-10 px-[4rem]">
-          <p className=" text-black font-bold text p-2 sm:text-sm lg:text-4xl">
+        <div className="py-10 lg:px-[4rem]">
+          <p className=" text-black font-bold text p-2 sm:text-sm lg:text-4xl md:text-3xl">
             We've gamified going out and having fun. We've made it easy for you
             to earn rewards by posting your reviews and thoughts on the places
             you like to go. Think the service is great? Let us know! Don't think
