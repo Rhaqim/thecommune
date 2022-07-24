@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import About from '../components/About'
+import Contact from '../components/Contact'
 import Hero from '../components/Hero'
 import HomeSection from '../components/HomeSection'
 import Testimonials from '../components/Testimonials'
@@ -32,6 +33,7 @@ export default function Home() {
         Earn tokens everytime you attend an event.
       </HomeSection>
       <Testimonials />
+      <Contact />
     </div>
   )
 }
