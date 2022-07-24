@@ -13,6 +13,7 @@ export default function Home() {
       <Hero
         heading={'The Commune Review'}
         message={"Welcome to The Commune, a community of people who like to go out and have fun while earning rewards."}
+        bg_image={'back-img'}
       />
       <About />
       <HomeSection
