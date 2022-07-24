@@ -2,28 +2,35 @@ import React, { useState } from "react";
 
 const Contact = () => {
   const [success, setSuccess] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleSubmit = e => {
     e.preventDefault();
-    const form = e.target;
-    const data = new FormData(form);
-    const xhr = new XMLHttpRequest();
-    xhr.open(form.method, form.action);
-    xhr.setRequestHeader("Accept", "application/json");
-    xhr.onreadystatechange = () => {
-      if (xhr.readyState !== XMLHttpRequest.DONE) return;
-      if (xhr.status === 200) {
-        form.reset();
-        setSuccess(true);
-      } else {
-        setSuccess(false);
-      }
+    const data = {
+      name,
+      email,
+      subject,
+      message,
     };
-    xhr.send(data);
+    fetch("/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    setSuccess(true);
+    setEmail("");
+    setName("");
+    setSubject("");
+    setMessage("");
   };
 
   return (
-    <div className="max-w-[1240px] m-auto p-4">
+    <div className="max-w-[1240px] m-auto p-4 mb-6">
       <h1 className="text-2xl font-bold text-center p-4">
         Let's work together
       </h1>
@@ -35,6 +42,8 @@ const Contact = () => {
             name="name"
             id="name"
             placeholder="Name"
+            value={name}
+            onChange={e => setName(e.target.value)}
           />
           <input
             className="border shadow-lg p-3"
@@ -42,6 +51,8 @@ const Contact = () => {
             name="email"
             id="email"
             placeholder="example@gmail.com"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
           />
         </div>
         <input
@@ -50,14 +61,17 @@ const Contact = () => {
           name="subject"
           id="subject"
           placeholder="Subject"
+          value={subject}
+          onChange={e => setSubject(e.target.value)}
         />
         <textarea
-          className="border shadow-lg p-3 w-full"
+          className="border shadow-lg p-3 w-full text-black"
           cols="30"
           rows="10"
           placeholder="Message"
-        //   color="black"
-        ></textarea>
+          value={message}
+          onChange={e => setMessage(e.target.value)}
+        />
         <button
           className="border shadow-lg p-3 w-full"
           type="submit"
