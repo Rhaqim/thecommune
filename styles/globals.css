@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 html {
-  font-family:'Roboto Mono', monospace, 'Inter', sans-serif;
+  font-family: 'Poppins', 'Roboto Mono', monospace, 'Inter', sans-serif;
   font-weight: bold;
   scroll-behavior: smooth;
   background-color: black;
