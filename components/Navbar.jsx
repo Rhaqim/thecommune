@@ -35,7 +35,7 @@ const Navbar = () => {
     >
       <div className="max-w-[1740px] m-auto flex justify-between items-center p-4 text-white">
         <Link href="/">
-          <button style={{ color: `${textColor}` }} className="font-bold text-3xl">
+          <button style={{ color: `${textColor}` }} className="font-bold text-4xl">
             The Commune
           </button>
         </Link>

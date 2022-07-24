@@ -6,7 +6,7 @@ html {
   font-family:'Roboto Mono', monospace, 'Inter', sans-serif;
   font-weight: bold;
   scroll-behavior: smooth;
-  background-color: black;
+  background-color: #D9D9D9;
   color: aliceblue;
   overflow: auto;
 }
@@ -25,7 +25,7 @@ html {
 }
 
 .nav-transition {
-  transition: all 0.3s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
 
 .canvas {

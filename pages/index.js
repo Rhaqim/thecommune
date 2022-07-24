@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import About from '../components/About'
 import Hero from '../components/Hero'
 import HomeSection from '../components/HomeSection'
 
@@ -11,8 +12,9 @@ export default function Home() {
       </Head>
       <Hero
         heading={'The Commune Review'}
-        message={"We've made it easy for you to earn rewards by posting your reviews and thoughts on places you go to. A platform for people to share their experiences and earn rewards for doing so. Businesses also learn about your likes and dislikes and improve your overall experience"}
+        message={"Welcome to The Commune, a community of people who like to go out and have fun while earning rewards."}
       />
+      <About />
       <HomeSection
         id={"restaurants"}
         title={"Restaurants"}
