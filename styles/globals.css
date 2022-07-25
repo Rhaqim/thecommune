@@ -54,3 +54,25 @@ html {
 .home-link:hover {
   transform: matrix(1, 0, 0, 1, 0, -10);
 }
+
+@media  (max-width: 768px) {
+  .home-link {
+    transform: none;
+  }
+}
+
+.search-bar {
+  padding: 0px 10px;
+  font-size: 20px;
+  color: #ccc;
+  transition: 0.3s ease-in-out;
+}
+
+@media screen and (max-width: 768px) {
+  .search-bar {
+    padding: 0px 10px;
+    font-size: 20px;
+    color: #ccc;
+    transition: 0.3s ease-in-out;
+  }
+}
