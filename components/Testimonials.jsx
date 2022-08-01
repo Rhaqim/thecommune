@@ -2,12 +2,12 @@ import React from "react";
 
 const Testimonials = () => {
   return (
-    <div className="max-w-[1240] mx-auto bg-[#D9D9D9] justify-center items-center text-center py-16 px-5">
+    <div className="max-w-[1240] mx-auto bg-[#A1A1A1] justify-center items-center text-center py-16 px-5">
       <div className="py-[3rem]">
-        <h1 className="text-black text-5xl">Testimonials</h1>
+        <h1 className="text-white text-5xl">Testimonials</h1>
       </div>
       <div className="py-5">
-        <ul className="text-black grid lg:grid-cols-3 sm:grid-cols-1">
+        <ul className="text-white grid lg:grid-cols-3 sm:grid-cols-1 mid-content">
           <li className="p-4">
             <h1 className="text-3xl font-bold p-2">Name if Person</h1>
             <p>

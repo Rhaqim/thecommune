@@ -11,7 +11,7 @@ const Footer = () => {
   }, []);
 
   return (
-    <div className="max-w-[1240] mx-auto bg-[#D9D9D9] justify-center items-center text-center py-16 px-5">
+    <div className="max-w-[1240] mx-auto bg-[#A1A1A1] justify-center items-center text-center py-16 px-5">
       <div className="py-[3rem]">
         <h1 className="text-black text-5xl">Reach Us</h1>
       </div>

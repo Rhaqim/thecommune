@@ -11,6 +11,13 @@ html {
   overflow: auto;
 }
 
+.mid-content {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  letter-spacing: 2px;
+  word-spacing: 5px;
+}
+
 .back-img {
   background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("https://images.unsplash.com/photo-1497644083578-611b798c60f3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80");
 }
