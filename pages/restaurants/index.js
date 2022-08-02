@@ -22,8 +22,9 @@ export const getStaticProps = async () => {
 variants to show hidden text on hover
 */
 const variants = {
-  hidden: { opacity: 0 },
+  hidden: { opacity: 0.15 },
   visible: { opacity: 1 },
+  exit: { opacity: 0 }
 };
 
 
@@ -33,20 +34,29 @@ const restaurants = ({ restaurants, photos }) => {
       <div className="max-w-2xl mx-auto px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
         <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-5 xl:gap-x-6">
           {photos.map((photo) => (
-            <motion.button
-              whileHover={{ scale: 1.1, backdropFilter: "blur(10px)", filter: "blur(4px)" }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <motion.img
-                key={photo.id}
-                src={photo.thumbnailUrl}
-                alt={photo.title}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1 }}
-                className="h-48 w-full object-cover rounded-lg shadow-lg"
-              />
-            </motion.button>
+            <Link href={`/restaurants/${photo.id}`}>
+              <motion.div
+              className="p-1 m-2 cursor-pointer"
+              >
+                <motion.img
+                  key={photo.id}
+                  src={photo.thumbnailUrl}
+                  alt={photo.title}
+                  whileHover={{ scale: 1.15, rotate: 5 }}
+                  whileTap={{ scale: 0.9 }}
+                  className="h-48 w-full object-cover rounded-lg shadow-lg"
+                />
+                <motion.button
+                  variants={variants}
+                  initial="hidden"
+                  whileHover={{ opacity: 1, scale: 1.1 }}
+                  whileTap={{ opacity: 0.5, scale: 0.9 }}
+                  className="text-center text-md text-white font-semibold pt-12 items-center justify-center"
+                >
+                  {photo.title}
+                </motion.button>
+              </motion.div>
+            </Link>
           ))}
         </div>
       </div>
