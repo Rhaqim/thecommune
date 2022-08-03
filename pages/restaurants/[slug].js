@@ -1,5 +1,6 @@
 import React from "react";
 import RestaurantsHero from "../../components/RestaurantsHero";
+import CommuneInfoSection from "../../components/CommuneInfoSection";
 
 export const getStaticPaths = async () => {
   const res = await fetch("https://jsonplaceholder.typicode.com/users");
@@ -37,6 +38,7 @@ const RestaurantsPage = ({ restaurant }) => {
         heading={"Shiro"}
         description="Japanese Styled Restaurant"
       />
+      <CommuneInfoSection />
 
 
       <h1>{restaurant.name}</h1>
