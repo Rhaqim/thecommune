@@ -83,21 +83,3 @@ html {
     transition: 0.3s ease-in-out;
   }
 }
-
-.bgWrap {
-  position: relative;
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
-  z-index: -1;
-}
-
-.bgText {
-  margin: 0;
-  font-size: 2rem;
-  line-height: 3rem;
-  text-align: left;
-  padding-left: 20px;
-  padding-top: -10vh;
-  text-shadow: 1px 1px 1px #3c5c5e;
-}

@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import RestaurantsSection from "../../components/RestaurantsSection";
+import RestaurantsHeading from "../../components/RestaurantsHeading";
 import { motion } from "framer-motion";
 
 export const getStaticProps = async () => {
@@ -30,7 +30,7 @@ const variants = {
 
 const restaurants = ({ restaurants, photos }) => {
   return (
-    <RestaurantsSection>
+    <RestaurantsHeading>
       <div className="max-w-2xl mx-auto px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
         <div className="grid grid-cols-2 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-5 xl:gap-x-6">
           {photos.map((photo) => (
@@ -59,7 +59,7 @@ const restaurants = ({ restaurants, photos }) => {
           ))}
         </div>
       </div>
-    </RestaurantsSection>
+    </RestaurantsHeading>
   );
 };
 

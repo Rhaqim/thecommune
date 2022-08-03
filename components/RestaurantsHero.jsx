@@ -35,16 +35,16 @@ const RestaurantsHero = ({ image, heading, description }) => {
         >
           <div className="flex flex-col items-center justify-center text-3xl py-[5rem]">
             <ul>
-              <li className="p-2">
+              <li className="p-2 hover:text-black nav-transition">
                 <a href={"#"}>Website</a>
               </li>
-              <li className="p-2">
+              <li className="p-2 hover:text-black nav-transition">
                 <a href={"#"}>Address</a>
               </li>
-              <li className="p-2">
+              <li className="p-2 hover:text-black nav-transition">
                 <a href={"#"}>Phone</a>
               </li>
-              <li className="p-2">
+              <li className="p-2 hover:text-black nav-transition">
                 <a href={"#"}>E-mail</a>
               </li>
             </ul>

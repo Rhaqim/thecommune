@@ -1,7 +1,7 @@
 import React from "react";
 import SearchBar from "./SearchBar";
 
-const RestaurantsSection = ({ children }) => {
+const RestaurantsHeading = ({ children }) => {
   return (
     <div className="max-w-[1240] mx-auto p-2">
       <div />
@@ -18,4 +18,4 @@ const RestaurantsSection = ({ children }) => {
   );
 };
 
-export default RestaurantsSection;
+export default RestaurantsHeading;
