@@ -1,5 +1,5 @@
 import React from "react";
-import Hero from "../../components/Hero";
+import RestaurantsHero from "../../components/RestaurantsHero";
 
 export const getStaticPaths = async () => {
   const res = await fetch("https://jsonplaceholder.typicode.com/users");
@@ -30,10 +30,27 @@ export const getStaticProps = async ({ params }) => {
   };
 };
 
-const RestaurantsPage = ({restaurant}) => {
+const RestaurantsPage = ({ restaurant }) => {
   return (
     <div>
-      <Hero heading="Restaurants" message="Slug Page" />
+      <RestaurantsHero image={"https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"}
+        heading={"Shiro"}
+        description="Japanese Styled Restaurant"
+      />
+
+
+      <h1>{restaurant.name}</h1>
+      <p>{restaurant.email}</p>
+      <p>{restaurant.phone}</p>
+      <p>{restaurant.website}</p>
+      <h1>{restaurant.name}</h1>
+      <p>{restaurant.email}</p>
+      <p>{restaurant.phone}</p>
+      <p>{restaurant.website}</p>
+      <h1>{restaurant.name}</h1>
+      <p>{restaurant.email}</p>
+      <p>{restaurant.phone}</p>
+      <p>{restaurant.website}</p>
       <h1>{restaurant.name}</h1>
       <p>{restaurant.email}</p>
       <p>{restaurant.phone}</p>
