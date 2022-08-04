@@ -1,6 +1,6 @@
 import React from "react";
 
-const RestaurantsHero = ({ image, heading, description }) => {
+const RestaurantsHero = ({ image, title, tags }) => {
   return (
     <>
       <div className="flex max-w-auto pt-[5.5rem] mb-[5px]">
@@ -13,16 +13,17 @@ const RestaurantsHero = ({ image, heading, description }) => {
               height: 400,
               width: "100%",
               display: "flex",
+              zIndex: -1,
             }}
           >
             <div className="p-5 text-white z-[2] mt-[2rem] mid-content">
               <h2 className="text-6xl font-bold text-center lg:text-left">
-                {heading}
+                {title}
               </h2>
               <div className="flex pt-[8rem] sm:text-sm lg:text-2xl md:text-3xl text-center break-words">
-                {description.map((tags, index) => (
+                {tags.map((tag, index) => (
                   <p key={index} className="bg-gray-500 bg-opacity-100 rounded-lg p-1 mx-2">
-                    {tags}
+                    {tag}
                   </p>
                 ))}
               </div>

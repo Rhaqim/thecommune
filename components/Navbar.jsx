@@ -15,7 +15,7 @@ const Navbar = () => {
   }
 
   const handleScroll = () => {
-    if (window.scrollY >= 90) {
+    if (window.scrollY >= 10) {
       setColor("black");
       setTextColor("white");
     } else {

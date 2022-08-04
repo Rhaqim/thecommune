@@ -2,7 +2,7 @@ import React from "react";
 
 const CommuneInfoSection = () => {
   return (
-    <div className="bg bg-gray-600">
+    <div className="bg-gray-600">
       <div className="py-5">
         <ul className="text-white text-center grid lg:grid-cols-3 sm:grid-cols-1 mid-content">
           <li className="p-4">
