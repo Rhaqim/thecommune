@@ -84,6 +84,13 @@ html {
   }
 }
 
+@media screen and (max-width: 768px) {
+  .search-button {
+    top: -1.1px;
+    bottom: 1.1px;
+  }
+}
+
 ::-webkit-scrollbar {
   height: 4px;              /* height of horizontal scrollbar ← You're missing this */
   width: 4px;               /* width of vertical scrollbar */
