@@ -16,8 +16,16 @@ const RestaurantsHero = ({ image, heading, description }) => {
             }}
           >
             <div className="p-5 text-white z-[2] mt-[2rem] mid-content">
-              <h2 className="text-6xl font-bold text-center lg:text-left">{heading}</h2>
-              <p className="container pt-[8rem] sm:text-sm lg:text-4xl md:text-3xl text-center">{description}</p>
+              <h2 className="text-6xl font-bold text-center lg:text-left">
+                {heading}
+              </h2>
+              <div className="flex pt-[8rem] sm:text-sm lg:text-2xl md:text-3xl text-center break-words">
+                {description.map((tags, index) => (
+                  <p key={index} className="bg-gray-500 bg-opacity-100 rounded-lg p-1 mx-2">
+                    {tags}
+                  </p>
+                ))}
+              </div>
             </div>
           </div>
         </div>
