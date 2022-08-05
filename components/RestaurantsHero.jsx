@@ -21,7 +21,7 @@ const RestaurantsHero = ({ image, title, tags }) => {
                 {title}
               </h2>
               <div className="flex pt-[17.5rem] lg:pt-[16rem] text-[10px] lg:text-[12px] text-left">
-                {tags.map((tag, index) => (
+                {tags.map((tag, index = index.toString() + "152247856a") => (
                   <>
                     <a
                       key={index}
