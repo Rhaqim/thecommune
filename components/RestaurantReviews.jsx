@@ -42,10 +42,6 @@ const RestaurantReviews = ({ user, date, ratingImages, rating, children }) => {
     // }
   };
   
-  if (!Array.isArray(ratingImages)) {
-    return null;
-  }
-  
   useEffect(() => {
     setRate("⭐️".repeat(rating));
   }, [rate]);
@@ -56,6 +52,10 @@ const RestaurantReviews = ({ user, date, ratingImages, rating, children }) => {
       document.removeEventListener("click", handleClick);
     };
   }, []);
+  
+  if (!Array.isArray(ratingImages)) {
+    return null;
+  }
   
   return (
     <>
