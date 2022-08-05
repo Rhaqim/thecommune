@@ -44,7 +44,7 @@ const RestaurantReviews = ({ user, date, ratingImages, rating, children }) => {
   
   useEffect(() => {
     setRate("⭐️".repeat(rating));
-  }, [rate]);
+  }, [rating]);
   
   useEffect(() => {
     document.addEventListener("click", handleClick);
