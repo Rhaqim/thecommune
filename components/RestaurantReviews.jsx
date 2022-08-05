@@ -33,12 +33,14 @@ const RestaurantReviews = ({ user, date, ratingImages, rating, children }) => {
    let target = e.target.contains(e.target) ? e.target : e.target.parentNode;
    if (target.classList.contains("close-modal")) {
      setModal(false);
+     return
     } else {
-      setModal(true);
-      return;
+      return null;
     }
+    // if (e.target.classList.contains("modal")) {
+    //   setModal(false);
+    // }
   };
-
   
   if (!Array.isArray(ratingImages)) {
     return null;
@@ -97,10 +99,10 @@ const RestaurantReviews = ({ user, date, ratingImages, rating, children }) => {
       {/* Modal */}
       {modal && (
         <>
-          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none modal-content">
+          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 w-full h-full close-modal">
             <div className="relative w-auto my-6 mx-auto max-w-6xl">
               {/*content*/}
-              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-transparent outline-none focus:outline-none close-modal">
+              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-transparent outline-none focus:outline-none">
                 <button
                   className="p-1 ml-auto bg-white border-0 text-white opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                   onClick={() => setModal(false)}
@@ -123,7 +125,7 @@ const RestaurantReviews = ({ user, date, ratingImages, rating, children }) => {
                         <img
                           src={image}
                           alt="rating"
-                          className="rounded-t-lg w-[1440] h-[600] object-cover px-2 close-modal"
+                          className="rounded-t-lg w-[1440] h-[600] object-cover px-2"
                         />
                       )}
                       <button
