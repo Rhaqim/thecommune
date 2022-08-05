@@ -33,12 +33,12 @@ const RestaurantReviews = ({ user, date, ratingImages, rating, children }) => {
    let target = e.target.contains(e.target) ? e.target : e.target.parentNode;
    if (target.classList.contains("close-modal")) {
      setModal(false);
-    } else if (target.classList.contains("modal-content")) {
-      setModal(false);
     } else {
       setModal(true);
+      return;
     }
   };
+
   
   if (!Array.isArray(ratingImages)) {
     return null;
