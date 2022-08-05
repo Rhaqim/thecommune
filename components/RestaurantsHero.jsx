@@ -17,10 +17,10 @@ const RestaurantsHero = ({ image, title, tags }) => {
             }}
           >
             <div className="p-5 text-white z-[2] mt-[2rem] mid-content">
-              <h2 className="text-6xl font-bold text-center lg:text-left">
+              <h2 className="text-[25px] sm:text-sm md:text-3xl lg:text-6xl text-left">
                 {title}
               </h2>
-              <div className="flex pt-[8rem] sm:text-sm lg:text-2xl md:text-3xl text-center break-words">
+              <div className="flex pt-[16rem] text-[10px] text-left">
                 {tags.map((tag, index) => (
                   <p key={index} className="bg-gray-500 bg-opacity-100 rounded-lg p-1 mx-2">
                     {tag}

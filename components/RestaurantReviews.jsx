@@ -10,13 +10,16 @@ const RestaurantReviews = ({ user, date, children }) => {
         <div className="container bg-black rounded-lg p-3">
           <div className="flex justify-between rounded-lg p-2">
             <h1 className="text-lg text-left">{user}</h1>
-            <h1 className="text-lg text-center">Rating ❤️</h1>
+            <h1 className="text-lg text-center invisible lg:visible">Rating ❤️</h1>
             <h1 className="text-sm text-right">{date}</h1>
           </div>
-          <div className="bg-gray-600 rounded-md p-3">
+          <div className="container bg-gray-600 rounded-md p-3">
             <p>Comments</p>
             <div>{children}</div>
           </div>
+          <h1 className="text-lg text-center visible lg:invisible">
+            Rating ❤️
+          </h1>
         </div>
       </div>
     </div>
