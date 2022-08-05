@@ -54,7 +54,7 @@ const RestaurantsPage = ({ restaurant }) => {
       name: "Jane Doe",
       rating: 4,
       review: "This place is okay.",
-      date: "2020-01-01",
+      date: "2020-01-02",
       likes: 4,
       dislikes: 3,
       spent: "$100",
@@ -68,7 +68,7 @@ const RestaurantsPage = ({ restaurant }) => {
       name: "Joe Doe",
       rating: 3,
       review: "This place is not so good.",
-      date: "2020-01-01",
+      date: "2020-01-03",
       likes: 3,
       dislikes: 3,
       spent: "$100",
@@ -82,7 +82,7 @@ const RestaurantsPage = ({ restaurant }) => {
       name: "Jack Doe",
       rating: 2,
       review: "This place is not good.",
-      date: "2020-01-01",
+      date: "2020-01-04",
       likes: 2,
       dislikes: 3,
       spent: "$100",
@@ -96,7 +96,7 @@ const RestaurantsPage = ({ restaurant }) => {
       name: "Jill Doe",
       rating: 1,
       review: "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem quisquam lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem quisquam lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem quisquam lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem quisquam.", 
-      date: "2020-01-01",
+      date: "2020-01-05",
       likes: 1,
       dislikes: 3,
       spent: "$100",
@@ -104,7 +104,7 @@ const RestaurantsPage = ({ restaurant }) => {
         "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
         "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
         "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-        "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        "https://images.unsplash.com/photo-1521424159246-e4a66f267e4b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
       ]
     }
   ];
@@ -115,6 +115,9 @@ const RestaurantsPage = ({ restaurant }) => {
         tags={tags}
       />
       <CommuneInfoSection />
+      <div className="py-[3rem]">
+        <h1 className="text-white text-5xl text-center">Reviews</h1>
+      </div>
       {reviews.map((review) => (
         <RestaurantReviews key={review.id} user={review.name} date={review.date} ratingImages={review.reviewImages} rating={review.rating}>
           <p>{review.review}</p>
