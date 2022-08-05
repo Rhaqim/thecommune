@@ -19,40 +19,42 @@ const RestaurantReviews = ({ user, date, ratingImages, rating, children }) => {
     );
   };
 
-  if (!Array.isArray(ratingImages)) {
-    return null;
-  }
-
+  
   const initailDisplay = ({ index }) => {
     setCurrentRatingImage(index);
     setModal(true);
   };
-
+  
   /*
   close modal by clicking outside of the modal
   */
-
-  const handleClick = e => {
-    let target = e.target.contains(e.target) ? e.target : e.target.parentNode;
-    if (target.classList.contains("close-modal")) {
+ 
+ const handleClick = e => {
+   let target = e.target.contains(e.target) ? e.target : e.target.parentNode;
+   if (target.classList.contains("close-modal")) {
+     setModal(false);
+    } else if (target.classList.contains("modal-content")) {
       setModal(false);
+    } else {
+      setModal(true);
     }
-    // if (e.target.classList.contains("modal")) {
-    //   setModal(false);
-    // }
   };
-
+  
+  if (!Array.isArray(ratingImages)) {
+    return null;
+  }
+  
+  useEffect(() => {
+    setRate("⭐️".repeat(rating));
+  }, [rate]);
+  
   useEffect(() => {
     document.addEventListener("click", handleClick);
     return () => {
       document.removeEventListener("click", handleClick);
     };
   }, []);
-
-  useEffect(() => {
-    setRate("⭐️".repeat(rating));
-  }, [rate]);
-
+  
   return (
     <>
       <div className="max-w-[1240] mx-auto mb-10">
@@ -95,10 +97,10 @@ const RestaurantReviews = ({ user, date, ratingImages, rating, children }) => {
       {/* Modal */}
       {modal && (
         <>
-          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none modal-content">
             <div className="relative w-auto my-6 mx-auto max-w-6xl">
               {/*content*/}
-              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-transparent outline-none focus:outline-none">
+              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-transparent outline-none focus:outline-none close-modal">
                 <button
                   className="p-1 ml-auto bg-white border-0 text-white opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                   onClick={() => setModal(false)}
