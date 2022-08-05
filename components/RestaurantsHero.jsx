@@ -20,11 +20,17 @@ const RestaurantsHero = ({ image, title, tags }) => {
               <h2 className="text-[25px] sm:text-sm md:text-3xl lg:text-6xl text-left">
                 {title}
               </h2>
-              <div className="flex pt-[16rem] text-[10px] text-left">
+              <div className="flex pt-[17.5rem] lg:pt-[16rem] text-[10px] lg:text-[12px] text-left">
                 {tags.map((tag, index) => (
-                  <p key={index} className="bg-gray-500 bg-opacity-100 rounded-lg p-1 mx-2">
-                    {tag}
-                  </p>
+                  <>
+                    <a
+                      key={index}
+                      href={`/tags/${tag}`}
+                      className="bg-gray-500 bg-opacity-100 rounded-lg p-1 mx-2 hover:bg-[#A1A1A1] focus:ring-4 focus:outline-none focus:ring-blue-300"
+                    >
+                      {tag}
+                    </a>
+                  </>
                 ))}
               </div>
             </div>
