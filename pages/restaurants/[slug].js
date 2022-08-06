@@ -119,7 +119,7 @@ const RestaurantsPage = ({ restaurant }) => {
         <h1 className="text-white text-5xl text-center">Reviews</h1>
       </div>
       {reviews.map((review) => (
-        <RestaurantReviews key={review.id} user={review.name} date={review.date} ratingImages={review.reviewImages} rating={review.rating}>
+        <RestaurantReviews key={review.id} user={review.name} date={review.date} ratingImages={review.reviewImages} rating={review.rating} likes={review.likes} dislikes={review.dislikes}>
           <p>{review.review}</p>
         </RestaurantReviews>
       ))}

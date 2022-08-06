@@ -1,9 +1,35 @@
 import React, { useState, useEffect } from "react";
+import { ImArrowRight2, ImArrowLeft2 } from "react-icons/im";
+import { IoIosThumbsUp, IoIosThumbsDown } from "react-icons/io";
 
-const RestaurantReviews = ({ user, date, ratingImages, rating, children }) => {
+const RestaurantReviews = ({ user, date, ratingImages, rating, likes, dislikes, children }) => {
   const [rate, setRate] = useState(null);
   const [modal, setModal] = useState(false);
   const [currentRatingImage, setCurrentRatingImage] = useState(0);
+  const [likes, setLikes] = useState(likes);
+  const [dislikes, setDislikes] = useState(dislikes);
+  const [liked, setLiked] = useState(false);
+  const [disliked, setDisliked] = useState(false);
+
+  const handleLikes = () => {
+    if (liked) {
+      setLikes(likes - 1);
+      setLiked(false);
+    } else {
+      setLikes(likes + 1);
+      setLiked(true);
+    }
+  }
+
+  const handleDislikes = () => {
+    if (disliked) {
+      setDislikes(dislikes - 1);
+      setDisliked(false);
+    } else {
+      setDislikes(dislikes + 1);
+      setDisliked(true);
+    }
+  }
 
   const length = ratingImages.length;
 
@@ -19,21 +45,20 @@ const RestaurantReviews = ({ user, date, ratingImages, rating, children }) => {
     );
   };
 
-  
   const initailDisplay = ({ index }) => {
     setCurrentRatingImage(index);
     setModal(true);
   };
-  
+
   /*
   close modal by clicking outside of the modal
   */
- 
- const handleClick = e => {
-   let target = e.target.contains(e.target) ? e.target : e.target.parentNode;
-   if (target.classList.contains("close-modal")) {
-     setModal(false);
-     return
+
+  const handleClick = e => {
+    let target = e.target.contains(e.target) ? e.target : e.target.parentNode;
+    if (target.classList.contains("close-modal")) {
+      setModal(false);
+      return;
     } else {
       return null;
     }
@@ -41,22 +66,22 @@ const RestaurantReviews = ({ user, date, ratingImages, rating, children }) => {
     //   setModal(false);
     // }
   };
-  
+
   useEffect(() => {
     setRate("⭐️".repeat(rating));
   }, [rating]);
-  
+
   useEffect(() => {
     document.addEventListener("click", handleClick);
     return () => {
       document.removeEventListener("click", handleClick);
     };
   }, []);
-  
+
   if (!Array.isArray(ratingImages)) {
     return null;
   }
-  
+
   return (
     <>
       <div className="max-w-[1240] mx-auto mb-10">
@@ -70,9 +95,9 @@ const RestaurantReviews = ({ user, date, ratingImages, rating, children }) => {
               <h1 className="text-sm text-right">{date}</h1>
             </div>
             <div className="bg-gray-600 rounded-md p-3">
-              <p className="font-bold underline">Thoughts...</p>
+              <p className="font-bold underline">Comments...</p>
               <div>{children}</div>
-              <h1 className="underline pt-1">Gallery...</h1>
+              {/* <h1 className="underline pt-1">Gallery...</h1> */}
               <div className="flex p-1 justify-end">
                 {ratingImages.map(
                   (image, index = index.toString() + "aasimge1") => (
@@ -81,8 +106,14 @@ const RestaurantReviews = ({ user, date, ratingImages, rating, children }) => {
                       <img
                         src={image}
                         alt="rating"
-                        className="mx-2 mt-1 cursor-pointer"
+                        className="mx-2 mt-1 cursor-pointer rounded-md"
                         style={{ height: 50, width: 50 }}
+                        onMouseEnter={({ target }) => {
+                          target.style.transform = "scale(1.2)";
+                        }}
+                        onMouseLeave={({ target }) => {
+                          target.style.transform = "scale(1)";
+                        }}
                         onClick={() => initailDisplay({ index })}
                       />
                     </div>
@@ -90,9 +121,25 @@ const RestaurantReviews = ({ user, date, ratingImages, rating, children }) => {
                 )}
               </div>
             </div>
-            <h1 className="text-lg text-left pt-2 visible lg:hidden">
-              RATING: {rate}
-            </h1>
+            <div className="flex justify-between pt-2">
+              <h1 className="text-lg text-left visible lg:hidden">
+                RATING: {rate}
+              </h1>
+              <div className="flex px-1">
+                <IoIosThumbsUp
+                  className="text-lg text-left mx-2"
+                  size={23}
+                  onClick={handleLikes}
+                />
+                <h1>{likes}</h1>
+                <IoIosThumbsDown
+                  className="text-lg text-left mx-2"
+                  size={23}
+                  onClick={handleDislikes}
+                />
+                <h1>{dislikes}</h1>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -115,25 +162,24 @@ const RestaurantReviews = ({ user, date, ratingImages, rating, children }) => {
                 <div className="flex">
                   {ratingImages.map((image, index) => (
                     <div key={index}>
-                      <button
+                      <ImArrowLeft2
                         onClick={prevImage}
-                        className="absolute top-[50%] left-[30px] text-white/70 cursor-pointer select-none z-[2]"
-                      >
-                        Back
-                      </button>
+                        size={40}
+                        className="absolute top-[50%] left-[30px] text-white/70 cursor-pointer select-none z-[2] hover:bg-black rounded-xl"
+                      />
                       {index === currentRatingImage && (
                         <img
                           src={image}
                           alt="rating"
+                          draggable="true"
                           className="rounded-t-lg w-[1440] h-[600] object-cover px-2"
                         />
                       )}
-                      <button
+                      <ImArrowRight2
                         onClick={nextImage}
-                        className="absolute top-[50%] right-[30px] text-white/70 cursor-pointer select-none z-[2]"
-                      >
-                        Front
-                      </button>
+                        size={40}
+                        className="absolute top-[50%] right-[30px] text-white/70 cursor-pointer select-none z-[2] hover:bg-black rounded-xl"
+                      />
                     </div>
                   ))}
                 </div>
