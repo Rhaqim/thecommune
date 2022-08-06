@@ -2,12 +2,15 @@ import React, { useState, useEffect } from "react";
 import { ImArrowRight2, ImArrowLeft2 } from "react-icons/im";
 import { IoIosThumbsUp, IoIosThumbsDown } from "react-icons/io";
 
-const RestaurantReviews = ({ user, date, ratingImages, rating, likes, dislikes, children }) => {
+const RestaurantReviews = ({ user, date, ratingImages, rating, like, dislike, children }) => {
   const [rate, setRate] = useState(null);
+  
   const [modal, setModal] = useState(false);
+  
   const [currentRatingImage, setCurrentRatingImage] = useState(0);
-  const [likes, setLikes] = useState(likes);
-  const [dislikes, setDislikes] = useState(dislikes);
+
+  const [likes, setLikes] = useState(like);
+  const [dislikes, setDislikes] = useState(dislike);
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
 
@@ -129,12 +132,14 @@ const RestaurantReviews = ({ user, date, ratingImages, rating, likes, dislikes, 
                 <IoIosThumbsUp
                   className="text-lg text-left mx-2"
                   size={23}
+                  color={liked ? "#00b300" : "#fff"}
                   onClick={handleLikes}
                 />
                 <h1>{likes}</h1>
                 <IoIosThumbsDown
                   className="text-lg text-left mx-2"
                   size={23}
+                  color={disliked ? "#ff0000" : "#fff"}
                   onClick={handleDislikes}
                 />
                 <h1>{dislikes}</h1>
