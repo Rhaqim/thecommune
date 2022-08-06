@@ -2,15 +2,9 @@ import React, { useState, useEffect } from "react";
 import { ImArrowRight2, ImArrowLeft2 } from "react-icons/im";
 import { IoIosThumbsUp, IoIosThumbsDown } from "react-icons/io";
 
-const RestaurantReviews = ({
-  user,
-  date,
-  ratingImages,
-  rating,
-  like,
-  dislike,
-  children,
-}) => {
+const RestaurantReviews = ({ reviews, children }) => {
+  const { reviewer, reviewDate, reviewRating, like, dislike, reviewImages } = reviews;
+  
   const [rate, setRate] = useState(null);
 
   const [modal, setModal] = useState(false);
@@ -42,7 +36,7 @@ const RestaurantReviews = ({
     }
   };
 
-  const length = ratingImages.length;
+  const length = reviewImages.length;
 
   const nextImage = () => {
     setCurrentRatingImage(
@@ -79,8 +73,8 @@ const RestaurantReviews = ({
   };
 
   useEffect(() => {
-    setRate("⭐️".repeat(rating));
-  }, [rating]);
+    setRate("⭐️".repeat(reviewRating));
+  }, [reviewRating]);
 
   useEffect(() => {
     document.addEventListener("click", handleClick);
@@ -89,7 +83,7 @@ const RestaurantReviews = ({
     };
   }, []);
 
-  if (!Array.isArray(ratingImages)) {
+  if (!Array.isArray(reviewImages)) {
     return null;
   }
 
@@ -99,18 +93,18 @@ const RestaurantReviews = ({
         <div className="justify-center align-center mx-2 my-2 p-2 bg-gray-600 rounded-xl">
           <div className="bg-black rounded-lg p-3 mb-2">
             <div className="flex justify-between rounded-lg p-2">
-              <h1 className="text-lg text-left">{user}</h1>
+              <h1 className="text-lg text-left">{reviewer}</h1>
               <h1 className="text-lg text-center invisible lg:visible">
                 RATING: {rate}
               </h1>
-              <h1 className="text-sm text-right">{date}</h1>
+              <h1 className="text-sm text-right">{reviewDate}</h1>
             </div>
             <div className="bg-gray-600 rounded-md p-3">
               <p className="font-bold underline">Comments...</p>
               <div>{children}</div>
               {/* <h1 className="underline pt-1">Gallery...</h1> */}
               <div className="flex p-1 justify-end">
-                {ratingImages.map(
+                {reviewImages.map(
                   (image, index = index.toString() + "aasimge1") => (
                     <div key={index}>
                       {/* <span>close</span> */}
@@ -177,7 +171,7 @@ const RestaurantReviews = ({
                 </button>
                 {/*body*/}
                 <div className="flex">
-                  {ratingImages.map((image, index) => (
+                  {reviewImages.map((image, index) => (
                     <div key={index}>
                       <ImArrowLeft2
                         onClick={prevImage}

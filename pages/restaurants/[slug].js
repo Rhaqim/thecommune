@@ -35,7 +35,7 @@ const RestaurantsPage = ({ restaurant }) => {
   const orgImage = "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
   const tags = ["Japanese", "Styled", "Restaurant"];
   const { name } = restaurant;
-  const user = {
+  const currrentUser = {
     name: "John Doe",
     avatar: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
     location: "New York",
@@ -50,12 +50,12 @@ const RestaurantsPage = ({ restaurant }) => {
   const reviews = [
     {
       id: "ab776524",
-      name: "John Doe",
-      rating: 5,
+      reviewer: "John Doe",
+      reviewRating: 5,
       review: "This place is great!",
-      date: "2020-01-01",
-      likes: 5,
-      dislikes: 3,
+      reviewDate: "2020-01-01",
+      like: 5,
+      dislike: 3,
       spent: "$100",
       reviewImages: [
         "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
@@ -64,12 +64,12 @@ const RestaurantsPage = ({ restaurant }) => {
     },
     {
       id: "ab776525",
-      name: "Jane Doe",
-      rating: 4,
+      reviewer: "Jane Doe",
+      reviewRating: 4,
       review: "This place is okay.",
-      date: "2020-01-02",
-      likes: 4,
-      dislikes: 3,
+      reviewDate: "2020-01-02",
+      like: 4,
+      dislike: 3,
       spent: "$100",
       reviewImages: [
         "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
@@ -78,12 +78,12 @@ const RestaurantsPage = ({ restaurant }) => {
     },
     {
       id: "ab776526",
-      name: "Joe Doe",
-      rating: 3,
+      reviewer: "Joe Doe",
+      reviewRating: 3,
       review: "This place is not so good.",
-      date: "2020-01-03",
-      likes: 3,
-      dislikes: 3,
+      reviewDate: "2020-01-03",
+      like: 3,
+      dislike: 3,
       spent: "$100",
       reviewImages: [
         "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
@@ -92,12 +92,12 @@ const RestaurantsPage = ({ restaurant }) => {
     },
     {
       id: "ab776527",
-      name: "Jack Doe",
-      rating: 2,
+      reviewer: "Jack Doe",
+      reviewRating: 2,
       review: "w-full p-3 text-black rounded border border-gray-300 placeholder-gray-100 shadow-sm focus:outline-none focus:shadow-outline lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem quisquam lorem ipsum dolor sit amet conseclorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem quisquam lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem quisquam lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem quisquam lorem ipsum",
-      date: "2020-01-04",
-      likes: 2,
-      dislikes: 3,
+      reviewDate: "2020-01-04",
+      like: 2,
+      dislike: 3,
       spent: "$100",
       reviewImages: [
         "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
@@ -106,12 +106,12 @@ const RestaurantsPage = ({ restaurant }) => {
     },
     {
       id: "ab776528",
-      name: "Jill Doe",
-      rating: 1,
+      reviewer: "Jill Doe",
+      reviewRating: 1,
       review: "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem quisquam lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem quisquam lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem quisquam lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem quisquam.", 
-      date: "2020-01-05",
-      likes: 1,
-      dislikes: 3,
+      reviewDate: "2020-01-05",
+      like: 1,
+      dislike: 3,
       spent: "$100",
       reviewImages: [
         "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
@@ -132,11 +132,11 @@ const RestaurantsPage = ({ restaurant }) => {
         <h1 className="text-white text-5xl text-center">Reviews</h1>
       </div>
       {reviews.map((review) => (
-        <RestaurantReviews key={review.id} user={review.name} date={review.date} ratingImages={review.reviewImages} rating={review.rating} like={review.likes} dislike={review.dislikes}>
+        <RestaurantReviews key={review.id} reviews={review}>
           <p>{review.review}</p>
         </RestaurantReviews>
       ))}
-      <WriteReview user={user}/>
+      <WriteReview user={currrentUser}/>
     </div>
   );
 };
