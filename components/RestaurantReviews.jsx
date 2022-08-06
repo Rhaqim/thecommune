@@ -2,11 +2,19 @@ import React, { useState, useEffect } from "react";
 import { ImArrowRight2, ImArrowLeft2 } from "react-icons/im";
 import { IoIosThumbsUp, IoIosThumbsDown } from "react-icons/io";
 
-const RestaurantReviews = ({ user, date, ratingImages, rating, like, dislike, children }) => {
+const RestaurantReviews = ({
+  user,
+  date,
+  ratingImages,
+  rating,
+  like,
+  dislike,
+  children,
+}) => {
   const [rate, setRate] = useState(null);
-  
+
   const [modal, setModal] = useState(false);
-  
+
   const [currentRatingImage, setCurrentRatingImage] = useState(0);
 
   const [likes, setLikes] = useState(like);
@@ -22,7 +30,7 @@ const RestaurantReviews = ({ user, date, ratingImages, rating, like, dislike, ch
       setLikes(likes + 1);
       setLiked(true);
     }
-  }
+  };
 
   const handleDislikes = () => {
     if (disliked) {
@@ -32,7 +40,7 @@ const RestaurantReviews = ({ user, date, ratingImages, rating, like, dislike, ch
       setDislikes(dislikes + 1);
       setDisliked(true);
     }
-  }
+  };
 
   const length = ratingImages.length;
 
@@ -129,19 +137,23 @@ const RestaurantReviews = ({ user, date, ratingImages, rating, like, dislike, ch
                 RATING: {rate}
               </h1>
               <div className="flex px-1">
-                <IoIosThumbsUp
-                  className="text-lg text-left mx-2"
+                <button
+                  disabled={disliked ? true : false}
+                  className="text-lg text-left mx-2 disabled"
                   size={23}
-                  color={liked ? "#00b300" : "#fff"}
                   onClick={handleLikes}
-                />
+                >
+                  <IoIosThumbsUp color={liked ? "#00b300" : "#fff"} />
+                </button>
                 <h1>{likes}</h1>
-                <IoIosThumbsDown
-                  className="text-lg text-left mx-2"
+                <button
+                  disabled={liked ? true : false}
+                  className="text-lg text-left mx-2 disabled"
                   size={23}
-                  color={disliked ? "#ff0000" : "#fff"}
                   onClick={handleDislikes}
-                />
+                >
+                  <IoIosThumbsDown color={disliked ? "#ff0000" : "#fff"} />
+                </button>
                 <h1>{dislikes}</h1>
               </div>
             </div>
