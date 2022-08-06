@@ -9,7 +9,7 @@ const CommuneInfoSection = () => {
             <h1 className="sm:text-sm lg:text-4xl md:text-3xl font-bold p-2">Avg Rating</h1>
           </li>
           <li className="p-4">
-            <h1 className="sm:text-sm lg:text-4xl md:text-3xl font-bold p-2">budget</h1>
+            <h1 className="sm:text-sm lg:text-4xl md:text-3xl font-bold p-2">Budget</h1>
           </li>
           <li className="p-4">
             <h1 className="sm:text-sm lg:text-4xl md:text-3xl font-bold p-2">Meal of the Week</h1>
