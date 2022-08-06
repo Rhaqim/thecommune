@@ -2,6 +2,7 @@ import React from "react";
 import RestaurantsHero from "../../components/RestaurantsHero";
 import CommuneInfoSection from "../../components/CommuneInfoSection";
 import RestaurantReviews from "../../components/RestaurantReviews";
+import WriteReview from "../../components/WriteReview";
 
 export const getStaticPaths = async () => {
   const res = await fetch("https://jsonplaceholder.typicode.com/users");
@@ -34,6 +35,18 @@ const RestaurantsPage = ({ restaurant }) => {
   const orgImage = "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
   const tags = ["Japanese", "Styled", "Restaurant"];
   const { name } = restaurant;
+  const user = {
+    name: "John Doe",
+    avatar: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+    location: "New York",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget consectetur sagittis, nisl nunc egestas nunc, euismod eget nisl eget consectetur sagittis.",
+    social: {
+      twitter: "https://twitter.com/johndoe",
+      facebook: "https://facebook.com/johndoe",
+      instagram: "https://instagram.com/johndoe",
+      linkedin: "https://linkedin.com/johndoe",
+    },
+  };
   const reviews = [
     {
       id: "ab776524",
@@ -81,7 +94,7 @@ const RestaurantsPage = ({ restaurant }) => {
       id: "ab776527",
       name: "Jack Doe",
       rating: 2,
-      review: "This place is not good.",
+      review: "w-full p-3 text-black rounded border border-gray-300 placeholder-gray-100 shadow-sm focus:outline-none focus:shadow-outline lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem quisquam lorem ipsum dolor sit amet conseclorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem quisquam lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem quisquam lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem quisquam lorem ipsum",
       date: "2020-01-04",
       likes: 2,
       dislikes: 3,
@@ -123,6 +136,7 @@ const RestaurantsPage = ({ restaurant }) => {
           <p>{review.review}</p>
         </RestaurantReviews>
       ))}
+      <WriteReview user={user}/>
     </div>
   );
 };
