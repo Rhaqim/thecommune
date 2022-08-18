@@ -4,7 +4,7 @@ import CommuneInfoSection from "../../components/CommuneInfoSection";
 import RestaurantReviews from "../../components/RestaurantReviews";
 import WriteReview from "../../components/WriteReview";
 
-// Production
+//Production
 // export const getStaticPaths = async () => {
 //   // fetch all restaurants from next api
 //   const restaurants = await fetch("http://localhost:3000/api/restaurants");
@@ -35,7 +35,7 @@ import WriteReview from "../../components/WriteReview";
 //     const reviewers = await Promise.all(
 //       reviews.map(async (review) => {
 //         const reviewer = await fetch(
-//           `http://localhost:3000/api/getReviewer?id=${review.reviewer.$id.toString()}`
+//           `http://localhost:3000/api/getReviewer?id=${review.reviewer.toJSON().$id.toString()}`
 //         );
 //         const reviewerJson = await reviewer.json();
 //         return reviewerJson;
@@ -52,6 +52,46 @@ import WriteReview from "../../components/WriteReview";
 //     },
 //   };
 // };
+
+// const RestaurantsPage = ({ restaurant, reviews, reviewers }) => {
+//   const { title, tags, address, description, image, phone, rating, budget, currency, opened } = restaurant;
+
+//   reviews.map((review) => {
+//     review.reviewer = reviewers.find((reviewer) => reviewer._id === review.reviewer.toJSON().$id.toString());
+//     return review;
+//   });
+
+//   return (
+//     <div>
+//       <RestaurantsHero image={image}
+//         title={title}
+//         tags={tags}
+//         address={address}
+//         description={description}
+//         phone={phone}
+//         rating={rating}
+//         avgBudget={budget}
+//         currency={currency}
+//         opened={opened}
+//       />
+//       <CommuneInfoSection />
+//       <div className="py-[3rem]">
+//         <h1 className="text-white text-5xl text-center">Reviews</h1>
+//       </div>
+//       {reviews.map((review) => (
+//         <RestaurantReviews key={review.id} reviews={review}>
+//           <p>{review.review}</p>
+//         </RestaurantReviews>
+//       ))}
+//       <WriteReview user={currrentUser} />
+//     </div>
+//   );
+// };
+
+// export default RestaurantsPage;
+
+
+// Development
 export const getStaticPaths = async () => {
   // fetch all restaurants from next api
   const restaurants = await fetch("http://localhost:3000/api/restaurants");
