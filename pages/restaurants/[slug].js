@@ -4,6 +4,54 @@ import CommuneInfoSection from "../../components/CommuneInfoSection";
 import RestaurantReviews from "../../components/RestaurantReviews";
 import WriteReview from "../../components/WriteReview";
 
+// Production
+// export const getStaticPaths = async () => {
+//   // fetch all restaurants from next api
+//   const restaurants = await fetch("http://localhost:3000/api/restaurants");
+//   const restaurantsJson = await restaurants.json();
+
+//   const paths = restaurantsJson.map((restaurant) => ({
+//     params: { id: restaurant._id.toString() },
+//   }));
+
+//   return {
+//     paths: paths,
+//     fallback: false,
+//   };
+// };
+
+// export const getStaticProps = async context => {
+//   const { id } = context.params;
+//   // get resturant data as well as reviews
+//   const restaurantJson = await fetch(`http://localhost:3000/api/getRestaurant?id=${id}`);
+//   const restaurant = await restaurantJson.json();
+
+//   // get all restaurant reviews
+//   const reviewJson = await fetch(`http://localhost:3000/api/reviews?id=${id}`);
+//   const reviews = await reviewJson.json();
+
+//   // get all reviewers for each review
+//   const getReviewers = async () => {
+//     const reviewers = await Promise.all(
+//       reviews.map(async (review) => {
+//         const reviewer = await fetch(
+//           `http://localhost:3000/api/getReviewer?id=${review.reviewer.$id.toString()}`
+//         );
+//         const reviewerJson = await reviewer.json();
+//         return reviewerJson;
+//       })
+//     );
+//     return reviewers;
+//   };
+
+//   return {
+//     props: {
+//       restaurant: restaurant,
+//       reviews: reviews,
+//       reviewers: await getReviewers(),
+//     },
+//   };
+// };
 export const getStaticPaths = async () => {
   // fetch all restaurants from next api
   const restaurants = await fetch("http://localhost:3000/api/restaurants");
@@ -17,11 +65,8 @@ export const getStaticPaths = async () => {
   }));
 
   return {
-    // paths: json.map(restaurant => ({
-    //   params: { slug: restaurant.name.toLowerCase().replace(/ /g, "-") },
-    // })),
     paths: json.map(user => ({
-      params: { slug: user.id.toString() },
+      params: { slug: user.id.toString(), id: user.id.toString() },
     })),
     fallback: false,
   };
@@ -33,47 +78,14 @@ export const getStaticProps = async ({ params }) => {
   );
   const json = await res.json();
 
-  // get resturant data as well as reviews
-  // const restaurantJson = await fetch(`http://localhost:3000/api/getRestaurant?id=${params.id}`);
-  const restaurantJson = await fetch(`http://localhost:3000/api/getRestaurant?id=62efc9c1452eceefe0687b65`);
-  const restaurant = await restaurantJson.json();
-
-  // const reviewJson = await fetch(`http://localhost:3000/api/reviews?id=${params.id}`);
-  const reviewJson = await fetch(`http://localhost:3000/api/reviews?id=62efc9c1452eceefe0687b65`);
-  const reviews = await reviewJson.json();
-
-  const getReviewers = async () => {
-    const reviewers = await Promise.all(
-      reviews.map(async (review) => {
-        const reviewer = await fetch(
-          // `http://localhost:3000/api/getReviewer?id=${review.reviewer.get("$id")}`
-          `http://localhost:3000/api/getReviewer?id=62efdef346294b2ae0adc094`
-        );
-        const reviewerJson = await reviewer.json();
-        return reviewerJson;
-      })
-    );
-    return reviewers;
-  };
-
   return {
     props: {
       placeholder: json,
-      restaurants: restaurant,
-      resreviews: reviews,
-      resreviewers: await getReviewers(),
     },
   };
 };
 
-const RestaurantsPage = ({ placeholder, restaurants, resreviews, resreviewers }) => {
-
-  useEffect(() => {
-    console.log("restaurants", restaurants);
-    console.log("resreviews", resreviews);
-    console.log("resreviewers", resreviewers);
-  }, [resreviewers, resreviews, restaurants]);
-
+const RestaurantsPage = ({ placeholder }) => {
   const title = `Shiro Restaurant`;
   const orgImage = "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
   const tags = ["Japanese", "Styled", "Restaurant"];
