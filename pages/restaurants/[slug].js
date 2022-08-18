@@ -5,17 +5,23 @@ import RestaurantReviews from "../../components/RestaurantReviews";
 import WriteReview from "../../components/WriteReview";
 
 export const getStaticPaths = async () => {
+  // fetch all restaurants from next api
+  const restaurants = await fetch("api/restaurants");
+  const restaurantsJson = await restaurants.json();
+
   const res = await fetch("https://jsonplaceholder.typicode.com/users");
   const json = await res.json();
 
-  const reviews =  await fetch("api/reviews?id=1");
+  const paths = restaurantsJson.map((restaurant) => ({
+    params: { id: restaurant.id },
+  }));
 
   return {
     // paths: json.map(restaurant => ({
     //   params: { slug: restaurant.name.toLowerCase().replace(/ /g, "-") },
     // })),
-    paths: json.map(restaurant => ({
-      params: { slug: restaurant.id.toString() },
+    paths: json.map(user => ({
+      params: { slug: user.id.toString() },
     })),
     fallback: false,
   };
@@ -28,17 +34,31 @@ export const getStaticProps = async ({ params }) => {
   const json = await res.json();
 
   // get resturant data as well as reviews
-  const restaurantJson = await fetch(`api/restaurants?id=${params.id}`);
+  const restaurantJson = await fetch(`api/getRestaurant/${params.id}`);
   const restaurant = await restaurantJson.json();
 
   const reviewJson = await fetch(`api/reviews?id=${params.id}`);
   const reviews = await reviewJson.json();
 
+  const getReviewers = async () => {
+    const reviewers = await Promise.all(
+      reviews.map(async (review) => {
+        const reviewer = await fetch(
+          `https://jsonplaceholder.typicode.com/users/${review.reviewerId}`
+        );
+        const reviewerJson = await reviewer.json();
+        return reviewerJson;
+      })
+    );
+    return reviewers;
+  };
+
   return {
     props: {
       placeholder: json,
       restaurant: restaurant,
-      reviews: reviews
+      reviews: reviews,
+      reviewers: await getReviewers(),
     },
   };
 };

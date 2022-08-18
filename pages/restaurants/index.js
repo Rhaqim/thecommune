@@ -4,20 +4,17 @@ import RestaurantsHeading from "../../components/RestaurantsHeading";
 import { motion } from "framer-motion";
 
 export const getStaticProps = async () => {
-  const placeholderres = await fetch("https://jsonplaceholder.typicode.com/users");
-  const placeholderjson = await placeholderres.json();
+  // fetch all restaurants from next api
+  const restaurants = await fetch("api/restaurants");
+  const restaurantsJson = await restaurants.json();
 
   const photos = await fetch("https://jsonplaceholder.typicode.com/photos?_limit=30");
   const photosJson = await photos.json();
 
-  // fetch all restaurants from next api
-  // const restaurants = await fetch("api/restaurants");
-  // const restaurantsJson = await restaurants.json();
-
   return {
     props: {
-      placeholder: placeholderjson,
-      photos: photosJson
+      photos: photosJson,
+      restaurants: restaurantsJson,
     }
   }
 };
@@ -32,13 +29,14 @@ const variants = {
 };
 
 
-const restaurants = ({ placeholder, photos }) => {
+const restaurants = ({ restaurants, photos }) => {
   return (
     <RestaurantsHeading>
       <div className="max-w-2xl mx-auto px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
         <div className="grid grid-cols-2 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-5 xl:gap-x-6">
           {photos.map((photo) => (
             <Link key={photo.id} href={`/restaurants/${photo.id}`}>
+            {/* <Link key={restaurant.id} href={`/restaurants/${restaurant.slug}`}> */}
               <motion.div
               className="p-1 m-2 cursor-pointer"
               >
