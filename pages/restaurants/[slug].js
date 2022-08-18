@@ -54,7 +54,7 @@ import WriteReview from "../../components/WriteReview";
 // };
 
 // const RestaurantsPage = ({ restaurant, reviews, reviewers }) => {
-//   const { title, tags, address, description, image, phone, rating, budget, currency, opened } = restaurant;
+//   const { title, tags, address, description, image, phone, email, website, rating, budget, currency, opened } = restaurant;
 
 //   reviews.map((review) => {
 //     review.reviewer = reviewers.find((reviewer) => reviewer._id === review.reviewer.toJSON().$id.toString());
@@ -65,10 +65,12 @@ import WriteReview from "../../components/WriteReview";
 //     <div>
 //       <RestaurantsHero image={image}
 //         title={title}
-//         tags={tags}
-//         address={address}
 //         description={description}
+//         address={address}
 //         phone={phone}
+//         email={email}
+//         website={website}
+//         tags={tags}
 //         rating={rating}
 //         avgBudget={budget}
 //         currency={currency}
@@ -93,16 +95,8 @@ import WriteReview from "../../components/WriteReview";
 
 // Development
 export const getStaticPaths = async () => {
-  // fetch all restaurants from next api
-  const restaurants = await fetch("http://localhost:3000/api/restaurants");
-  const restaurantsJson = await restaurants.json();
-
   const res = await fetch("https://jsonplaceholder.typicode.com/users");
   const json = await res.json();
-
-  const paths = restaurantsJson.map((restaurant) => ({
-    params: { id: restaurant.id },
-  }));
 
   return {
     paths: json.map(user => ({

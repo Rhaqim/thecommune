@@ -5,8 +5,8 @@ import { motion } from "framer-motion";
 
 export const getStaticProps = async () => {
   // fetch all restaurants from next api
-  const restaurants = await fetch("api/restaurants");
-  const restaurantsJson = await restaurants.json();
+  // const restaurants = await fetch("api/restaurants");
+  // const restaurantsJson = await restaurants.json();
 
   const photos = await fetch("https://jsonplaceholder.typicode.com/photos?_limit=30");
   const photosJson = await photos.json();
@@ -14,7 +14,7 @@ export const getStaticProps = async () => {
   return {
     props: {
       photos: photosJson,
-      restaurants: restaurantsJson,
+      // restaurants: restaurantsJson,
     }
   }
 };
