@@ -4,15 +4,19 @@ import RestaurantsHeading from "../../components/RestaurantsHeading";
 import { motion } from "framer-motion";
 
 export const getStaticProps = async () => {
-  const res = await fetch("https://jsonplaceholder.typicode.com/users");
-  const json = await res.json();
+  const placeholderres = await fetch("https://jsonplaceholder.typicode.com/users");
+  const placeholderjson = await placeholderres.json();
 
   const photos = await fetch("https://jsonplaceholder.typicode.com/photos?_limit=30");
   const photosJson = await photos.json();
 
+  // fetch all restaurants from next api
+  // const restaurants = await fetch("api/restaurants");
+  // const restaurantsJson = await restaurants.json();
+
   return {
     props: {
-      restaurants: json,
+      placeholder: placeholderjson,
       photos: photosJson
     }
   }
@@ -28,7 +32,7 @@ const variants = {
 };
 
 
-const restaurants = ({ restaurants, photos }) => {
+const restaurants = ({ placeholder, photos }) => {
   return (
     <RestaurantsHeading>
       <div className="max-w-2xl mx-auto px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">

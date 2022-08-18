@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import RestaurantsHero from "../../components/RestaurantsHero";
 import CommuneInfoSection from "../../components/CommuneInfoSection";
 import RestaurantReviews from "../../components/RestaurantReviews";
@@ -65,16 +65,16 @@ const RestaurantsPage = ({ restaurant }) => {
     {
       id: "ab776525",
       reviewer: "Jane Doe",
-      reviewRating: 4,
       review: "This place is okay.",
-      reviewDate: "2020-01-02",
-      like: 4,
-      dislike: 3,
+      reviewRating: 4,
       spent: "$100",
       reviewImages: [
         "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
         "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-      ]
+      ],
+      like: 4,
+      dislike: 3,
+      reviewDate: "2020-01-02",
     },
     {
       id: "ab776526",
