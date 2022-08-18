@@ -7,6 +7,9 @@ import WriteReview from "../../components/WriteReview";
 export const getStaticPaths = async () => {
   const res = await fetch("https://jsonplaceholder.typicode.com/users");
   const json = await res.json();
+
+  const reviews =  await fetch("api/reviews?id=1");
+
   return {
     // paths: json.map(restaurant => ({
     //   params: { slug: restaurant.name.toLowerCase().replace(/ /g, "-") },
@@ -23,18 +26,28 @@ export const getStaticProps = async ({ params }) => {
     `https://jsonplaceholder.typicode.com/users/${params.slug}`
   );
   const json = await res.json();
+
+  // get resturant data as well as reviews
+  const restaurantJson = await fetch(`api/restaurants?id=${params.id}`);
+  const restaurant = await restaurantJson.json();
+
+  const reviewJson = await fetch(`api/reviews?id=${params.id}`);
+  const reviews = await reviewJson.json();
+
   return {
     props: {
-      restaurant: json,
+      placeholder: json,
+      restaurant: restaurant,
+      reviews: reviews
     },
   };
 };
 
-const RestaurantsPage = ({ restaurant }) => {
+const RestaurantsPage = ({ placeholder }) => {
   const title = `Shiro Restaurant`;
   const orgImage = "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
   const tags = ["Japanese", "Styled", "Restaurant"];
-  const { name } = restaurant;
+  const { name } = placeholder;
   const currrentUser = {
     name: "John Doe",
     avatar: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
