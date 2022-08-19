@@ -15,7 +15,7 @@ export const getStaticProps = async () => {
   return {
     props: {
       photos: photosJson,
-      restaurants: restaurantsJson[0],
+      restaurants: restaurantsJson,
     }
   }
 };
@@ -35,15 +35,15 @@ const restaurants = ({ restaurants, photos }) => {
     <RestaurantsHeading>
       <div className="max-w-2xl mx-auto px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
         <div className="grid grid-cols-2 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-5 xl:gap-x-6">
-          {photos.map((photo) => (
-            <Link key={restaurants.id} href={`/restaurants/${restaurants.id}`}>
+          {restaurants.map((restaurant) => (
+            <Link key={restaurant.id} href={`/restaurants/${restaurant.id}`}>
             {/* <Link key={restaurant.id} href={`/restaurants/${restaurant.slug}`}> */}
               <motion.div
               className="p-1 m-2 cursor-pointer"
               >
                 <motion.img
-                  src={restaurants.images[0]}
-                  alt={restaurants.title}
+                  src={restaurant.images[0]}
+                  alt={restaurant.title}
                   whileHover={{ scale: 1.15, rotate: 5 }}
                   whileTap={{ scale: 0.9 }}
                   className="h-48 w-full object-cover rounded-lg shadow-lg"
@@ -55,7 +55,7 @@ const restaurants = ({ restaurants, photos }) => {
                   whileTap={{ opacity: 0.5, scale: 0.9 }}
                   className="text-center text-md text-white font-semibold pt-12 items-center justify-center"
                 >
-                  {restaurants.title}
+                  {restaurant.title}
                 </motion.button>
               </motion.div>
             </Link>
