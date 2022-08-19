@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@react-three/fiber": "^8.2.0",
+    "ajv": "^8.11.0",
     "framer-motion": "^6.5.1",
     "mongodb": "^4.8.1",
     "next": "12.2.2",
