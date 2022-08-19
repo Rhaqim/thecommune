@@ -5,125 +5,52 @@ import RestaurantReviews from "../../components/RestaurantReviews";
 import WriteReview from "../../components/WriteReview";
 
 //Production
-// export const getStaticPaths = async () => {
-//   // fetch all restaurants from next api
-//   const restaurants = await fetch("http://localhost:3000/api/restaurants");
-//   const restaurantsJson = await restaurants.json();
-
-//   const paths = restaurantsJson.map((restaurant) => ({
-//     params: { id: restaurant._id.toString() },
-//   }));
-
-//   return {
-//     paths: paths,
-//     fallback: false,
-//   };
-// };
-
-// export const getStaticProps = async context => {
-//   const { id } = context.params;
-//   // get resturant data as well as reviews
-//   const restaurantJson = await fetch(`http://localhost:3000/api/getRestaurant?id=${id}`);
-//   const restaurant = await restaurantJson.json();
-
-//   // get all restaurant reviews
-//   const reviewJson = await fetch(`http://localhost:3000/api/reviews?id=${id}`);
-//   const reviews = await reviewJson.json();
-
-//   // get all reviewers for each review
-//   const getReviewers = async () => {
-//     const reviewers = await Promise.all(
-//       reviews.map(async (review) => {
-//         const reviewer = await fetch(
-//           `http://localhost:3000/api/getReviewer?id=${review.reviewer.toJSON().$id.toString()}`
-//         );
-//         const reviewerJson = await reviewer.json();
-//         return reviewerJson;
-//       })
-//     );
-//     return reviewers;
-//   };
-
-//   return {
-//     props: {
-//       restaurant: restaurant,
-//       reviews: reviews,
-//       reviewers: await getReviewers(),
-//     },
-//   };
-// };
-
-// const RestaurantsPage = ({ restaurant, reviews, reviewers }) => {
-//   const { title, tags, address, description, image, phone, email, website, rating, budget, currency, opened } = restaurant;
-
-//   reviews.map((review) => {
-//     review.reviewer = reviewers.find((reviewer) => reviewer._id === review.reviewer.toJSON().$id.toString());
-//     return review;
-//   });
-
-//   return (
-//     <div>
-//       <RestaurantsHero image={image}
-//         title={title}
-//         description={description}
-//         address={address}
-//         phone={phone}
-//         email={email}
-//         website={website}
-//         tags={tags}
-//         rating={rating}
-//         avgBudget={budget}
-//         currency={currency}
-//         opened={opened}
-//       />
-//       <CommuneInfoSection />
-//       <div className="py-[3rem]">
-//         <h1 className="text-white text-5xl text-center">Reviews</h1>
-//       </div>
-//       {reviews.map((review) => (
-//         <RestaurantReviews key={review.id} reviews={review}>
-//           <p>{review.review}</p>
-//         </RestaurantReviews>
-//       ))}
-//       <WriteReview user={currrentUser} />
-//     </div>
-//   );
-// };
-
-// export default RestaurantsPage;
-
-
-// Development
 export const getStaticPaths = async () => {
-  const res = await fetch("https://jsonplaceholder.typicode.com/users");
-  const json = await res.json();
+  // fetch all restaurants from next api
+  const restaurants = await fetch("http://localhost:3000/api/restaurants");
+  const restaurantsJson = await restaurants.json();
+
+  const paths = restaurantsJson.map((restaurant) => ({
+    params: { slug: restaurant._id.toString() },
+  }));
 
   return {
-    paths: json.map(user => ({
-      params: { slug: user.id.toString(), id: user.id.toString() },
-    })),
+    paths: paths,
     fallback: false,
   };
 };
 
-export const getStaticProps = async ({ params }) => {
-  const res = await fetch(
-    `https://jsonplaceholder.typicode.com/users/${params.slug}`
-  );
-  const json = await res.json();
+export const getStaticProps = async context => {
+  const { slug } = context.params;
+  // get resturant data as well as reviews
+  const restaurantJson = await fetch(`http://localhost:3000/api/getRestaurant?id=${slug}`);
+  const restaurant = await restaurantJson.json();
+
+  // get all restaurant reviews
+  const reviewJson = await fetch(`http://localhost:3000/api/reviews?id=${slug}`);
+  const reviews = await reviewJson.json();
+
+  const reviewers = reviews.map((review) => review.reviewer);
+
+  const users = reviewers.map((reviewer) => reviewer.$id);
+
+  // map users to each review
+  const reviewsWithUsers = reviews.map((review) => {
+    const reviewer = review.reviewer;
+    const user = users.find((user) => user === reviewer.$id);
+    return { ...review, user };
+  });
 
   return {
     props: {
-      placeholder: json,
+      restaurant: restaurant,
+      reviews: reviewsWithUsers,
     },
   };
 };
 
-const RestaurantsPage = ({ placeholder }) => {
-  const title = `Shiro Restaurant`;
-  const orgImage = "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-  const tags = ["Japanese", "Styled", "Restaurant"];
-  const { name } = placeholder;
+const RestaurantsPage = ({ restaurant }) => {
+  const { title, tags, images } = restaurant;
   const currrentUser = {
     name: "John Doe",
     avatar: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
@@ -212,7 +139,7 @@ const RestaurantsPage = ({ placeholder }) => {
   ];
   return (
     <div>
-      <RestaurantsHero image={orgImage}
+      <RestaurantsHero image={images[0]}
         title={title}
         tags={tags}
       />
