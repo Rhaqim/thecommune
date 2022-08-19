@@ -18,16 +18,16 @@ export default async function handler(req, res) {
             res.status(400).json({ message: "Invalid request body" + validate.errors });
             return;
         }
-        // create new restaurant
-        const data = res.body
-        data.createdAt = new Date();
-        data.updatedAt = new Date();
-        // const result = await creatNewRestaurant(data);
-        // if (result) {
-        //     res.status(201).json({ message: "Restaurant created" });
-        // } else {
-        //     res.status(500).json({ message: "Something went wrong" });
-        // }
+        // change created_at to current date
+        req.body.createdAt = new Date();
+        req.body.updatedAt = new Date();
+        
+        const result = await creatNewRestaurant(req.body);
+        if (result) {
+            res.status(201).json({ message: "Restaurant created" });
+        } else {
+            res.status(500).json({ message: "Something went wrong" });
+        }
 
     }
 }
