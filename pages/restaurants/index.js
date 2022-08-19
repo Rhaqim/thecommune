@@ -5,8 +5,9 @@ import { motion } from "framer-motion";
 
 export const getStaticProps = async () => {
   // fetch all restaurants from next api
-  // const restaurants = await fetch("api/restaurants");
-  // const restaurantsJson = await restaurants.json();
+  const restaurants = await fetch("http://localhost:3000/api/restaurants");
+  const restaurantsJson = await restaurants.json();
+  console.log(restaurantsJson);
 
   const photos = await fetch("https://jsonplaceholder.typicode.com/photos?_limit=30");
   const photosJson = await photos.json();
@@ -14,7 +15,7 @@ export const getStaticProps = async () => {
   return {
     props: {
       photos: photosJson,
-      // restaurants: restaurantsJson,
+      restaurants: restaurantsJson[0],
     }
   }
 };
@@ -35,14 +36,14 @@ const restaurants = ({ restaurants, photos }) => {
       <div className="max-w-2xl mx-auto px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
         <div className="grid grid-cols-2 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-5 xl:gap-x-6">
           {photos.map((photo) => (
-            <Link key={photo.id} href={`/restaurants/${photo.id}`}>
+            <Link key={restaurants.id} href={`/restaurants/${restaurants.id}`}>
             {/* <Link key={restaurant.id} href={`/restaurants/${restaurant.slug}`}> */}
               <motion.div
               className="p-1 m-2 cursor-pointer"
               >
                 <motion.img
-                  src={photo.thumbnailUrl}
-                  alt={photo.title}
+                  src={restaurants.images[0]}
+                  alt={restaurants.title}
                   whileHover={{ scale: 1.15, rotate: 5 }}
                   whileTap={{ scale: 0.9 }}
                   className="h-48 w-full object-cover rounded-lg shadow-lg"
@@ -54,7 +55,7 @@ const restaurants = ({ restaurants, photos }) => {
                   whileTap={{ opacity: 0.5, scale: 0.9 }}
                   className="text-center text-md text-white font-semibold pt-12 items-center justify-center"
                 >
-                  {photo.title}
+                  {restaurants.title}
                 </motion.button>
               </motion.div>
             </Link>
