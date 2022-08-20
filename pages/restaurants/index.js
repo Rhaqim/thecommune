@@ -5,7 +5,9 @@ import { motion } from "framer-motion";
 
 export const getStaticProps = async () => {
   // fetch all restaurants from next api
-  const restaurants = await fetch("http://localhost:3000/api/restaurants");
+  const uriDev = "http://localhost:3000/api/restaurants";
+  const uriProd = "https://thecommune.vercel.app/api/restaurants";
+  const restaurants = await fetch(uriProd);
   const restaurantsJson = await restaurants.json();
 
   return {

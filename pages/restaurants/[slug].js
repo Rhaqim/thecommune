@@ -7,7 +7,10 @@ import WriteReview from "../../components/WriteReview";
 //Production
 export const getStaticPaths = async () => {
   // fetch all restaurants from next api
-  const restaurants = await fetch("http://localhost:3000/api/restaurants");
+  const uriDev = "http://localhost:3000/api/restaurants";
+  const uriProd = "https://thecommune.vercel.app/api/restaurants";
+
+  const restaurants = await fetch(uriProd);
   const restaurantsJson = await restaurants.json();
 
   const paths = restaurantsJson.map((restaurant) => ({
@@ -22,12 +25,19 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async context => {
   const { slug } = context.params;
+  
   // get resturant data as well as reviews
-  const restaurantJson = await fetch(`http://localhost:3000/api/getRestaurant?id=${slug}`);
+  const uriDev = "http://localhost:3000/api/getRestaurant";
+  const uriProd = "https://thecommune.vercel.app/api/getRestaurant";
+
+  const restaurantJson = await fetch(uriProd + `?id=${slug}`);
   const restaurant = await restaurantJson.json();
 
   // get all restaurant reviews
-  const reviewJson = await fetch(`http://localhost:3000/api/reviews?id=${slug}`);
+  const reviewuriDev = "http://localhost:3000/api/reviews";
+  const reviewuriProd = "https://thecommune.vercel.app/api/reviews";
+
+  const reviewJson = await fetch(reviewuriProd + `?id=${slug}`);
   const reviews = await reviewJson.json();
 
   const getReviewer =  () => {
