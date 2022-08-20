@@ -30,16 +30,19 @@ export const getStaticProps = async context => {
   const reviewJson = await fetch(`http://localhost:3000/api/reviews?id=${slug}`);
   const reviews = await reviewJson.json();
 
-  const reviewers = reviews.map((review) => review.reviewer);
+  const getReviewer =  () => {
+    const reviewers = reviews.map((review) => review.reviewer);
+    const users = reviewers.map((reviewer) => reviewer.$id);
 
-  const users = reviewers.map((reviewer) => reviewer.$id);
+    // map users to each review
+    const reviewsWithUsers = reviews.map((review) => {
+      const reviewer = review.reviewer;
+      const user = users.find((user) => user === reviewer.$id);
+      return { ...review, user };
+    });
 
-  // map users to each review
-  const reviewsWithUsers = reviews.map((review) => {
-    const reviewer = review.reviewer;
-    const user = users.find((user) => user === reviewer.$id);
-    return { ...review, user };
-  });
+    return reviewsWithUsers;
+  };
 
   // const names = reviewsWithUsers.map((review) => {
   //   const findUserName = async () => {
@@ -53,7 +56,7 @@ export const getStaticProps = async context => {
   return {
     props: {
       restaurant: restaurant,
-      reviews: reviewsWithUsers,
+      reviews: getReviewer(),
     },
   };
 };
