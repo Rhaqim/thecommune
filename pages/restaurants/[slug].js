@@ -7,10 +7,17 @@ import WriteReview from "../../components/WriteReview";
 //Production
 export const getStaticPaths = async () => {
   // fetch all restaurants from next api
-  const uriDev = "http://localhost:3000/api/restaurants";
-  const uriProd = "https://thecommune.vercel.app/api/restaurants";
+  const uriDev = process.env.RESTAURANTS_URI_DEV;
+  const uriProd = process.env.RESTAURANTS_URI_PROD;
 
-  const restaurants = await fetch(uriProd);
+  let restaurantURI
+  if (process.env.ENV === "production") {
+    restaurantURI = uriProd;
+  } else {
+    restaurantURI = uriDev;
+  }
+
+  const restaurants = await fetch(restaurantURI);
   const restaurantsJson = await restaurants.json();
 
   const paths = restaurantsJson.map((restaurant) => ({
@@ -27,17 +34,31 @@ export const getStaticProps = async context => {
   const { slug } = context.params;
   
   // get resturant data as well as reviews
-  const uriDev = "http://localhost:3000/api/getRestaurant";
-  const uriProd = "https://thecommune.vercel.app/api/getRestaurant";
+  const uriDev = process.env.GET_RESTAURANTS_URI_DEV;
+  const uriProd = process.env.GET_RESTAURANTS_URI_PROD;
 
-  const restaurantJson = await fetch(uriProd + `?id=${slug}`);
+  let restaurantURI
+  if (process.env.ENV === "production") {
+    restaurantURI = uriProd;
+  } else {
+    restaurantURI = uriDev;
+  }
+
+  const restaurantJson = await fetch(restaurantURI + `?id=${slug}`);
   const restaurant = await restaurantJson.json();
 
   // get all restaurant reviews
-  const reviewuriDev = "http://localhost:3000/api/reviews";
-  const reviewuriProd = "https://thecommune.vercel.app/api/reviews";
+  const reviewuriDev = process.env.GET_REVIEW_URI_DEV;
+  const reviewuriProd = process.env.GET_REVIEW_URI_PROD;
 
-  const reviewJson = await fetch(reviewuriProd + `?id=${slug}`);
+  let reviewURI
+  if (process.env.ENV === "production") {
+    reviewURI = reviewuriProd;
+  } else {
+    reviewURI = reviewuriDev;
+  }
+
+  const reviewJson = await fetch(reviewURI + `?id=${slug}`);
   const reviews = await reviewJson.json();
 
   const getReviewer =  () => {
