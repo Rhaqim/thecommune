@@ -3,7 +3,7 @@ import { ImArrowRight2, ImArrowLeft2 } from "react-icons/im";
 import { IoIosThumbsUp, IoIosThumbsDown } from "react-icons/io";
 
 const RestaurantReviews = ({ reviews, children }) => {
-  const { reviewer, reviewDate, reviewRating, like, dislike, reviewImages } = reviews;
+  const { user, createdAt, reviewRating, like, dislike, reviewImages } = reviews;
   
   const [rate, setRate] = useState(null);
 
@@ -93,11 +93,11 @@ const RestaurantReviews = ({ reviews, children }) => {
         <div className="justify-center align-center mx-2 my-2 p-2 bg-gray-600 rounded-xl">
           <div className="bg-black rounded-lg p-3 mb-2">
             <div className="flex justify-between rounded-lg p-2">
-              <h1 className="text-lg text-left">{reviewer}</h1>
+              <h1 className="text-lg text-left">{user}</h1>
               <h1 className="text-lg text-center invisible lg:visible">
                 RATING: {rate}
               </h1>
-              <h1 className="text-sm text-right">{reviewDate}</h1>
+              <h1 className="text-sm text-right">{createdAt}</h1>
             </div>
             <div className="bg-gray-600 rounded-md p-3">
               <p className="font-bold underline">Comments...</p>
