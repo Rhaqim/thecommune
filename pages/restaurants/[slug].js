@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import RestaurantsHero from "../../components/RestaurantsHero";
 import CommuneInfoSection from "../../components/CommuneInfoSection";
 import RestaurantReviews from "../../components/RestaurantReviews";
@@ -7,7 +7,7 @@ import WriteReview from "../../components/WriteReview";
 //Production
 export const getStaticPaths = async () => {
   // fetch all restaurants from next api
-  const restaurantURI = process.env.RESTAURANTS_URI
+  const restaurantURI = process.env.NEXT_RESTAURANTS_URI
 
   const restaurants = await fetch(restaurantURI);
   const restaurantsJson = await restaurants.json();
@@ -26,13 +26,13 @@ export const getStaticProps = async context => {
   const { slug } = context.params;
   
   // get resturant data as well as reviews
-  const restaurantsURI = process.env.GET_RESTAURANTS_URI
+  const restaurantsURI = process.env.NEXT_GET_RESTAURANTS_URI
 
   const restaurantJson = await fetch(restaurantsURI + `?id=${slug}`);
   const restaurant = await restaurantJson.json();
 
   // get all restaurant reviews
-  const reviewURI = process.env.GET_REVIEW_URI;
+  const reviewURI = process.env.NEXT_GET_REVIEW_URI;
 
   const reviewJson = await fetch(reviewURI + `?id=${slug}`);
   const reviews = await reviewJson.json();

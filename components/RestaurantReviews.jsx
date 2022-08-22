@@ -3,8 +3,9 @@ import { ImArrowRight2, ImArrowLeft2 } from "react-icons/im";
 import { IoIosThumbsUp, IoIosThumbsDown } from "react-icons/io";
 
 const getReviewer = async id => {
+  const reviewerURI = process.env.NEXT_GET_REVIEWER_URI;
   const response = await fetch(
-    `http://localhost:3000/api/getReviewer?id=${id}`
+    reviewerURI + `?id=${id}`
   );
   const data = await response.json();
   return data.username;

@@ -23,18 +23,20 @@ const WriteReview = ({ user }) => {
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 ">
                   <div className="flex justify-center items-center">
-                    <img
-                      src={avatar}
-                      className="mx-2 mt-1 cursor-pointer object-cover rounded-full"
-                      style={{ height: 60, width: 60 }}
-                      onMouseEnter={({ target }) => {
-                        target.style.transform = "scale(1.2)";
-                      }}
-                      onMouseLeave={({ target }) => {
-                        target.style.transform = "scale(1)";
-                      }}
-                      alt="avatar"
-                    />
+                    <picture>
+                      <img
+                        src={avatar}
+                        className="mx-2 mt-1 cursor-pointer object-cover rounded-full"
+                        style={{ height: 60, width: 60 }}
+                        onMouseEnter={({ target }) => {
+                          target.style.transform = "scale(1.2)";
+                        }}
+                        onMouseLeave={({ target }) => {
+                          target.style.transform = "scale(1)";
+                        }}
+                        alt="avatar"
+                      />
+                    </picture>
                     <h3 className="text-3xl font-semibold pl-1">{name}</h3>
                   </div>
                   <button

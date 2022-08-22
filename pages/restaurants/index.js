@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 export const getStaticProps = async () => {
   // fetch all restaurants from next api
   try{
-    const restaurantsURI = process.env.RESTAURANTS_URI;
+    const restaurantsURI = process.env.NEXT_RESTAURANTS_URI;
 
     const restaurants = await fetch(restaurantsURI);
     const restaurantsJson = await restaurants.json();

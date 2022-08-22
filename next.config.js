@@ -6,16 +6,16 @@ const nextConfig = {
     domains: ["images.unsplash.com"],
   },
   env: {
-    MONGODB_URI: process.env.MONGODB_URI,
-    MONGODB_DB: process.env.MONGODB_DB,
+    NEXT_MONGODB_URI: process.env.NEXT_MONGODB_URI,
+    NEXT_MONGODB_DB: process.env.NEXT_MONGODB_DB,
 
-    ENV: process.env.ENV,
+    NEXT_RESTAURANTS_URI: process.env.NEXT_RESTAURANTS_URI,
 
-    RESTAURANTS_URI: process.env.RESTAURANTS_URI,
+    NEXT_GET_RESTAURANTS_URI: process.env.NEXT_GET_RESTAURANTS_URI,
 
-    GET_RESTAURANTS_URI: process.env.GET_RESTAURANTS_URI,
+    NEXT_GET_REVIEW_URI: process.env.NEXT_GET_REVIEW_URI,
 
-    GET_REVIEW_URI: process.env.GET_REVIEW_URI,
+    NEXT_GET_REVIEWER_URI: process.env.NEXT_GET_REVIEWER_URI,
   },
   webpack: (config, options) => {
     config.module.rules.push({
