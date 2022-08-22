@@ -18,38 +18,6 @@ export const getServerSideProps = async (context) => {
     };
 };
 
-
-
-
-
-
-// export const getStaticProps = async () => {
-//   // fetch all restaurants from next api
-//   try{
-//     const restaurantsURI = process.env.NEXT_RESTAURANTS_URI;
-
-//     const restaurants = await fetch(restaurantsURI);
-//     const restaurantsJson = await restaurants.json();
-
-//     if (!restaurantsJson) {
-//       return {
-//         notFound: true,
-//       };
-//     }
-
-//     return {
-//       props: {
-//         restaurants: restaurantsJson,
-//       }
-//     }
-//   } catch (error) {
-//     console.log(error);
-//     return {
-//       notFound: true,
-//     };
-//   }
-// };
-
 /*
 variants to show hidden text on hover
 */

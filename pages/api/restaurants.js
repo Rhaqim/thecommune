@@ -49,7 +49,7 @@ const schema = {
         rating: {type : "integer"},
         openingTime: {type: "array"},
         currency: {type : "string"},
-        avgPrice: {type : "float"},
+        avgPrice: {type : "integer"},
         categories: {type: "array"},
         tags: {type: "array"},
         createdAt: {type: "string"},
