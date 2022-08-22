@@ -4,59 +4,21 @@ import CommuneInfoSection from "../../components/CommuneInfoSection";
 import RestaurantReviews from "../../components/RestaurantReviews";
 import WriteReview from "../../components/WriteReview";
 
-//Production
-export const getStaticPaths = async () => {
-  // fetch all restaurants from next api
-  const restaurantURI = process.env.NEXT_RESTAURANTS_URI
+import { getRestaurantById, getRestaurantsReview } from "../../lib/DB/DBExecutions";
 
-  const restaurants = await fetch(restaurantURI);
-  const restaurantsJson = await restaurants.json();
 
-  const paths = restaurantsJson.map((restaurant) => ({
-    params: { slug: restaurant._id.toString() },
-  }));
+export const getServerSideProps = async (context) => {
+    const { slug } = context.query;
+    const restaurants = await getRestaurantById(slug);
 
-  return {
-    paths: paths,
-    fallback: false,
-  };
-};
+    const reviews = await getRestaurantsReview(slug);
 
-export const getStaticProps = async context => {
-  const { slug } = context.params;
-  
-  // get resturant data as well as reviews
-  const restaurantsURI = process.env.NEXT_GET_RESTAURANTS_URI
-
-  const restaurantJson = await fetch(restaurantsURI + `?id=${slug}`);
-  const restaurant = await restaurantJson.json();
-
-  // get all restaurant reviews
-  const reviewURI = process.env.NEXT_GET_REVIEW_URI;
-
-  const reviewJson = await fetch(reviewURI + `?id=${slug}`);
-  const reviews = await reviewJson.json();
-
-  const getReviewer =  () => {
-    const reviewers = reviews.map((review) => review.reviewer);
-    const users = reviewers.map((reviewer) => reviewer.$id);
-
-    // map users to each review
-    const reviewsWithUsers = reviews.map((review) => {
-      const reviewer = review.reviewer;
-      const user = users.find((user) => user === reviewer.$id);
-      return { ...review, user };
-    });
-
-    return reviewsWithUsers;
-  };
-
-  return {
-    props: {
-      restaurant: restaurant,
-      reviews: getReviewer(),
-    },
-  };
+    return {
+        props: {
+            restaurant: JSON.parse(JSON.stringify(restaurants)),
+            reviews: JSON.parse(JSON.stringify(reviews)),
+        },
+    };
 };
 
 const RestaurantsPage = ({ restaurant, reviews }) => {

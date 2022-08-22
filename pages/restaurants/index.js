@@ -3,32 +3,52 @@ import Link from "next/link";
 import RestaurantsHeading from "../../components/RestaurantsHeading";
 import { motion } from "framer-motion";
 
-export const getStaticProps = async () => {
-  // fetch all restaurants from next api
-  try{
-    const restaurantsURI = process.env.NEXT_RESTAURANTS_URI;
+import { getRestaurants } from "../../lib/DB/DBExecutions";
 
-    const restaurants = await fetch(restaurantsURI);
-    const restaurantsJson = await restaurants.json();
 
-    if (!restaurantsJson) {
-      return {
-        notFound: true,
-      };
-    }
+export const getServerSideProps = async (context) => {
+    const restaurants = await getRestaurants();
+
+    const restaurant = JSON.parse(JSON.stringify(restaurants));
 
     return {
-      props: {
-        restaurants: restaurantsJson,
-      }
-    }
-  } catch (error) {
-    console.log(error);
-    return {
-      notFound: true,
+        props: {
+            restaurants: restaurant,
+        },
     };
-  }
 };
+
+
+
+
+
+
+// export const getStaticProps = async () => {
+//   // fetch all restaurants from next api
+//   try{
+//     const restaurantsURI = process.env.NEXT_RESTAURANTS_URI;
+
+//     const restaurants = await fetch(restaurantsURI);
+//     const restaurantsJson = await restaurants.json();
+
+//     if (!restaurantsJson) {
+//       return {
+//         notFound: true,
+//       };
+//     }
+
+//     return {
+//       props: {
+//         restaurants: restaurantsJson,
+//       }
+//     }
+//   } catch (error) {
+//     console.log(error);
+//     return {
+//       notFound: true,
+//     };
+//   }
+// };
 
 /*
 variants to show hidden text on hover
