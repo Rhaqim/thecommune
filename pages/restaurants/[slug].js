@@ -7,15 +7,7 @@ import WriteReview from "../../components/WriteReview";
 //Production
 export const getStaticPaths = async () => {
   // fetch all restaurants from next api
-  const uriDev = process.env.RESTAURANTS_URI_DEV;
-  const uriProd = process.env.RESTAURANTS_URI_PROD;
-
-  let restaurantURI
-  if (process.env.ENV === "production") {
-    restaurantURI = uriProd;
-  } else {
-    restaurantURI = uriDev;
-  }
+  const restaurantURI = process.env.RESTAURANTS_URI
 
   const restaurants = await fetch(restaurantURI);
   const restaurantsJson = await restaurants.json();
@@ -34,29 +26,13 @@ export const getStaticProps = async context => {
   const { slug } = context.params;
   
   // get resturant data as well as reviews
-  const uriDev = process.env.GET_RESTAURANTS_URI_DEV;
-  const uriProd = process.env.GET_RESTAURANTS_URI_PROD;
+  const restaurantsURI = process.env.GET_RESTAURANTS_URI
 
-  let restaurantURI
-  if (process.env.ENV === "production") {
-    restaurantURI = uriProd;
-  } else {
-    restaurantURI = uriDev;
-  }
-
-  const restaurantJson = await fetch(restaurantURI + `?id=${slug}`);
+  const restaurantJson = await fetch(restaurantsURI + `?id=${slug}`);
   const restaurant = await restaurantJson.json();
 
   // get all restaurant reviews
-  const reviewuriDev = process.env.GET_REVIEW_URI_DEV;
-  const reviewuriProd = process.env.GET_REVIEW_URI_PROD;
-
-  let reviewURI
-  if (process.env.ENV === "production") {
-    reviewURI = reviewuriProd;
-  } else {
-    reviewURI = reviewuriDev;
-  }
+  const reviewURI = process.env.GET_REVIEW_URI;
 
   const reviewJson = await fetch(reviewURI + `?id=${slug}`);
   const reviews = await reviewJson.json();
@@ -74,15 +50,6 @@ export const getStaticProps = async context => {
 
     return reviewsWithUsers;
   };
-
-  // const names = reviewsWithUsers.map((review) => {
-  //   const findUserName = async () => {
-  //     const reviewerJson = await fetch(`http://localhost:3000/api/getReviewer?id=${review.user}`);
-  //     const reviewer = await reviewerJson.json();
-  //     return reviewer;
-  //   }
-  //   return findUserName()
-  // });
 
   return {
     props: {

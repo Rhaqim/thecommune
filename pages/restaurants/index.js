@@ -5,23 +5,28 @@ import { motion } from "framer-motion";
 
 export const getStaticProps = async () => {
   // fetch all restaurants from next api
-  const uriDev = process.env.RESTAURANTS_URI_DEV;
-  const uriProd = process.env.RESTAURANTS_URI_PROD;
+  try{
+    const restaurantsURI = process.env.RESTAURANTS_URI;
 
-  let restaurantURI
-  if (process.env.ENV === "production") {
-    restaurantURI = uriProd;
-  } else {
-    restaurantURI = uriDev;
-  }
+    const restaurants = await fetch(restaurantsURI);
+    const restaurantsJson = await restaurants.json();
 
-  const restaurants = await fetch(restaurantURI);
-  const restaurantsJson = await restaurants.json();
-
-  return {
-    props: {
-      restaurants: restaurantsJson,
+    if (!restaurantsJson) {
+      return {
+        notFound: true,
+      };
     }
+
+    return {
+      props: {
+        restaurants: restaurantsJson,
+      }
+    }
+  } catch (error) {
+    console.log(error);
+    return {
+      notFound: true,
+    };
   }
 };
 

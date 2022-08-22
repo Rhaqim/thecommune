@@ -2,9 +2,22 @@ import React, { useState, useEffect } from "react";
 import { ImArrowRight2, ImArrowLeft2 } from "react-icons/im";
 import { IoIosThumbsUp, IoIosThumbsDown } from "react-icons/io";
 
+const getReviewer = async id => {
+  const response = await fetch(
+    `http://localhost:3000/api/getReviewer?id=${id}`
+  );
+  const data = await response.json();
+  return data.username;
+};
+
 const RestaurantReviews = ({ reviews, children }) => {
-  const { user, createdAt, reviewRating, like, dislike, reviewImages } = reviews;
-  
+  const { user, createdAt, reviewRating, like, dislike, reviewImages } =
+    reviews;
+
+  console.log("The user is", user);
+
+  const [reviewer, setReviewer] = useState("");
+
   const [rate, setRate] = useState(null);
 
   const [modal, setModal] = useState(false);
@@ -73,6 +86,16 @@ const RestaurantReviews = ({ reviews, children }) => {
   };
 
   useEffect(() => {
+    let mounted = true;
+    getReviewer(user).then(items => {
+      if (mounted) {
+        setReviewer(items);
+      }
+    });
+    return () => (mounted = false);
+  }, [user]);
+
+  useEffect(() => {
     setRate("⭐️".repeat(reviewRating));
   }, [reviewRating]);
 
@@ -93,7 +116,7 @@ const RestaurantReviews = ({ reviews, children }) => {
         <div className="justify-center align-center mx-2 my-2 p-2 bg-gray-600 rounded-xl">
           <div className="bg-black rounded-lg p-3 mb-2">
             <div className="flex justify-between rounded-lg p-2">
-              <h1 className="text-lg text-left">{user}</h1>
+              <h1 className="text-lg text-left">{reviewer}</h1>
               <h1 className="text-lg text-center invisible lg:visible">
                 RATING: {rate}
               </h1>
@@ -108,19 +131,21 @@ const RestaurantReviews = ({ reviews, children }) => {
                   (image, index = index.toString() + "aasimge1") => (
                     <div key={index}>
                       {/* <span>close</span> */}
-                      <img
-                        src={image}
-                        alt="rating"
-                        className="mx-2 mt-1 cursor-pointer rounded-md"
-                        style={{ height: 50, width: 50 }}
-                        onMouseEnter={({ target }) => {
-                          target.style.transform = "scale(1.2)";
-                        }}
-                        onMouseLeave={({ target }) => {
-                          target.style.transform = "scale(1)";
-                        }}
-                        onClick={() => initailDisplay({ index })}
-                      />
+                      <picture>
+                        <img
+                          src={image}
+                          alt="rating"
+                          className="mx-2 mt-1 cursor-pointer rounded-md"
+                          style={{ height: 50, width: 50 }}
+                          onMouseEnter={({ target }) => {
+                            target.style.transform = "scale(1.2)";
+                          }}
+                          onMouseLeave={({ target }) => {
+                            target.style.transform = "scale(1)";
+                          }}
+                          onClick={() => initailDisplay({ index })}
+                        />
+                      </picture>
                     </div>
                   )
                 )}
@@ -179,12 +204,14 @@ const RestaurantReviews = ({ reviews, children }) => {
                         className="absolute top-[50%] left-[30px] text-white/70 cursor-pointer select-none z-[2] hover:bg-black rounded-xl"
                       />
                       {index === currentRatingImage && (
-                        <img
-                          src={image}
-                          alt="rating"
-                          draggable="true"
-                          className="rounded-t-lg w-[1440] h-[600] object-cover px-2"
-                        />
+                        <picture>
+                          <img
+                            src={image}
+                            alt="rating"
+                            draggable="true"
+                            className="rounded-t-lg w-[1440] h-[600] object-cover px-2"
+                          />
+                        </picture>
                       )}
                       <ImArrowRight2
                         onClick={nextImage}

@@ -11,14 +11,11 @@ const nextConfig = {
 
     ENV: process.env.ENV,
 
-    RESTAURANTS_URI_DEV: process.env.RESTAURANTS_URI_DEV,
-    RESTAURANTS_URI_PROD: process.env.RESTAURANTS_URI_PROD,
+    RESTAURANTS_URI: process.env.RESTAURANTS_URI,
 
-    GET_RESTAURANTS_URI_DEV: process.env.GET_RESTAURANTS_URI_DEV,
-    GET_RESTAURANTS_URI_PROD: process.env.GET_RESTAURANTS_URI_PROD,
+    GET_RESTAURANTS_URI: process.env.GET_RESTAURANTS_URI,
 
-    GET_REVIEW_URI_DEV: process.env.GET_REVIEW_URI_DEV,
-    GET_REVIEW_URI_PROD: process.env.GET_REVIEW_URI_PROD,
+    GET_REVIEW_URI: process.env.GET_REVIEW_URI,
   },
   webpack: (config, options) => {
     config.module.rules.push({
