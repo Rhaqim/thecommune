@@ -37,7 +37,7 @@ const RestaurantsPage = ({ restaurant, reviews }) => {
   };
   return (
     <div>
-      <RestaurantsHero image={images[0]}
+      <RestaurantsHero image={images[1].uri}
         title={title}
         tags={tags}
       />

@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import About from '../components/About'
 import Contact from '../components/Contact'
+import Footer from '../components/Footer'
 import Hero from '../components/Hero'
 import HomeSection from '../components/HomeSection'
 import Testimonials from '../components/Testimonials'
@@ -34,6 +35,8 @@ export default function Home() {
       </HomeSection>
       <Testimonials />
       <Contact />
+      
+      <Footer />
     </div>
   )
 }

@@ -44,8 +44,6 @@ const schema = {
         email: {type : "string"},
         website: {type : "string"},
         images: {type: "array"},
-        latitude: {type : "string"},
-        longitude: {type : "string"},
         rating: {type : "integer"},
         openingTime: {type: "array"},
         currency: {type : "string"},
@@ -55,6 +53,6 @@ const schema = {
         createdAt: {type: "string"},
         updatedAt: {type: "string"},
     },
-    required: ["title", "description", "slug", "address", "phone", "email", "website", "images", "latitude", "longitude", "rating", "openingTime", "currency", "avgPrice", "categories", "tags", "createdAt", "updatedAt"],
+    required: ["title", "description", "slug", "address", "phone", "email", "website", "images", "rating", "openingTime", "currency", "avgPrice", "categories", "tags"],
     additionalProperties: false,
 };

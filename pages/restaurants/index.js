@@ -39,7 +39,7 @@ const restaurants = ({ restaurants }) => {
               className="p-1 m-2 cursor-pointer"
               >
                 <motion.img
-                  src={restaurant.images[0]}
+                  src={restaurant.images[0].uri}
                   alt={restaurant.title}
                   whileHover={{ scale: 1.15, rotate: 5 }}
                   whileTap={{ scale: 0.9 }}
