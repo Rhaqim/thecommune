@@ -22,7 +22,7 @@ export const getServerSideProps = async (context) => {
 };
 
 const RestaurantsPage = ({ restaurant, reviews }) => {
-  const { title, tags, images } = restaurant;
+  const { title, tags, images, avgPrice, rating } = restaurant;
   const currrentUser = {
     name: "John Doe",
     avatar: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
@@ -41,7 +41,11 @@ const RestaurantsPage = ({ restaurant, reviews }) => {
         title={title}
         tags={tags}
       />
-      <CommuneInfoSection />
+      <CommuneInfoSection 
+      avgRating={rating}
+      budget={avgPrice}
+      meal_of_the_week={"SUSHI"}
+      />
       <div className="py-[3rem]">
         <h1 className="text-white text-5xl text-center">Reviews</h1>
       </div>
