@@ -11,29 +11,31 @@ const Footer = () => {
   }, []);
 
   return (
-    <div className="max-w-[1240] mx-auto bg-[#A1A1A1] justify-center items-center text-center py-16 px-5">
-      <div className="py-[3rem]">
-        <h1 className="text-black text-5xl">Reach Us</h1>
-      </div>
-      <div className="">
-        <ul className="text-black grid lg:grid-cols-3 sm:grid-cols-1">
-          <li>
-            <a href={"#"}>
-              <FaFacebook style={{ color: "#3b5998" }} size={20} />
-            </a>
-          </li>
-          <li>
-            <a href={"#"}>
-              <FaInstagram style={{ color: "#e1306c" }} size={20} />
-            </a>
-          </li>
-          <li>
-            <a href={"#"}>
-              <FaTwitter style={{ color: "#00acee" }} size={20} />
-            </a>
-          </li>
-        </ul>
-      </div>
+    <div className="max-w-[1240] mx-auto mt-auto bg-[#A1A1A1] py-16 px-5">
+      <footer className="flex flex-col justify-center items-center text-center">
+        <div className="py-[3rem]">
+          <h1 className="text-black text-5xl">Reach Us</h1>
+        </div>
+        <div className="">
+          <ul className="text-black grid lg:grid-cols-3 sm:grid-cols-1">
+            <li>
+              <a href={"#"}>
+                <FaFacebook style={{ color: "#3b5998" }} size={20} />
+              </a>
+            </li>
+            <li>
+              <a href={"#"}>
+                <FaInstagram style={{ color: "#e1306c" }} size={20} />
+              </a>
+            </li>
+            <li>
+              <a href={"#"}>
+                <FaTwitter style={{ color: "#00acee" }} size={20} />
+              </a>
+            </li>
+          </ul>
+        </div>
+      </footer>
     </div>
   );
 };
