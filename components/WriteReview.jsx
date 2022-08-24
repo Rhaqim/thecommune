@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
+import { BsCardImage } from "react-icons/bs";
 
 const WriteReview = ({ user }) => {
   const [showModal, setShowModal] = React.useState(false);
+  const [spent, setSpent] = useState(0)
+
+  const handleOnChange = (e) => {
+    setSpent(e.target.value)
+  }
+
   const { name, avatar } = user;
   return (
     <>
@@ -57,6 +64,45 @@ const WriteReview = ({ user }) => {
                     maxLength={500}
                     placeholder="Write your review here..."
                   />
+                </div>
+                {/* Additional Info */}
+                <div>
+                  <div className="flex justify-between items-center p-5">
+                    <div className="flex items-center space-x-2">
+                      <div className="flex items-center">
+                        <input
+                          type="checkbox"
+                          className="form-checkbox h-5 w-5 text-pink-500"
+                        />
+                        <label className="ml-2 text-white">Spoiler</label>
+                      </div>
+                      <div className="flex items-center">
+                        <input
+                          type="range"
+                          className="w-32"
+                          min={0}
+                          max={1000000}
+                          step={10000}
+                          defaultValue={10000}
+                          id="spent"
+                          name="spent"
+                          onChange={handleOnChange}
+                        />
+                        : <span className="text-white ml-2">{spent}</span>
+                        <label className="ml-2 text-white">Spent</label>
+                      </div>
+                      <div className="flex items-center">
+                        <input
+                          type="file"
+                          className="hidden"
+                          id="file"
+                          accept="image/*"
+                        />
+
+                        <BsCardImage />
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end px-6 ">
