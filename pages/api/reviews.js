@@ -50,6 +50,6 @@ const schema = {
         createdAt: { type: "string" },
         updatedAt: { type: "string" },
     },
-    required: ["reviewer", "review", "reviewRating", "spent", "reviewImages", "restaurant_id", "dislike", "like", "createdAt", "updatedAt"],
+    required: ["reviewer", "review", "restaurant_id", "dislike", "like", "createdAt", "updatedAt"],
     additionalProperties: false,
 };
