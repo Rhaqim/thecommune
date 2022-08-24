@@ -1,15 +1,35 @@
 import React, { useState } from "react";
 import { BsCardImage } from "react-icons/bs";
 
-const WriteReview = ({ user }) => {
+const WriteReview = ({ user, restaurant }) => {
+  const { name, avatar, user_id } = user;
+  const { restaurant_id } = restaurant;
+
   const [showModal, setShowModal] = React.useState(false);
   const [spent, setSpent] = useState(0)
+  const [images, setImages] = useState([])
+  const [rating, setRating] = useState(0)
+  const [review, setReview] = useState("")
+
+  const handleSubmission = async (e) => {
+    e.preventDefault();
+    try {
+      const body = { reviewer: user_id, restaurant_id, spent, reviewImages, reviewRating: rating, review }
+      const response = await fetch("/api/reviews", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      })
+      window.location = "/"
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
 
   const handleOnChange = (e) => {
     setSpent(e.target.value)
   }
 
-  const { name, avatar } = user;
   return (
     <>
       {/* Modal Button */}
