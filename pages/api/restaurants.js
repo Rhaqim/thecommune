@@ -21,6 +21,7 @@ export default async function handler(req, res) {
         // change created_at to current date
         req.body.createdAt = new Date();
         req.body.updatedAt = new Date();
+        req.body.slug = req.body.title.replace(/\s+/g, '-').toLowerCase();
         
         const result = await creatNewRestaurant(req.body);
         if (result) {
