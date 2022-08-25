@@ -3,32 +3,70 @@ import { BsCardImage } from "react-icons/bs";
 
 const WriteReview = ({ user, restaurant }) => {
   const { name, avatar, user_id } = user;
-  const { restaurant_id } = restaurant;
+  const { _id } = restaurant;
+  const restaurant_id = _id;
 
   const [showModal, setShowModal] = React.useState(false);
-  const [spent, setSpent] = useState(0)
-  const [images, setImages] = useState([])
-  const [rating, setRating] = useState(0)
-  const [review, setReview] = useState("")
+  const [spent, setSpent] = useState(0);
+  const [images, setImages] = useState([]);
+  const [rating, setRating] = useState(0);
+  const [review, setReview] = useState("");
 
-  const handleSubmission = async (e) => {
+  const handleImageUpload = e => {
+    const files = e.target.files;
+    const data = new FormData();
+    data.append("file", files[0]);
+    data.append("upload_preset", "restaurant-review");
+    data.append("cloud_name", "dzqxqxqxq");
+    fetch("	https://api.cloudinary.com/v1_1/dzqxqxqxq/image/upload", {
+      method: "post",
+      body: data,
+    })
+      .then(res => res.json())
+      .then(data => {
+        setImages([...images, data.url]);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  const handleSubmission = async e => {
     e.preventDefault();
+    const reviewImages = images
+      .map(image => {
+        return { image };
+      })
+      .filter(image => {
+        return image.image !== "";
+      })
+      .map(image => {
+        return image.image;
+      })
+      .join(",");
     try {
-      const body = { reviewer: user_id, restaurant_id, spent, reviewImages, reviewRating: rating, review }
+      const body = {
+        reviewer: user_id,
+        review,
+        reviewRating: rating,
+        spent,
+        reviewImages,
+        restaurant_id,
+      };
       const response = await fetch("/api/reviews", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body)
-      })
-      window.location = "/"
+        body: JSON.stringify(body),
+      });
+      window.location = "/";
     } catch (error) {
-      console.error(error.message)
+      console.error(error.message);
     }
-  }
+  };
 
-  const handleOnChange = (e) => {
-    setSpent(e.target.value)
-  }
+  const handleOnChange = e => {
+    setSpent(e.target.value);
+  };
 
   return (
     <>
@@ -76,54 +114,64 @@ const WriteReview = ({ user, restaurant }) => {
                   </button>
                 </div>
                 {/*body*/}
-                <div className="relative px-6 flex-auto">
-                  <textarea
-                    className="w-full p-3 text-white bg-black rounded border border-gray-900 placeholder-gray-100 placeholder:opacity-50 shadow-sm focus:outline-none focus:shadow-outline"
-                    cols="30"
-                    rows="5"
-                    maxLength={500}
-                    placeholder="Write your review here..."
-                  />
-                </div>
-                {/* Additional Info */}
-                <div>
-                  <div className="flex justify-between items-center p-5">
-                    <div className="flex items-center space-x-2">
-                      <div className="flex items-center">
-                        <input
-                          type="checkbox"
-                          className="form-checkbox h-5 w-5 text-pink-500"
-                        />
-                        <label className="ml-2 text-white">Spoiler</label>
-                      </div>
-                      <div className="flex items-center">
-                        <input
-                          type="range"
-                          className="w-32"
-                          min={0}
-                          max={1000000}
-                          step={10000}
-                          defaultValue={10000}
-                          id="spent"
-                          name="spent"
-                          onChange={handleOnChange}
-                        />
-                        : <span className="text-white ml-2">{spent}</span>
-                        <label className="ml-2 text-white">Spent</label>
-                      </div>
-                      <div className="flex items-center">
-                        <input
-                          type="file"
-                          className="hidden"
-                          id="file"
-                          accept="image/*"
-                        />
-
-                        <BsCardImage />
+                <form className="flex-1 bg-gray-800 rounded-xl p-6 overflow-y-auto">
+                  <div className="relative px-6 flex-auto">
+                    <textarea
+                      className="w-full p-3 text-white bg-black rounded border border-gray-900 placeholder-gray-100 placeholder:opacity-50 shadow-sm focus:outline-none focus:shadow-outline"
+                      cols="30"
+                      rows="5"
+                      maxLength={500}
+                      placeholder="Write your review here..."
+                    />
+                  </div>
+                  {/* Additional Info */}
+                  <div>
+                    <div className="flex justify-between items-center p-5">
+                      <div className="flex items-center space-x-2">
+                        <div className="flex items-center">
+                          <input
+                            type="range"
+                            className="w-32"
+                            min={0}
+                            max={1000000}
+                            step={10000}
+                            defaultValue={10000}
+                            id="spent"
+                            name="spent"
+                            onChange={handleOnChange}
+                          />
+                          : <span className="text-white ml-2">{spent}</span>
+                          <label className="ml-2 text-white">Spent</label>
+                        </div>
+                        <div className="flex items-center">
+                          {/* Upload Images */}
+                          <div className="flex items-center space-x-2">
+                            <BsCardImage className="h-5 w-5 text-pink-500" />
+                            <input
+                              type="file"
+                              className="form-file h-5 w-5 text-pink-500"
+                              multiple
+                              onChange={e => {
+                                setImages(e.target.files);
+                              }}
+                            />
+                            {/* Display Images */}
+                            <label className="ml-2 text-white">Images: </label>
+                            {images.map(image => (
+                              <picture key={image.name}>
+                                <img
+                                  src={URL.createObjectURL(image)}
+                                  className="h-5 w-5 text-pink-500"
+                                  alt="image"
+                                />
+                              </picture>
+                            ))}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                </form>
                 {/*footer*/}
                 <div className="flex items-center justify-end px-6 ">
                   <button
