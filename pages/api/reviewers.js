@@ -26,10 +26,10 @@ export default async function handler(req, res) {
 
         const result = await createUser(req.body);
         if (result) {
-            res.status(201).json({ message: "Reviewer created" });
+            res.status(201).json(result);
         }
         else {
-            res.status(500).json({ message: "Something went wrong" });
+            res.status(500).json(result);
         }
 
     }
