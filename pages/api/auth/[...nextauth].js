@@ -12,8 +12,5 @@ export default NextAuth({
         })
     ],
     secret: process.env.NEXTAUTH_SECRET,
-    adapter: MongoDBAdapter({
-        client: connectToDatabase(),
-        collection: 'USERS'
-    }),
+    adapter: MongoDBAdapter(connectToDatabase()),
 })
