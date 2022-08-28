@@ -1,10 +1,19 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
+import { useRouter } from "next/router";
 
 const Navbar = () => {
   const { data: session } = useSession();
+  const { push, asPath } = useRouter()
+
+    const handleSignOut = async () => {
+        const data = await signOut({ redirect: false, callbackUrl: '/' })
+        push(data.url)
+    }
+
+    const handleSignIn = () => push(`/account/login?callBackUrl=${asPath}`)
 
   const defaultColor = "transparent";
   const defaultTextColor = "white";
@@ -62,7 +71,7 @@ const Navbar = () => {
             {session ? (
               <Link href="/account/dashboard">Dashboard</Link>
             ) : (
-              <button onClick={signIn} className="sign-in">
+              <button onClick={handleSignIn} className="sign-in">
                 Sign In
               </button>
             )}
@@ -116,7 +125,7 @@ const Navbar = () => {
               {session ? (
                 <Link href="/account/dashboard">Dashboard</Link>
               ) : (
-                <button onClick={signIn} className="sign-in">
+                <button onClick={handleSignIn} className="sign-in">
                   Sign In
                 </button>
               )}

@@ -11,6 +11,9 @@ export default NextAuth({
             scope: ['profile', 'email']
         })
     ],
+    pages: {
+        signIn: '/account/login',
+    },
     secret: process.env.NEXTAUTH_SECRET,
     adapter: MongoDBAdapter(connectToDatabase()),
 })
