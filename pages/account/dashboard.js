@@ -1,38 +1,28 @@
 import React from 'react'
-import { useSession, signIn, signOut } from 'next-auth/react'
-import { useRouter } from 'next/router'
+import { useSession, signOut, signIn } from 'next-auth/react'
 
-const Profile = () => {
+const Dashboard = () => {
     const { data: session, status } = useSession()
 
-    const { push } = useRouter()
-
-    const handleSignOut = async () => {
-        const data = await signOut({ redirect: false, callbackUrl: '/' })
-        push(data.url)
-    }
-
     return (
-        <div>
-            <h1>Profile</h1>
+        <div className='max-w[1240px] justify-center mt-[5rem] items-center text-center py-4'>
             {status === 'loading' && <div>Loading...</div>}
             {session ? (
                 <div>
                     <p>You are logged in. {session.user.email}</p>
                     <p>
-                    <button onClick={handleSignOut}>Sign Out</button>
+                        <button onClick={signOut}>Sign Out</button>
                     </p>
                 </div>
             ) : (
                 <div>
                     <p>You are not logged in.</p>
                     <p>
-                        <button onClick={signIn}>Login</button>
+                        <button className='font-bold bg-slate-400 p-2 rounded-lg px-4' onClick={signIn}>Login</button>
                     </p>
                 </div>
             )}
         </div>
     )
 }
-
-export default Profile
+export default Dashboard

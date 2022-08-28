@@ -13,7 +13,7 @@ const Login = () => {
     }
 
     return (
-        <div className='max-w[1240px] justify-center mt-[5rem] items-center text-center py-4'>
+        <div className='max-w[1240px] justify-center m-auto items-center text-center py-4'>
             {status === 'loading' && <div>Loading...</div>}
             {session ? (
                 <div>

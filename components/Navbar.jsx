@@ -60,7 +60,7 @@ const Navbar = () => {
           </li>
           <li className="p-4 text-bold text-1xl hover:text-gray-500 nav-transition">
             {session ? (
-              <Link href="/dashboard">Dashboard</Link>
+              <Link href="/account/dashboard">Dashboard</Link>
             ) : (
               <button onClick={signIn} className="sign-in">
                 Sign In
@@ -114,7 +114,7 @@ const Navbar = () => {
               className="p-4 text-4xl hover:text-gray-500"
             >
               {session ? (
-                <Link href="/dashboard">Dashboard</Link>
+                <Link href="/account/dashboard">Dashboard</Link>
               ) : (
                 <button onClick={signIn} className="sign-in">
                   Sign In
