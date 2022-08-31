@@ -128,6 +128,7 @@ const WriteReview = ({ user, restaurant }) => {
                       rows="5"
                       maxLength={500}
                       placeholder="Write your review here..."
+                      onChange={e => setReview(e.target.value)}
                     />
                   </div>
                   {/* Additional Info */}
@@ -183,7 +184,7 @@ const WriteReview = ({ user, restaurant }) => {
                                   min="1"
                                   max="5"
                                   defaultValue={rating}
-                                  className="w-full h-full"
+                                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
                                   onChange={e => {
                                     setRating(e.target.value);
                                   }}
@@ -208,7 +209,10 @@ const WriteReview = ({ user, restaurant }) => {
                   <button
                     className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => setShowModal(false)}
+                    onClick={() => {
+                      setShowModal(false);
+                      handleSubmit();
+                    }}
                   >
                     Review
                   </button>
