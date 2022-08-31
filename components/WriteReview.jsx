@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { BsCardImage } from "react-icons/bs";
+import { TbCurrencyNaira } from "react-icons/tb";
 
 const WriteReview = ({ user, restaurant }) => {
   const { name, avatar, user_id } = user;
@@ -129,6 +130,9 @@ const WriteReview = ({ user, restaurant }) => {
                     <div className="flex justify-between items-center p-5">
                       <div className="flex items-center space-x-2">
                         <div className="flex items-center">
+                          <label className="ml-2 text-white">
+                            <TbCurrencyNaira />
+                          </label>
                           <input
                             type="range"
                             className="w-32"
@@ -136,27 +140,29 @@ const WriteReview = ({ user, restaurant }) => {
                             max={1000000}
                             step={10000}
                             defaultValue={10000}
-                            id="spent"
-                            name="spent"
+                            id="budget"
+                            name="budget"
                             onChange={handleOnChange}
                           />
-                          : <span className="text-white ml-2">{spent}</span>
-                          <label className="ml-2 text-white">Spent</label>
+                          <span className="text-white ml-2">{spent}</span>
                         </div>
                         <div className="flex items-center">
                           {/* Upload Images */}
                           <div className="flex items-center space-x-2">
-                            <BsCardImage className="h-5 w-5 text-pink-500" />
+                            <label htmlFor="reviewImages-upload">
+                              <BsCardImage className="h-5 w-5 text-pink-500" />
+                            </label>
                             <input
+                              id="reviewImages-upload"
                               type="file"
-                              className="form-file h-5 w-5 text-pink-500"
+                              className="form-file opacity-0"
                               multiple
                               onChange={e => {
                                 setImages(e.target.files);
                               }}
                             />
                             {/* Display Images */}
-                            <label className="ml-2 text-white">Images: </label>
+                            {/* <label className="ml-2 text-white">Images: </label>
                             {images.map(image => (
                               <picture key={image.name}>
                                 <img
@@ -165,7 +171,7 @@ const WriteReview = ({ user, restaurant }) => {
                                   alt="image"
                                 />
                               </picture>
-                            ))}
+                            ))} */}
                           </div>
                         </div>
                       </div>
