@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { BsCardImage } from "react-icons/bs";
 import { TbCurrencyNaira } from "react-icons/tb";
+import { AiOutlineStar } from "react-icons/ai";
+import { AiFillStar } from "react-icons/ai";
+import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineCheck } from "react-icons/ai";
+import { BsStarFill } from "react-icons/bs";
 
 const WriteReview = ({ user, restaurant }) => {
   const { name, avatar, user_id } = user;
@@ -134,7 +139,7 @@ const WriteReview = ({ user, restaurant }) => {
                             <TbCurrencyNaira size={25} color={"white"} />
                           </label>
                           <input
-                            type="text"
+                            type="number"
                             placeholder="Amount Spent"
                             className="w-25 h-[38px] p-2 text-white bg-black rounded border border-gray-900 placeholder-gray-100 placeholder:opacity-50 shadow-sm focus:outline-none focus:shadow-outline"
                             onChange={handleOnChange}
@@ -142,30 +147,49 @@ const WriteReview = ({ user, restaurant }) => {
                         </div>
                         <div className="flex items-center">
                           {/* Upload Images */}
-                          <div className="flex items-center space-x-2">
-                            <label htmlFor="reviewImages-upload">
-                              <BsCardImage size={25} />
-                            </label>
-                            <input
-                              id="reviewImages-upload"
-                              type="file"
-                              className="form-file opacity-0"
-                              multiple
-                              onChange={e => {
-                                setImages(e.target.files);
-                              }}
-                            />
-                            {/* Display Images */}
-                            {/* <label className="ml-2 text-white">Images: </label>
+                          <div className="flex items-center">
+                            <div className="flex items-center space-x-2">
+                              <label htmlFor="reviewImages-upload">
+                                <BsCardImage size={25} />
+                              </label>
+                              <input
+                                id="reviewImages-upload"
+                                type="file"
+                                className="form-file opacity-0"
+                                accept="image/*"
+                                multiple
+                                onChange={e => {
+                                  setImages(e.target.files);
+                                }}
+                              />
+                              {/* Display Images */}
+                              {/* <label className="ml-2 text-white">Images: </label>
                             {images.map(image => (
                               <picture key={image.name}>
                                 <img
                                   src={URL.createObjectURL(image)}
                                   className="h-5 w-5 text-pink-500"
                                   alt="image"
+                                  />
+                                  </picture>
+                                ))} */}
+                              <div className="flex items-center space-x-1">
+                                <label htmlFor="reviewRatings">
+                                  <BsStarFill size={25} />
+                                </label>
+                                <input
+                                  id="reviewRatings"
+                                  type="range"
+                                  min="1"
+                                  max="5"
+                                  defaultValue={rating}
+                                  className="w-full h-full"
+                                  onChange={e => {
+                                    setRating(e.target.value);
+                                  }}
                                 />
-                              </picture>
-                            ))} */}
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
