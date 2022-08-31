@@ -131,26 +131,20 @@ const WriteReview = ({ user, restaurant }) => {
                       <div className="flex items-center space-x-2">
                         <div className="flex items-center">
                           <label className="ml-2 text-white">
-                            <TbCurrencyNaira />
+                            <TbCurrencyNaira size={25} color={"white"} />
                           </label>
                           <input
-                            type="range"
-                            className="w-32"
-                            min={0}
-                            max={1000000}
-                            step={10000}
-                            defaultValue={10000}
-                            id="budget"
-                            name="budget"
+                            type="text"
+                            placeholder="Amount Spent"
+                            className="w-25 h-[38px] p-2 text-white bg-black rounded border border-gray-900 placeholder-gray-100 placeholder:opacity-50 shadow-sm focus:outline-none focus:shadow-outline"
                             onChange={handleOnChange}
                           />
-                          <span className="text-white ml-2">{spent}</span>
                         </div>
                         <div className="flex items-center">
                           {/* Upload Images */}
                           <div className="flex items-center space-x-2">
                             <label htmlFor="reviewImages-upload">
-                              <BsCardImage className="h-5 w-5 text-pink-500" />
+                              <BsCardImage size={25} />
                             </label>
                             <input
                               id="reviewImages-upload"
