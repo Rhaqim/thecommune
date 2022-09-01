@@ -49,6 +49,6 @@ const schema = {
         createdAt: { type: "string" },
         updatedAt: { type: "string" },
     },
-    required: ["username", "email", "password", "createdAt", "updatedAt"],
+    required: ["username", "email", "password"],
     additionalProperties: false,
 };

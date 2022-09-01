@@ -1,5 +1,11 @@
 import React, { useState } from "react";
 import { BsCardImage } from "react-icons/bs";
+import { TbCurrencyNaira } from "react-icons/tb";
+import { AiOutlineStar } from "react-icons/ai";
+import { AiFillStar } from "react-icons/ai";
+import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineCheck } from "react-icons/ai";
+import { BsStarFill } from "react-icons/bs";
 
 const WriteReview = ({ user, restaurant }) => {
   const { name, avatar, user_id } = user;
@@ -122,6 +128,7 @@ const WriteReview = ({ user, restaurant }) => {
                       rows="5"
                       maxLength={500}
                       placeholder="Write your review here..."
+                      onChange={e => setReview(e.target.value)}
                     />
                   </div>
                   {/* Additional Info */}
@@ -129,43 +136,61 @@ const WriteReview = ({ user, restaurant }) => {
                     <div className="flex justify-between items-center p-5">
                       <div className="flex items-center space-x-2">
                         <div className="flex items-center">
+                          <label className="ml-2 text-white">
+                            <TbCurrencyNaira size={25} color={"white"} />
+                          </label>
                           <input
-                            type="range"
-                            className="w-32"
-                            min={0}
-                            max={1000000}
-                            step={10000}
-                            defaultValue={10000}
-                            id="spent"
-                            name="spent"
+                            type="number"
+                            placeholder="Amount Spent"
+                            className="w-25 h-[38px] p-2 text-white bg-black rounded border border-gray-900 placeholder-gray-100 placeholder:opacity-50 shadow-sm focus:outline-none focus:shadow-outline"
                             onChange={handleOnChange}
                           />
-                          : <span className="text-white ml-2">{spent}</span>
-                          <label className="ml-2 text-white">Spent</label>
                         </div>
                         <div className="flex items-center">
                           {/* Upload Images */}
-                          <div className="flex items-center space-x-2">
-                            <BsCardImage className="h-5 w-5 text-pink-500" />
-                            <input
-                              type="file"
-                              className="form-file h-5 w-5 text-pink-500"
-                              multiple
-                              onChange={e => {
-                                setImages(e.target.files);
-                              }}
-                            />
-                            {/* Display Images */}
-                            <label className="ml-2 text-white">Images: </label>
+                          <div className="flex items-center">
+                            <div className="flex items-center space-x-2">
+                              <label htmlFor="reviewImages-upload">
+                                <BsCardImage size={25} />
+                              </label>
+                              <input
+                                id="reviewImages-upload"
+                                type="file"
+                                className="form-file opacity-0"
+                                accept="image/*"
+                                multiple
+                                onChange={e => {
+                                  setImages(e.target.files);
+                                }}
+                              />
+                              {/* Display Images */}
+                              {/* <label className="ml-2 text-white">Images: </label>
                             {images.map(image => (
                               <picture key={image.name}>
                                 <img
                                   src={URL.createObjectURL(image)}
                                   className="h-5 w-5 text-pink-500"
                                   alt="image"
+                                  />
+                                  </picture>
+                                ))} */}
+                              <div className="flex items-center space-x-1">
+                                <label htmlFor="reviewRatings">
+                                  <BsStarFill size={25} />
+                                </label>
+                                <input
+                                  id="reviewRatings"
+                                  type="range"
+                                  min="1"
+                                  max="5"
+                                  defaultValue={rating}
+                                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
+                                  onChange={e => {
+                                    setRating(e.target.value);
+                                  }}
                                 />
-                              </picture>
-                            ))}
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -184,7 +209,10 @@ const WriteReview = ({ user, restaurant }) => {
                   <button
                     className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => setShowModal(false)}
+                    onClick={() => {
+                      setShowModal(false);
+                      handleSubmit();
+                    }}
                   >
                     Review
                   </button>

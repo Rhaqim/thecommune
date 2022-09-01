@@ -28,7 +28,7 @@ const variants = {
 };
 
 
-const restaurants = ({ restaurants }) => {
+const Restaurants = ({ restaurants }) => {
   return (
     <RestaurantsHeading>
       <div className="max-w-2xl mx-auto px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -63,4 +63,4 @@ const restaurants = ({ restaurants }) => {
   );
 };
 
-export default restaurants;
+export default Restaurants;

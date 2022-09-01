@@ -1,8 +1,20 @@
-import React, { useState, useEffect  } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
+import { useSession, signOut } from "next-auth/react";
+import { useRouter } from "next/router";
 
 const Navbar = () => {
+  const { data: session } = useSession();
+  const { push, asPath } = useRouter()
+
+    const handleSignOut = async () => {
+        const data = await signOut({ redirect: false, callbackUrl: '/' })
+        push(data.url)
+    }
+
+    const handleSignIn = () => push(`/account/login?callBackUrl=${asPath}`)
+
   const defaultColor = "transparent";
   const defaultTextColor = "white";
 
@@ -12,7 +24,7 @@ const Navbar = () => {
 
   const handleNav = () => {
     setNav(!nav);
-  }
+  };
 
   const handleScroll = () => {
     if (window.scrollY >= 10) {
@@ -22,12 +34,11 @@ const Navbar = () => {
       setColor(defaultColor);
       setTextColor(defaultTextColor);
     }
-  }
+  };
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
-  }
-  , [])
+  }, []);
 
   return (
     <div
@@ -36,7 +47,10 @@ const Navbar = () => {
     >
       <div className="max-w-[1740px] m-auto flex justify-between items-center p-4 text-white">
         <Link href="/">
-          <button style={{ color: `${textColor}` }} className="font-bold text-4xl home-link">
+          <button
+            style={{ color: `${textColor}` }}
+            className="font-bold text-4xl home-link"
+          >
             The Commune
           </button>
         </Link>
@@ -52,6 +66,15 @@ const Navbar = () => {
           </li>
           <li className="p-4 text-bold text-1xl hover:text-gray-500 nav-transition">
             <Link href="/contact">Contact</Link>
+          </li>
+          <li className="p-4 text-bold text-1xl hover:text-gray-500 nav-transition">
+            {session ? (
+              <Link href="/account/dashboard">Dashboard</Link>
+            ) : (
+              <button onClick={handleSignIn} className="sign-in">
+                Sign In
+              </button>
+            )}
           </li>
         </ul>
         {/*  Mobile Button  */}
@@ -94,6 +117,18 @@ const Navbar = () => {
               className="p-4 text-4xl hover:text-gray-500"
             >
               <Link href="/contact">Contact</Link>
+            </li>
+            <li
+              onClick={handleNav}
+              className="p-4 text-4xl hover:text-gray-500"
+            >
+              {session ? (
+                <Link href="/account/dashboard">Dashboard</Link>
+              ) : (
+                <button onClick={handleSignIn} className="sign-in">
+                  Sign In
+                </button>
+              )}
             </li>
           </ul>
         </div>
