@@ -16,6 +16,7 @@ const nextConfig = {
     NEXT_GET_REVIEW_URI: process.env.NEXT_GET_REVIEW_URI,
 
     NEXT_GET_REVIEWER_URI: process.env.NEXT_GET_REVIEWER_URI,
+    NEXT_AUTH_MONGODB_URI: process.env.NEXT_AUTH_MONGODB_URI,
   },
   webpack: (config, options) => {
     config.module.rules.push({
