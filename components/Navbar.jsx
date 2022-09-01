@@ -76,6 +76,13 @@ const Navbar = () => {
               </button>
             )}
           </li>
+          <li className="p-4 text-bold text-1xl hover:text-gray-500 nav-transition">
+            {session ? (
+              <button onClick={signOut} className="sign-in">
+              Sign Out
+            </button>
+            ) : ("")}
+          </li>
         </ul>
         {/*  Mobile Button  */}
         <div onClick={handleNav} className="block sm:hidden z-10">

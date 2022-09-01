@@ -14,14 +14,16 @@ const Dashboard = () => {
     const handleSignIn = () => push(`/account/login?callBackUrl=${asPath}`)
 
     return (
-        <div className='max-w[1240px] justify-center mt-[5rem] items-center text-center py-4'>
+        <div className='max-w[100%] mt-[5rem] py-4'>
             {status === 'loading' && <div>Loading...</div>}
             {session ? (
-                <div>
-                    <p>You are logged in. {session.user.email}</p>
-                    <p>
+                <div className='flex justify-between'>
+                    <div className='pl-4'>
+                        <p>You are logged in. {session.user.email}</p>
+                    </div>
+                    <div className='pr-4'>
                         <button onClick={handleSignOut}>Sign Out</button>
-                    </p>
+                    </div>
                 </div>
             ) : (
                 <div>
