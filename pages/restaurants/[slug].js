@@ -9,17 +9,17 @@ import { getRestaurantById, getRestaurantsReview } from "../../lib/DB/DBExecutio
 
 
 export const getServerSideProps = async (context) => {
-    const { slug } = context.query;
-    const restaurants = await getRestaurantById(slug);
+  const { slug } = context.query;
+  const restaurants = await getRestaurantById(slug);
 
-    const reviews = await getRestaurantsReview(slug);
+  const reviews = await getRestaurantsReview(slug);
 
-    return {
-        props: {
-            restaurant: JSON.parse(JSON.stringify(restaurants)),
-            reviews: JSON.parse(JSON.stringify(reviews)),
-        },
-    };
+  return {
+    props: {
+      restaurant: JSON.parse(JSON.stringify(restaurants)),
+      reviews: JSON.parse(JSON.stringify(reviews)),
+    },
+  };
 };
 
 const RestaurantsPage = ({ restaurant, reviews }) => {
@@ -30,10 +30,10 @@ const RestaurantsPage = ({ restaurant, reviews }) => {
         title={title}
         tags={tags}
       />
-      <CommuneInfoSection 
-      avgRating={rating}
-      budget={avgPrice}
-      meal_of_the_week={"SUSHI"}
+      <CommuneInfoSection
+        avgRating={rating}
+        budget={avgPrice}
+        meal_of_the_week={"SUSHI"}
       />
       <div className="py-[3rem]">
         <h1 className="text-white text-5xl text-center">Reviews</h1>
@@ -43,9 +43,15 @@ const RestaurantsPage = ({ restaurant, reviews }) => {
           <p>{review.review}</p>
         </RestaurantReviews>
       ))}
-      <WriteReview
-      restaurant={restaurant}
-      />
+      {session ? (
+        <WriteReview
+          restaurant={restaurant}
+        />
+      ) : (
+        <div className="py-[3rem]">
+          <h1 className="text-white text-5xl text-center">Login to write a review</h1>
+        </div>
+      )}
     </div>
   );
 };
