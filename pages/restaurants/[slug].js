@@ -25,19 +25,6 @@ export const getServerSideProps = async (context) => {
 const RestaurantsPage = ({ restaurant, reviews }) => {
   const { title, tags, images, avgPrice, rating } = restaurant;
   const { data: session } = useSession();
-  const currrentUser = {
-    user_id: "1",
-    name: "John Doe",
-    avatar: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-    location: "New York",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget consectetur sagittis, nisl nunc egestas nunc, euismod eget nisl eget consectetur sagittis.",
-    social: {
-      twitter: "https://twitter.com/johndoe",
-      facebook: "https://facebook.com/johndoe",
-      instagram: "https://instagram.com/johndoe",
-      linkedin: "https://linkedin.com/johndoe",
-    },
-  };
   return (
     <div>
       <RestaurantsHero image={images[1].uri}
