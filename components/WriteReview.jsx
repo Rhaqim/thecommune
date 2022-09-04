@@ -41,21 +41,13 @@ const WriteReview = ({ user, restaurant }) => {
       uri: "https://res.cloudinary.com/dzqxqxqxq/image/upload/v1598424868/restaurant-review/review-images/",
     }];
     const reviewData = {
-      // reviewer: "user.user._id",
-      // review: "user.user._id",
-      // reviewRating: rating,
-      // spent: spent,
-      // reviewImages: reviewImages,
+      reviewer: "63151d3bd1558cbd0355ff4c",
+      review: review,
+      reviewRating: Number(rating),
+      spent: Number(spent),
+      reviewImages: reviewImages,
       restaurant_id: restaurant_id.toString(),
     };
-    // const reviewData = {
-    //   reviewer: "user.user._id",
-    //   review: review.toString(),
-    //   reviewRating: rating,
-    //   spent: spent,
-    //   reviewImages: reviewImages,
-    //   restaurant_id: restaurant_id.toString(),
-    // };
     console.log(reviewData);
     try{
       const response = await fetch("http://localhost:3000/api/reviews", {
