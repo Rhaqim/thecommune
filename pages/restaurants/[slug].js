@@ -24,7 +24,6 @@ export const getServerSideProps = async (context) => {
 
 const RestaurantsPage = ({ restaurant, reviews }) => {
   const { title, tags, images, avgPrice, rating } = restaurant;
-  const { data: session } = useSession();
   return (
     <div>
       <RestaurantsHero image={images[1].uri}
@@ -44,8 +43,7 @@ const RestaurantsPage = ({ restaurant, reviews }) => {
           <p>{review.review}</p>
         </RestaurantReviews>
       ))}
-      <WriteReview 
-      user={session}
+      <WriteReview
       restaurant={restaurant}
       />
     </div>

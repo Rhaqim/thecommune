@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { useSession } from "next-auth/react";
 import { BsCardImage } from "react-icons/bs";
 import { TbCurrencyNaira } from "react-icons/tb";
 import { BsStarFill } from "react-icons/bs";
 
-const WriteReview = ({ user, restaurant }) => {
+const WriteReview = ({ restaurant }) => {
+  const { data: session } = useSession();
   const { _id } = restaurant;
   const restaurant_id = _id;
 
@@ -46,19 +48,18 @@ const WriteReview = ({ user, restaurant }) => {
       reviewRating: Number(rating),
       spent: Number(spent),
       reviewImages: reviewImages,
-      restaurant_id: restaurant_id.toString(),
+      restaurant_id: restaurant_id,
     };
     console.log(reviewData);
     try{
-      const response = await fetch("http://localhost:3000/api/reviews", {
+      const response = await fetch("/api/reviews", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(reviewData),
       });
-      const data = await response.json();
-      if (response.status === 200) {
+      if (response.status === 201) {
         setSuccess(true);
         alert(`The review with data ${reviewData} and response ${response.status} has been successfully submitted`);
       } else {
@@ -96,7 +97,7 @@ const WriteReview = ({ user, restaurant }) => {
                   <div className="flex justify-center items-center">
                     <picture>
                       <img
-                        src={`${user.user.image}`}
+                        src={`${session.user.image}`}
                         className="mx-2 mt-1 cursor-pointer object-cover rounded-full"
                         style={{ height: 60, width: 60 }}
                         onMouseEnter={({ target }) => {
@@ -109,7 +110,7 @@ const WriteReview = ({ user, restaurant }) => {
                       />
                     </picture>
                     <h3 className="text-3xl font-semibold pl-1 uppercase">
-                      {user.user.name}
+                      {session.user.name}
                     </h3>
                   </div>
                   <button
