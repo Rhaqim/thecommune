@@ -8,7 +8,6 @@ import { AiOutlineCheck } from "react-icons/ai";
 import { BsStarFill } from "react-icons/bs";
 
 const WriteReview = ({ user, restaurant }) => {
-  const { name, avatar, user_id } = user;
   const { _id } = restaurant;
   const restaurant_id = _id;
 
@@ -52,7 +51,7 @@ const WriteReview = ({ user, restaurant }) => {
       .join(",");
     try {
       const body = {
-        reviewer: user_id,
+        reviewer: user.user._id,
         review,
         reviewRating: rating,
         spent,
@@ -96,7 +95,7 @@ const WriteReview = ({ user, restaurant }) => {
                   <div className="flex justify-center items-center">
                     <picture>
                       <img
-                        src={avatar}
+                        src={user.user.image}
                         className="mx-2 mt-1 cursor-pointer object-cover rounded-full"
                         style={{ height: 60, width: 60 }}
                         onMouseEnter={({ target }) => {
@@ -108,7 +107,7 @@ const WriteReview = ({ user, restaurant }) => {
                         alt="avatar"
                       />
                     </picture>
-                    <h3 className="text-3xl font-semibold pl-1">{name}</h3>
+                    <h3 className="text-3xl font-semibold pl-1 uppercase">{user.user.name}</h3>
                   </div>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"

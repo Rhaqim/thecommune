@@ -1,4 +1,5 @@
 import React from "react";
+import { useSession } from "next-auth/react";
 import RestaurantsHero from "../../components/RestaurantsHero";
 import CommuneInfoSection from "../../components/CommuneInfoSection";
 import RestaurantReviews from "../../components/RestaurantReviews";
@@ -23,6 +24,7 @@ export const getServerSideProps = async (context) => {
 
 const RestaurantsPage = ({ restaurant, reviews }) => {
   const { title, tags, images, avgPrice, rating } = restaurant;
+  const { data: session } = useSession();
   const currrentUser = {
     user_id: "1",
     name: "John Doe",
@@ -56,7 +58,7 @@ const RestaurantsPage = ({ restaurant, reviews }) => {
         </RestaurantReviews>
       ))}
       <WriteReview 
-      user={currrentUser}
+      user={session}
       restaurant={restaurant}
       />
     </div>
