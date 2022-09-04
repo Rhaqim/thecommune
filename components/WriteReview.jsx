@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import { BsCardImage } from "react-icons/bs";
 import { TbCurrencyNaira } from "react-icons/tb";
-import { AiOutlineStar } from "react-icons/ai";
-import { AiFillStar } from "react-icons/ai";
-import { AiOutlineClose } from "react-icons/ai";
-import { AiOutlineCheck } from "react-icons/ai";
 import { BsStarFill } from "react-icons/bs";
 
 const WriteReview = ({ user, restaurant }) => {
@@ -16,6 +12,7 @@ const WriteReview = ({ user, restaurant }) => {
   const [images, setImages] = useState([]);
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
+  const [success, setSuccess] = useState(false);
 
   const handleImageUpload = e => {
     const files = e.target.files;
@@ -36,37 +33,36 @@ const WriteReview = ({ user, restaurant }) => {
       });
   };
 
-  const handleSubmission = async e => {
+  const handleSubmit = e => {
     e.preventDefault();
-    const reviewImages = images
-      .map(image => {
-        return { image };
-      })
-      .filter(image => {
-        return image.image !== "";
-      })
-      .map(image => {
-        return image.image;
-      })
-      .join(",");
-    try {
-      const body = {
-        reviewer: user.user._id,
+    const reviewImages = {
+      name: "sample",
+      uri: "https://res.cloudinary.com/dzqxqxqxq/image/upload/v1598424868/restaurant-review/review-images/",
+    };
+    const reviewData = {
+      reviewer: "user.user._id",
         review,
         reviewRating: rating,
         spent,
         reviewImages,
         restaurant_id,
-      };
-      const response = await fetch("/api/reviews", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
+    };
+    fetch("/api/reviews", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(reviewData),
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          setSuccess(true);
+        }
+      })
+      .catch(err => {
+        console.log(err);
       });
-      window.location = "/";
-    } catch (error) {
-      console.error(error.message);
-    }
   };
 
   const handleOnChange = e => {
@@ -95,7 +91,7 @@ const WriteReview = ({ user, restaurant }) => {
                   <div className="flex justify-center items-center">
                     <picture>
                       <img
-                        src={user.user.image}
+                        src={`${user.user.image}`}
                         className="mx-2 mt-1 cursor-pointer object-cover rounded-full"
                         style={{ height: 60, width: 60 }}
                         onMouseEnter={({ target }) => {
@@ -107,7 +103,9 @@ const WriteReview = ({ user, restaurant }) => {
                         alt="avatar"
                       />
                     </picture>
-                    <h3 className="text-3xl font-semibold pl-1 uppercase">{user.user.name}</h3>
+                    <h3 className="text-3xl font-semibold pl-1 uppercase">
+                      {user.user.name}
+                    </h3>
                   </div>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
@@ -222,6 +220,7 @@ const WriteReview = ({ user, restaurant }) => {
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
       ) : null}
+      {success ? alert("Review submitted successfully") : null}
     </>
   );
 };
