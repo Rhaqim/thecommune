@@ -20,6 +20,8 @@ export default async function handler(req, res) {
             return;
         }
         // change created_at to current date
+        req.body.dislike = 0;
+        req.body.like = 0;
         req.body.createdAt = new Date();
         req.body.updatedAt = new Date();
 
@@ -50,6 +52,6 @@ const schema = {
         createdAt: { type: "string" },
         updatedAt: { type: "string" },
     },
-    required: ["reviewer", "review", "restaurant_id", "dislike", "like", "createdAt", "updatedAt"],
+    required: ["restaurant_id"],
     additionalProperties: false,
 };

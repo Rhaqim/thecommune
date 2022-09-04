@@ -33,36 +33,49 @@ const WriteReview = ({ user, restaurant }) => {
       });
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    const reviewImages = {
+    setShowModal(false);
+    const reviewImages = [{
       name: "sample",
       uri: "https://res.cloudinary.com/dzqxqxqxq/image/upload/v1598424868/restaurant-review/review-images/",
-    };
+    }];
     const reviewData = {
-      reviewer: "user.user._id",
-        review,
-        reviewRating: rating,
-        spent,
-        reviewImages,
-        restaurant_id,
+      // reviewer: "user.user._id",
+      // review: "user.user._id",
+      // reviewRating: rating,
+      // spent: spent,
+      // reviewImages: reviewImages,
+      restaurant_id: restaurant_id.toString(),
     };
-    fetch("/api/reviews", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(reviewData),
-    })
-      .then(res => res.json())
-      .then(data => {
-        if (data.success) {
-          setSuccess(true);
-        }
-      })
-      .catch(err => {
-        console.log(err);
+    // const reviewData = {
+    //   reviewer: "user.user._id",
+    //   review: review.toString(),
+    //   reviewRating: rating,
+    //   spent: spent,
+    //   reviewImages: reviewImages,
+    //   restaurant_id: restaurant_id.toString(),
+    // };
+    console.log(reviewData);
+    try{
+      const response = await fetch("http://localhost:3000/api/reviews", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(reviewData),
       });
+      const data = await response.json();
+      if (response.status === 200) {
+        setSuccess(true);
+        alert(`The review with data ${reviewData} and response ${response.status} has been successfully submitted`);
+      } else {
+        alert(`The review with data ${reviewData} and response ${response.status} has not been submitted`);
+      }
+    } catch(err){
+      console.log(err);
+      alert(`The error ${err}`);
+    }
   };
 
   const handleOnChange = e => {
@@ -117,7 +130,11 @@ const WriteReview = ({ user, restaurant }) => {
                   </button>
                 </div>
                 {/*body*/}
-                <form className="flex-1 bg-gray-800 rounded-xl p-6 overflow-y-auto">
+                <form
+                  className="flex-1 bg-gray-800 rounded-xl p-6 overflow-y-auto"
+                  onSubmit={handleSubmit}
+                  id="reviewForm"
+                >
                   <div className="relative px-6 flex-auto">
                     <textarea
                       className="w-full p-3 text-white bg-black rounded border border-gray-900 placeholder-gray-100 placeholder:opacity-50 shadow-sm focus:outline-none focus:shadow-outline"
@@ -205,11 +222,8 @@ const WriteReview = ({ user, restaurant }) => {
                   </button>
                   <button
                     className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                    type="button"
-                    onClick={() => {
-                      setShowModal(false);
-                      handleSubmit();
-                    }}
+                    type="submit"
+                    form="reviewForm"
                   >
                     Review
                   </button>
@@ -220,7 +234,6 @@ const WriteReview = ({ user, restaurant }) => {
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
       ) : null}
-      {success ? alert("Review submitted successfully") : null}
     </>
   );
 };
