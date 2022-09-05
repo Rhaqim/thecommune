@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useRouter } from "next/router"
+import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { BsCardImage } from "react-icons/bs";
 import { TbCurrencyNaira } from "react-icons/tb";
@@ -9,18 +9,27 @@ const WriteReview = ({ restaurant }) => {
   const { data: session } = useSession();
   const { _id } = restaurant;
   const restaurant_id = _id;
-  
-  const [showModal, setShowModal] = React.useState(false);
+
+  const [showModal, setShowModal] = useState(false);
+  const [reviewer, setReviewer] = useState("");
   const [spent, setSpent] = useState(0);
   const [images, setImages] = useState([]);
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
   const [success, setSuccess] = useState(false);
-  
+
   const router = useRouter();
   const refreshData = () => {
     router.replace(router.asPath, `/restaurants/${restaurant_id}`);
-  }
+  };
+
+  const getUserID = async email => {
+    const res = await fetch(`/api/reviewers?email=${email}`);
+    const data = await res.json();
+    console.log("Reviewer data:",data);
+    setReviewer(data._id);
+
+  };
 
   const handleImageUpload = e => {
     const files = e.target.files;
@@ -44,12 +53,15 @@ const WriteReview = ({ restaurant }) => {
   const handleSubmit = async e => {
     e.preventDefault();
     setShowModal(false);
-    const reviewImages = [{
-      name: "sample",
-      uri: "https://res.cloudinary.com/dzqxqxqxq/image/upload/v1598424868/restaurant-review/review-images/",
-    }];
+    getUserID(session.user.email);
+    const reviewImages = [
+      {
+        name: "sample",
+        uri: "https://res.cloudinary.com/dzqxqxqxq/image/upload/v1598424868/restaurant-review/review-images/",
+      },
+    ];
     const reviewData = {
-      reviewer: "6310fa8e9c9bbfad753bc20f",
+      reviewer: reviewer.toString(),
       review: review,
       reviewRating: Number(rating),
       spent: Number(spent),
@@ -57,7 +69,7 @@ const WriteReview = ({ restaurant }) => {
       restaurant_id: restaurant_id,
     };
     console.log(reviewData);
-    try{
+    try {
       const response = await fetch("/api/reviews", {
         method: "POST",
         headers: {
@@ -68,11 +80,15 @@ const WriteReview = ({ restaurant }) => {
       if (response.status === 201) {
         setSuccess(true);
         refreshData();
-        alert(`The review with data ${reviewData} and response ${response.status} has been successfully submitted`);
+        alert(
+          `The review with data ${reviewData} and response ${response.status} has been successfully submitted`
+        );
       } else {
-        alert(`The review with data ${reviewData} and response ${response.status} has not been submitted`);
+        alert(
+          `The review with data ${reviewData} and response ${response.status} has not been submitted`
+        );
       }
-    } catch(err){
+    } catch (err) {
       console.log(err);
       alert(`The error ${err}`);
     }
