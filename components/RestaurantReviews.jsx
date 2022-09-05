@@ -96,7 +96,7 @@ const RestaurantReviews = ({ reviews, children }) => {
         <div className="justify-center align-center mx-2 my-2 p-2 bg-gray-600 rounded-xl">
           <div className="bg-black rounded-lg p-3 mb-2">
             <div className="flex justify-between rounded-lg p-2">
-              <h1 className="text-lg text-left">{user.username}</h1>
+              <h1 className="text-lg text-left">{user.name}</h1>
               <h1 className="text-lg text-center invisible lg:visible">
                 RATING: {rate}
               </h1>

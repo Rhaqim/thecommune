@@ -49,7 +49,7 @@ const WriteReview = ({ restaurant }) => {
       uri: "https://res.cloudinary.com/dzqxqxqxq/image/upload/v1598424868/restaurant-review/review-images/",
     }];
     const reviewData = {
-      reviewer: "63151d3bd1558cbd0355ff4c",
+      reviewer: "6310fa8e9c9bbfad753bc20f",
       review: review,
       reviewRating: Number(rating),
       spent: Number(spent),
