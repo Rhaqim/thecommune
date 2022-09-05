@@ -6,6 +6,8 @@ const RestaurantReviews = ({ reviews, children }) => {
   const {user, createdAt, reviewRating, like, dislike, reviewImages } =
     reviews;
 
+  const reviewDate = new Date(createdAt);
+
   const [rate, setRate] = useState(null);
 
   const [modal, setModal] = useState(false);
@@ -98,7 +100,7 @@ const RestaurantReviews = ({ reviews, children }) => {
               <h1 className="text-lg text-center invisible lg:visible">
                 RATING: {rate}
               </h1>
-              <h1 className="text-sm text-right">{createdAt}</h1>
+              <h1 className="text-sm text-right">{reviewDate.toDateString()}</h1>
             </div>
             <div className="bg-gray-600 rounded-md p-3">
               <p className="font-bold underline">Comments...</p>
