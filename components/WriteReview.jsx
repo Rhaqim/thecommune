@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useRouter } from "next/router"
 import { useSession } from "next-auth/react";
 import { BsCardImage } from "react-icons/bs";
 import { TbCurrencyNaira } from "react-icons/tb";
@@ -8,13 +9,18 @@ const WriteReview = ({ restaurant }) => {
   const { data: session } = useSession();
   const { _id } = restaurant;
   const restaurant_id = _id;
-
+  
   const [showModal, setShowModal] = React.useState(false);
   const [spent, setSpent] = useState(0);
   const [images, setImages] = useState([]);
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
   const [success, setSuccess] = useState(false);
+  
+  const router = useRouter();
+  const refreshData = () => {
+    router.replace(router.asPath, `/restaurants/${restaurant_id}`);
+  }
 
   const handleImageUpload = e => {
     const files = e.target.files;
@@ -61,6 +67,7 @@ const WriteReview = ({ restaurant }) => {
       });
       if (response.status === 201) {
         setSuccess(true);
+        refreshData();
         alert(`The review with data ${reviewData} and response ${response.status} has been successfully submitted`);
       } else {
         alert(`The review with data ${reviewData} and response ${response.status} has not been submitted`);
