@@ -55,26 +55,10 @@ html {
   /* position: relative; */
   width: 99vw;
   height: 90vh;
-  position: fixed;
+  position: absolute; /* absolute position - keep it in place even when scroll */
+  /* position: fixed; /* fixed position - relative to the viewport */
   z-index: -1;
   /* overflow: hidden; */
-}
-
-.bg-canvas {
-  color: #999999;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: -100;
-}
-
-.wave-particle-content {
-  color: #ffffff;
-  font-size: 26px;
-  font-weight: bold;
-  text-shadow: -1px -1px 1px #000, 1px 1px 1px #000;
-  position: relative;
-  z-index: 100;
 }
 
 @media (max-width: 768px) {
