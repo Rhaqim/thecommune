@@ -3,7 +3,9 @@ import { Canvas } from "@react-three/fiber";
 
 const WaveParticles = props => {
   return (
-    <Canvas camera={{ position: [-6, 7, 7] }} {...props}>
+    <Canvas 
+    camera={{ position: [0, 7, 7] }}
+    {...props}>
       <ambientLight intensity={0.5} />
       <pointLight position={[10, 10, 10]} />
       <mesh>

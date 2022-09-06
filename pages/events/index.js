@@ -3,17 +3,30 @@ import WaveParticles from '../../components/models/WaveParticles'
 
 const Events = () => {
     return (
-        <div className='wrapper'>
-            {/* <div > */}
-                <WaveParticles className="bg-canvas" />
-            {/* </div> */}
-            <div className="wave-particle-content">
-                <h1 className="text-3xl font-bold text-center">Events</h1>
-                <p className="text-center">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Pellentesque euismod, urna eu tincidunt consectetur,
-                    nisi nisl aliquam nunc, eget consectetur nisl nunc
-                    euismod nisi.
+        <div className='relative mt-[5rem]'> 
+            <div className='scene'>
+                <WaveParticles className="bg-transparent" />
+            </div>
+            <div>
+                <h1 className='text-center text-3xl font-bold text-gray-800'>Events</h1>
+                <p className='text-center text-gray-600'>
+                    Earn tokens everytime you attend an event.
+                </p>
+                <p className='text-center text-gray-600'>
+                    lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Quae, quisquam.
+                </p>
+                <p className='text-center text-gray-600'>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Quae, quisquam.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Quae, quisquam.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Quae, quisquam.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Quae, quisquam.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Quae, quisquam.
                 </p>
             </div>
         </div>
