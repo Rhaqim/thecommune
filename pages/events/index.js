@@ -1,4 +1,5 @@
 import React from 'react'
+import BackgroundScene from '../../components/models/BackgroundScene'
 import WaveParticles from '../../components/models/WaveParticles'
 
 const Events = () => {
@@ -6,7 +7,8 @@ const Events = () => {
         <div>
             <div className='relative mt-[5rem] h-screen'>
                 <div className='scene'>
-                    <WaveParticles className="bg-transparent" />
+                    {/* <WaveParticles className="bg-transparent" /> */}
+                    <BackgroundScene className="bg-transparent" />
                 </div>
                 <div>
                     <h1 className='text-center text-3xl font-bold text-gray-800'>Events</h1>

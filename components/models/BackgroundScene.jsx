@@ -1,30 +1,31 @@
-import React from "react";
-import { Canvas } from "@react-three/fiber";
+import React, { useRef } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
 
 const BackgroundScene = () => {
   return (
-    <Canvas
-      className="bg-canvas"
-      camera={{ position: [0, 0, 3.5] }}
-      onCreated={({ gl }) => {
-        gl.setClearColor(0x000000, 1);
-      }}
-    >
-      <ambientLight intensity={0.5} />
-      <pointLight position={[10, 10, 10]} />
-      <pointLight position={[-10, -10, -10]} />
-      <pointLight position={[0, 0, 0]} />
-      <pointLight position={[-10, 10, -10]} />
-      <pointLight position={[10, -10, 10]} />
-
-      <useFrame>
-        {({ camera, gl }) => {
-          gl.setClearColor(0x000000, 1);
-          camera.position.z = 3.5;
-        }}
-      </useFrame>
+    <Canvas>
+      <Object />
     </Canvas>
   );
 };
 
 export default BackgroundScene;
+
+function Object(props) {
+  const myRef = useRef();
+  useFrame(() => {
+    if (myRef.current) {
+      myRef.current.rotation.y += 0.01;
+    }
+  });
+  return (
+    <mesh 
+    ref={myRef}
+    onPointerEnter={e => console.log(e)}
+    position={[0, 0, 0]}
+    >
+      <boxBufferGeometry attach="geometry" args={[1, 2, 3]} />
+      <meshBasicMaterial attach="material" color="white" />
+    </mesh>
+  );
+}
