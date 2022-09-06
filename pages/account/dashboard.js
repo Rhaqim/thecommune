@@ -18,7 +18,7 @@ const Dashboard = () => {
     return (
         <div className='max-w[100%] mt-[5rem] py-4'>
             <WaveParticles
-                className="flex items-center justify-center h-screen bg-fixed bg-center bg-cover bg-white" />
+                className="bg-canvas" />
             {status === 'loading' && <div>Loading...</div>}
             {session ? (
                 <div className='flex justify-between'>
