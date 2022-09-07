@@ -1,51 +1,46 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import React, { useState, useRef, useEffect } from 'react'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
 
 const BackgroundScene = () => {
-  return (
-    <Canvas>
-      <Object />
-    </Canvas>
-  );
-};
+    return (
+        <Canvas>
+            <Object />
+        </Canvas>
+    )
+}
 
-export default BackgroundScene;
+export default BackgroundScene
 
 function Object(props) {
-  const myRef = useRef();
+    const myRef = useRef()
 
-  const [active, setActive] = useState(false);
+    const [active, setActive] = useState(false)
 
-  useFrame(() => {
-    if (myRef.current) {
-      myRef.current.rotation.y += 0.01;
+    useFrame(() => {
+        if (myRef.current) {
+            myRef.current.rotation.y += 0.01
+        }
+    })
+
+    const handleMouseMove = (e) => {
+        const { clientX, clientY } = e
+        // myRef.current.position.x = -(clientX / window.innerWidth) * 2 + 1;
+        // myRef.current.position.y = -(clientY / window.innerHeight) * 2 + 1;
+        myRef.current.position.x = clientX / window.innerWidth
+        myRef.current.position.y = -(clientY / window.innerHeight)
     }
-  });
 
-  const handleScroll = () => {
-    if (window.scrollY >= 10) {
-      setActive(true);
-    } else {
-      setActive(false);
-    }
-  }
+    useEffect(() => {
+        window.addEventListener('mousemove', handleMouseMove)
+        return () => {
+            window.removeEventListener('mousemove', handleMouseMove)
+        }
+    }, [])
 
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  },[]);
-
-  return (
-    <mesh 
-    ref={myRef}
-    scale={active ? 1.5 : 1} 
-    onClick={() => setActive(!active)}
-    position={[0, 0, 0]}
-    >
-      <boxBufferGeometry attach="geometry" args={[1, 2, 3]} />
-      <meshBasicMaterial attach="material" color="white" />
-    </mesh>
-  );
+    return (
+        <mesh ref={myRef} position={[0, 0, 0]}>
+            <boxBufferGeometry attach="geometry" args={[1, 2, 3]} />
+            <meshBasicMaterial attach="material" color="white" />
+        </mesh>
+    )
 }
