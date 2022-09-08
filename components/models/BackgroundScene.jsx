@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
+import * as THREE from 'three'
 
 const BackgroundScene = () => {
     return (
@@ -31,28 +32,55 @@ function Object(props) {
     //     myRef.current.position.y = -(clientY / window.innerHeight)
     // }
 
-    // const handleCollison = () => {
-    //     let meshBB = new THREE.Box3(
-    //         new THREE.Vector3(),
-    //         new THREE.Vector3()
-    //     ).setFromObject(myRef.current)
-    // }
-
     const controls = (e) => {
         if (e.keyCode === 37) {
+            // left
             myRef.current.position.x -= 1
         } else if (e.keyCode === 39) {
+            // right
             myRef.current.position.x += 1
         } else if (e.keyCode === 38) {
+            // up
             myRef.current.position.y += 1
         } else if (e.keyCode === 40) {
+            // down
             myRef.current.position.y -= 1
         }
     }
 
     useEffect(() => {
-        // window.addEventListener('mousemove', handleMouseMove)
+        let meshBB = new THREE.Box3(
+            new THREE.Vector3(),
+            new THREE.Vector3()
+        ).setFromObject(myRef.current)
+
+        let secBB = new THREE.Box3(
+            new THREE.Vector3(),
+            new THREE.Vector3()
+        ).setFromObject(secRef.current)
+
+        meshBB
+            .copy(myRef.current.geometry.boundingBox)
+            .applyMatrix4(myRef.current.matrixWorld)
+
+        console.log(
+            `The meshBB position is ${meshBB.min.x}, ${meshBB.min.y}, ${meshBB.min.z}`
+        )
+        console.log(
+            `Position of the myRef is ${myRef.current.position.x}, ${myRef.current.position.y}, ${myRef.current.position.z}`
+        )
+
+        if (meshBB.intersectsBox(secBB)) {
+            console.log('Intersects')
+        } else {
+            console.log('Does not intersect')
+        }
         window.addEventListener('keydown', controls)
+
+    }, [])
+
+    useEffect(() => {
+        // window.addEventListener('mousemove', handleMouseMove)
     }, [])
 
     return (
