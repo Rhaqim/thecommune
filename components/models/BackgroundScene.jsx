@@ -13,16 +13,18 @@ const BackgroundScene = () => {
 export default BackgroundScene
 
 function Object(props) {
+    const { size } = useThree()
+    const planeRef = useRef()
     const myRef = useRef()
     const secRef = useRef()
 
     const [active, setActive] = useState(false)
 
-    // useFrame(() => {
-    //     if (myRef.current) {
-    //         myRef.current.rotation.y += 0.01
-    //     }
-    // })
+    useFrame(() => {
+        if (myRef.current) {
+            myRef.current.rotation.y += 0.05
+        }
+    })
 
     // const handleMouseMove = (e) => {
     //     const { clientX, clientY } = e
@@ -76,7 +78,6 @@ function Object(props) {
             console.log('Does not intersect')
         }
         window.addEventListener('keydown', controls)
-
     }, [])
 
     useEffect(() => {
@@ -92,6 +93,14 @@ function Object(props) {
             <mesh ref={secRef} position={[2, 0, 0]}>
                 <boxBufferGeometry attach="geometry" args={[1, 2, 3]} />
                 <meshBasicMaterial attach="material" color="white" />
+            </mesh>
+            <mesh
+                ref={planeRef}
+                position={[0, 0, -10]}
+                scale={[size.width, size.height, 1]}
+            >
+                <planeBufferGeometry attach="geometry" args={[3, 3, 3]} />
+                <meshBasicMaterial attach="material" color="#A1A1A1" />
             </mesh>
         </>
     )
