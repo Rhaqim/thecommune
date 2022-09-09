@@ -5,6 +5,8 @@ import * as THREE from 'three'
 const BackgroundScene = () => {
     return (
         <Canvas>
+            {/* <ambientLight intensity={1} />
+            <pointLight position={[2, 0, 0]} /> */}
             <Object />
         </Canvas>
     )
@@ -20,11 +22,11 @@ function Object(props) {
 
     const [active, setActive] = useState(false)
 
-    useFrame(() => {
-        if (myRef.current) {
-            myRef.current.rotation.y += 0.05
-        }
-    })
+    // useFrame(() => {
+    //     if (myRef.current) {
+    //         myRef.current.rotation.y += 0.05
+    //     }
+    // })
 
     // const handleMouseMove = (e) => {
     //     const { clientX, clientY } = e
@@ -86,18 +88,19 @@ function Object(props) {
 
     return (
         <>
-            <mesh ref={myRef} position={[-2, 0, 0]}>
+            <mesh ref={myRef} position={[-2, 0, 0]} castShadow>
                 <boxBufferGeometry attach="geometry" args={[1, 2, 3]} />
-                <meshBasicMaterial attach="material" color="white" />
+                <meshBasicMaterial attach="material" color="teal" />
             </mesh>
             <mesh ref={secRef} position={[2, 0, 0]}>
                 <boxBufferGeometry attach="geometry" args={[1, 2, 3]} />
-                <meshBasicMaterial attach="material" color="white" />
+                <meshBasicMaterial attach="material" color="purple" />
             </mesh>
             <mesh
                 ref={planeRef}
                 position={[0, 0, -10]}
                 scale={[size.width, size.height, 1]}
+                receiveShadow
             >
                 <planeBufferGeometry attach="geometry" args={[3, 3, 3]} />
                 <meshBasicMaterial attach="material" color="#A1A1A1" />
