@@ -1,32 +1,82 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { Physics, useBox, usePlane } from '@react-three/cannon'
+import * as THREE from 'three'
+import { Physics, useBox, usePlane, useSphere } from '@react-three/cannon'
+
+const baubles = [...Array(50)].map(() => ({
+    args: [0.6, 0.6, 1, 1, 1.25][Math.floor(Math.random() * 5)],
+    mass: 1,
+    angularDamping: 0.2,
+    linearDamping: 0.95,
+}))
 
 function Mascot() {
-    const [ref] = useBox(() => ({
+    const [ref, api] = useBox(() => ({
         mass: 100,
         args: [1, 1, 1],
         position: [0, 10, 0],
+        rotation: [0, 0, 0],
+        velocity: [0, -9.8, 0],
+        type: 'Dynamic',
+    }))
+
+    const vec = new THREE.Vector3().setScalar(0.1)
+
+    // useEffect(
+    //     () =>
+    //         api.position.subscribe((p) =>
+    //             api.applyForce(
+    //                 vec
+    //                     .set(...p)
+    //                     .normalize()
+    //                     .multiplyScalar(-props.args * 35)
+    //                     .toArray(),
+    //                 [0, 0, 0]
+    //             )
+    //         ),
+    //     [api]
+    // )
+
+    return (
+        <mesh ref={ref}>
+            <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
+            <meshStandardMaterial
+                attach="material"
+                color="red"
+                side={THREE.DoubleSide}
+            />
+        </mesh>
+    )
+}
+
+const Ball = () => {
+    const [ref] = useSphere(() => ({
+        mass: 1,
+        args: [0.5],
+        position: [2, 10, 0],
         rotation: [5, 0, 0],
         type: 'Dynamic',
     }))
 
     return (
         <mesh ref={ref}>
-            <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
-            <meshStandardMaterial attach="material" color="red" />
+            <sphereBufferGeometry attach="geometry" args={[0.5]} />
+            <meshStandardMaterial attach="material" color="blue" />
         </mesh>
     )
 }
 
 function Floor() {
-    const [ref] = usePlane(() => ({
+    const [ref, api] = usePlane(() => ({
         position: [0, -1, 0],
         rotation: [-Math.PI / 2, 0, 0],
         mass: 0,
         type: 'Static',
     }))
 
+    useFrame(({ mouse }) => {
+        // api.rotation.set(-Math.PI / 2 - mouse.y * 0.2, 0 + mouse.x * 0.2, 0)
+    })
     return (
         <mesh
             ref={ref}
@@ -65,6 +115,7 @@ const EventsScene = () => {
             <Physics>
                 <Floor />
                 <Mascot />
+                <Ball />
             </Physics>
         </Canvas>
     )

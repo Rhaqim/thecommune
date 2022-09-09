@@ -57,7 +57,7 @@ html {
   height: 90vh;
   position: absolute; /* absolute position - keep it in place even when scroll */
   /* position: fixed; /* fixed position - relative to the viewport */
-  z-index: -1;
+  z-index: 1;
   /* overflow: hidden; */
 }
 
