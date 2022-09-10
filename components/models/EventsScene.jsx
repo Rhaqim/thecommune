@@ -40,11 +40,7 @@ function Mascot() {
     return (
         <mesh ref={ref}>
             <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
-            <meshStandardMaterial
-                attach="material"
-                color="red"
-                side={THREE.DoubleSide}
-            />
+            <meshStandardMaterial attach="material" color="red" />
         </mesh>
     )
 }
@@ -85,7 +81,11 @@ function Floor() {
             receiveShadow
         >
             <planeBufferGeometry />
-            <meshStandardMaterial attach="material" color="white" />
+            <meshStandardMaterial
+                attach="material"
+                color="white"
+                side={THREE.DoubleSide}
+            />
         </mesh>
     )
 }
