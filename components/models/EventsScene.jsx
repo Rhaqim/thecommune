@@ -3,12 +3,21 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
 import { Physics, useBox, usePlane, useSphere } from '@react-three/cannon'
 
-const baubles = [...Array(50)].map(() => ({
+const baubles = [...Array(4)].map(() => ({
     args: [0.6, 0.6, 1, 1, 1.25][Math.floor(Math.random() * 5)],
     mass: 1,
     angularDamping: 0.2,
     linearDamping: 0.95,
 }))
+
+const ballPositions = [
+    [1, 5, 2],
+    [2, 10, 0],
+    [3, 10, 0],
+    [4, 15, 0],
+    [5, 10, 0],
+    [6, 8, 0],
+]
 
 function Mascot() {
     const [ref, api] = useBox(() => ({
@@ -20,23 +29,22 @@ function Mascot() {
         type: 'Dynamic',
     }))
 
-    const vec = new THREE.Vector3().setScalar(0.1)
-
+    
     // useEffect(
-    //     () =>
-    //         api.position.subscribe((p) =>
+        //     () =>
+        //         api.position.subscribe((p) =>
     //             api.applyForce(
-    //                 vec
-    //                     .set(...p)
-    //                     .normalize()
-    //                     .multiplyScalar(-props.args * 35)
-    //                     .toArray(),
-    //                 [0, 0, 0]
-    //             )
-    //         ),
+        //                 vec
+        //                     .set(...p)
+        //                     .normalize()
+        //                     .multiplyScalar(-props.args * 35)
+        //                     .toArray(),
+        //                 [0, 0, 0]
+        //             )
+        //         ),
     //     [api]
     // )
-
+    
     return (
         <mesh ref={ref}>
             <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
@@ -45,18 +53,35 @@ function Mascot() {
     )
 }
 
-const Ball = () => {
-    const [ref] = useSphere(() => ({
-        mass: 1,
-        args: [0.5],
-        position: [2, 10, 0],
-        rotation: [5, 0, 0],
-        type: 'Dynamic',
+const Ball = ({ props }) => {
+    const [ref, api] = useSphere(() => ({
+        ...props,
+        // mass: 1,
+        // args: [0.5],
+        // position: position || [2, 10, 0],
+        // rotation: [5, 0, 0],
+        // type: 'Dynamic',
     }))
+    
+    const vec = new THREE.Vector3().setScalar(0.1)
+    useEffect(
+        () =>
+        api.position.subscribe((p) =>
+                api.applyForce(
+                    vec
+                        .set(...p)
+                        .normalize()
+                        .multiplyScalar(-[0.6, 0.6, 1, 1] * 35)
+                        .toArray(),
+                    [0, 0, 0]
+                )
+            ),
+        [api]
+    )
 
     return (
         <mesh ref={ref}>
-            <sphereBufferGeometry attach="geometry" args={[0.5]} />
+            <sphereBufferGeometry attach="geometry" args={[0.6, 0.6, 1, 1]} />
             <meshStandardMaterial attach="material" color="blue" />
         </mesh>
     )
@@ -115,7 +140,10 @@ const EventsScene = () => {
             <Physics>
                 <Floor />
                 <Mascot />
-                <Ball />
+                <Ball position={[0, 10, 0]} />
+                {baubles.map((props, i) => (
+                    <Ball key={i} {...props} />
+                ))}
             </Physics>
         </Canvas>
     )
