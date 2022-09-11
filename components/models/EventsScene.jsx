@@ -1,103 +1,15 @@
-import React, { useEffect } from 'react'
-import { Canvas, useFrame, useThree } from '@react-three/fiber'
+import React, { useState, useEffect } from 'react'
+import { Canvas, useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
-import { Physics, useBox, usePlane, useSphere } from '@react-three/cannon'
-
-const baubles = [...Array(4)].map(() => ({
-    args: [0.6, 0.6, 1, 1, 1.25][Math.floor(Math.random() * 5)],
-    mass: 1,
-    angularDamping: 0.2,
-    linearDamping: 0.95,
-}))
-
-const ballPositions = [
-    [1, 5, 2],
-    [2, 10, 0],
-    [3, 10, 0],
-    [4, 15, 0],
-    [5, 10, 0],
-    [6, 8, 0],
-]
-
-function Mascot() {
-    const [ref, api] = useBox(() => ({
-        mass: 100,
-        args: [1, 1, 1],
-        position: [0, 10, 0],
-        rotation: [0, 0, 0],
-        velocity: [0, -9.8, 0],
-        type: 'Dynamic',
-    }))
-
-    
-    // useEffect(
-        //     () =>
-        //         api.position.subscribe((p) =>
-    //             api.applyForce(
-        //                 vec
-        //                     .set(...p)
-        //                     .normalize()
-        //                     .multiplyScalar(-props.args * 35)
-        //                     .toArray(),
-        //                 [0, 0, 0]
-        //             )
-        //         ),
-    //     [api]
-    // )
-    
-    return (
-        <mesh ref={ref}>
-            <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
-            <meshStandardMaterial attach="material" color="red" />
-        </mesh>
-    )
-}
-
-const Ball = ({ props }) => {
-    const [ref, api] = useSphere(() => ({
-        ...props,
-        // mass: 1,
-        // args: [0.5],
-        // position: position || [2, 10, 0],
-        // rotation: [5, 0, 0],
-        // type: 'Dynamic',
-    }))
-    
-    const vec = new THREE.Vector3().setScalar(0.1)
-    useEffect(
-        () =>
-        api.position.subscribe((p) =>
-                api.applyForce(
-                    vec
-                        .set(...p)
-                        .normalize()
-                        .multiplyScalar(-[0.6, 0.6, 1, 1] * 35)
-                        .toArray(),
-                    [0, 0, 0]
-                )
-            ),
-        [api]
-    )
-
-    return (
-        <mesh ref={ref}>
-            <sphereBufferGeometry attach="geometry" args={[0.6, 0.6, 1, 1]} />
-            <meshStandardMaterial attach="material" color="blue" />
-        </mesh>
-    )
-}
+import { Physics, useBox, usePlane, useCompoundBody } from '@react-three/cannon'
 
 function Floor() {
-    const [ref, api] = usePlane(() => ({
+    const [ref] = usePlane(() => ({
         position: [0, -1, 0],
         rotation: [-Math.PI / 2, 0, 0],
-        mass: 0,
         type: 'Static',
     }))
 
-    useFrame(({ mouse }) => {
-        // api.rotation.set(-Math.PI / 2 - mouse.y * 0.2, 0 + mouse.x * 0.2, 0)
-    })
     return (
         <mesh
             ref={ref}
@@ -115,14 +27,105 @@ function Floor() {
     )
 }
 
+const Box = (props) => {
+    const [ref, api] = useBox(() => ({
+        mass: 1,
+        position: [0, 0, 0],
+        args: [1, 1, 1],
+        type: 'Kinematic',
+    }))
+
+    const handleScroll = () => {
+        api.position.set(0, 0, window.scrollY / 40)
+        api.rotation.set(0, 0, window.scrollY / 50)
+    }
+
+    useFrame(({ mouse }) => {
+        api.position.set(mouse.x * 5, mouse.y, window.scrollY / 40)
+    })
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll)
+    }, [])
+
+    return (
+        <mesh ref={ref} castShadow receiveShadow {...props}>
+            <boxBufferGeometry attach="geometry" />
+            <meshStandardMaterial attach="material" color="red" />
+        </mesh>
+    )
+}
+
+const eyePositions = [
+    [2, 0, 0],
+    [-2, 0, 0],
+]
+
+const Eyes = ({ position }) => {
+    const [color, setColor] = useState('blue')
+    const [ref, api] = useCompoundBody(() => ({
+        position: position,
+        args: [0.5, 0.5, 0.5],
+        mass: 0.1,
+        type: 'Kinematic',
+        shapes: [
+            {
+                type: 'Sphere',
+                args: [0.5],
+            },
+            {
+                type: 'Sphere',
+                args: [0.5],
+            },
+        ],
+    }))
+
+    useFrame(({ mouse }) => {
+        api.rotation.set(-mouse.y * 0.5, mouse.x, 0)
+        window.addEventListener('click', handleClickColorChange)
+    })
+
+    const handleClickColorChange = () => {
+        if (color === 'blue') {
+            setColor('red')
+        } else if (color === 'red') {
+            setColor('blue')
+        }
+    }
+
+    return (
+        <group ref={ref}>
+            <mesh
+                position={[0, 0, 0.05]}
+                geometry={new THREE.SphereGeometry(0.5, 32, 32)}
+                material={
+                    new THREE.MeshBasicMaterial({
+                        color: 0xffffff,
+                        wireframe: false,
+                    })
+                }
+            />
+            <mesh
+                position={[0, 0, 0.3]}
+                geometry={new THREE.SphereGeometry(0.3, 32, 32, 3)}
+                material={
+                    new THREE.MeshBasicMaterial({
+                        color: color,
+                        wireframe: false,
+                    })
+                }
+            />
+        </group>
+    )
+}
+
 const EventsScene = () => {
     return (
         <Canvas shadows>
             {/* <color attach="background" args={['black']} /> */}
             <fog attach="fog" args={['white', 10, 50]} />
-            {/* <ambientLight intensity={1} castShadow/>
-            <pointLight position={[2, 0, 0]} castShadow/> */}
-            <ambientLight intensity={0.1} />
+            <ambientLight intensity={1} />
+            <pointLight position={[2, 0, 0]} castShadow />
             <directionalLight intensity={0.1} castShadow />
             <pointLight
                 castShadow
@@ -139,10 +142,8 @@ const EventsScene = () => {
             />
             <Physics>
                 <Floor />
-                <Mascot />
-                <Ball position={[0, 10, 0]} />
-                {baubles.map((props, i) => (
-                    <Ball key={i} {...props} />
+                {eyePositions.map((pos, idx) => (
+                    <Eyes key={idx} position={pos} />
                 ))}
             </Physics>
         </Canvas>
