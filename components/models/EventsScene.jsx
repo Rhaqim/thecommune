@@ -27,38 +27,9 @@ function Floor() {
     )
 }
 
-const Box = (props) => {
-    const [ref, api] = useBox(() => ({
-        mass: 1,
-        position: [0, 0, 0],
-        args: [1, 1, 1],
-        type: 'Kinematic',
-    }))
-
-    const handleScroll = () => {
-        api.position.set(0, 0, window.scrollY / 40)
-        api.rotation.set(0, 0, window.scrollY / 50)
-    }
-
-    useFrame(({ mouse }) => {
-        api.position.set(mouse.x * 5, mouse.y, window.scrollY / 40)
-    })
-
-    useEffect(() => {
-        window.addEventListener('scroll', handleScroll)
-    }, [])
-
-    return (
-        <mesh ref={ref} castShadow receiveShadow {...props}>
-            <boxBufferGeometry attach="geometry" />
-            <meshStandardMaterial attach="material" color="red" />
-        </mesh>
-    )
-}
-
 const eyePositions = [
-    [2, 0, 0],
-    [-2, 0, 0],
+    [1.2, 0, 0],
+    [-1.2, 0, 0],
 ]
 
 const Eyes = ({ position }) => {
