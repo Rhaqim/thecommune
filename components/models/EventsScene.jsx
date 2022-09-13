@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
-import { Physics, useBox, usePlane, useCompoundBody } from '@react-three/cannon'
+import {
+    Physics,
+    useSphere,
+    usePlane,
+    useCompoundBody,
+} from '@react-three/cannon'
 
 function Floor() {
     const [ref] = usePlane(() => ({
@@ -51,10 +56,14 @@ const Eyes = ({ position }) => {
         ],
     }))
 
-    useFrame(({ mouse }) => {
-        api.rotation.set(-mouse.y * 0.5, mouse.x, 0)
-        window.addEventListener('click', handleClickColorChange)
-    })
+    const [refBall, apiBall] = useSphere(() => ({
+        position: [0, 5, 0],
+        mass: 10,
+        velocity: [0, -9.85, 0],
+        args: [0.5],
+        restitution: 10,
+        type: 'Dynamic',
+    }))
 
     const handleClickColorChange = () => {
         if (color === 'blue') {
@@ -64,29 +73,43 @@ const Eyes = ({ position }) => {
         }
     }
 
+    // const handleScroll = (e) => {
+        // e.preventDefault()
+        // const direction = e.deltaY > 0 ? 1 : -1
+        // api.velocity.set(0, direction * 0.1, 0)
+    // }
+
+    useFrame(({ mouse }) => {
+        api.rotation.set(-mouse.y * 0.5, mouse.x, 0)
+        window.addEventListener('click', handleClickColorChange)
+    })
+
     return (
-        <group ref={ref}>
-            <mesh
-                position={[0, 0, 0.05]}
-                geometry={new THREE.SphereGeometry(0.5, 32, 32)}
-                material={
-                    new THREE.MeshBasicMaterial({
-                        color: 0xffffff,
-                        wireframe: false,
-                    })
-                }
-            />
-            <mesh
-                position={[0, 0, 0.3]}
-                geometry={new THREE.SphereGeometry(0.3, 32, 32, 3)}
-                material={
-                    new THREE.MeshBasicMaterial({
-                        color: color,
-                        wireframe: false,
-                    })
-                }
-            />
-        </group>
+        <>
+            <mesh ref={refBall} geometry={new THREE.SphereGeometry(0.5)} position={[0, 5, 0]} castShadow />
+            <group ref={ref}>
+                <mesh
+                    position={[0, 0, 0.05]}
+                    geometry={new THREE.SphereGeometry(0.5, 32, 32)}
+                    material={
+                        new THREE.MeshBasicMaterial({
+                            color: 0xffffff,
+                            wireframe: false,
+                        })
+                    }
+                />
+                <mesh
+                    position={[0, 0, 0.3]}
+                    geometry={new THREE.SphereGeometry(0.3, 32, 32, 3)}
+                    material={
+                        new THREE.MeshBasicMaterial({
+                            color: color,
+                            wireframe: false,
+                        })
+                    }
+                />
+            </group>
+        </>
     )
 }
 
