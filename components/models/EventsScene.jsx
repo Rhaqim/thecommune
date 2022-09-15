@@ -5,6 +5,7 @@ import {
     Physics,
     useSphere,
     usePlane,
+    useBox,
     useCompoundBody,
 } from '@react-three/cannon'
 
@@ -74,9 +75,9 @@ const Eyes = ({ position }) => {
     }
 
     // const handleScroll = (e) => {
-        // e.preventDefault()
-        // const direction = e.deltaY > 0 ? 1 : -1
-        // api.velocity.set(0, direction * 0.1, 0)
+    // e.preventDefault()
+    // const direction = e.deltaY > 0 ? 1 : -1
+    // api.velocity.set(0, direction * 0.1, 0)
     // }
 
     useFrame(({ mouse }) => {
@@ -86,7 +87,12 @@ const Eyes = ({ position }) => {
 
     return (
         <>
-            <mesh ref={refBall} geometry={new THREE.SphereGeometry(0.5)} position={[0, 5, 0]} castShadow />
+            <mesh
+                ref={refBall}
+                geometry={new THREE.SphereGeometry(0.5)}
+                position={[0, 5, 0]}
+                castShadow
+            />
             <group ref={ref}>
                 <mesh
                     position={[0, 0, 0.05]}
@@ -110,6 +116,40 @@ const Eyes = ({ position }) => {
                 />
             </group>
         </>
+    )
+}
+
+const boxProps = {
+    args: [1, 1, 1],
+    mass: 1,
+}
+
+const Box = (props) => {
+    const [length, setLength] = useState(1)
+    const [ref] = useBox(() => ({ mass: 1, args: [length, 1, 1], position: [1, 10, -2], ...props }))
+
+    // const handleScroll = (e) => {
+    //     e.preventDefault()
+    //     const direction = e.deltaY > 0 ? 1 : -1
+    //     if (window.scrollY > 10) {
+    //         // setLength((l) => l + 0.1)
+    //     } else {
+    //         setLength((l) => l - direction * 0.1)
+    //         // setLength((l) => l - 0.1)
+    //         if (length < 1) {
+    //             setLength(1)
+    //         }
+    //     }
+    // }
+
+    // useFrame(() => {
+    //     window.addEventListener('wheel', handleScroll)
+    // })
+    return (
+        <mesh ref={ref} castShadow>
+            <boxBufferGeometry args={[length, 1, 1]} position={[1, 10, -2]} />
+            <meshStandardMaterial />
+        </mesh>
     )
 }
 
@@ -139,6 +179,7 @@ const EventsScene = () => {
                 {eyePositions.map((pos, idx) => (
                     <Eyes key={idx} position={pos} />
                 ))}
+                <Box />
             </Physics>
         </Canvas>
     )
